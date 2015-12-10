@@ -24,6 +24,12 @@ environments {
 			url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
 		}
 	}
+	devdeploy {
+		dataSource {
+			dbCreate = "create-drop"
+			url = "jdbc:h2:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+		}
+	}
 	production {
 		dataSource {
 			dbCreate = "update"

@@ -1,9 +1,32 @@
-<div>
-	<div class="ui huge fluid labeled action input">
-		<div class="ui label">
-			Location
-		</div>
-		<input type="text" placeholder="Search..." ng-model="query">
-		<button class="ui primary button" style="font-size: 1em;">Search</button>
+<div class="ui huge fluid labeled action input">
+	<div class="ui label">
+		Location
 	</div>
+	<input type="text" placeholder="Search..." ng-model="query">
+	<button class="ui primary button" style="font-size: 1em;" ng-click="requery()">Search</button>
+</div>
+<div class="ui divider" style="clear: both;"></div>
+<div class="ui grid">
+	<div class="six wide column"></div>
+	<div class="six wide column">
+		<div class="ui fluid card">
+			<div class="content">
+				<div class="header">Today's UV Index</div>
+				<div class="ui icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
+					<i class="{{uvData.icon}} icon"></i>
+					<div class="content">
+						<div class="header">{{uvData.rating}} - {{uvData.header}}</div>
+						<p>{{uvData.text}}</p>
+					</div>
+				</div>
+				<div class="description" ng-if="!uvLoading && !uvData">
+					No data was available for your query
+				</div>
+				<div class="ui active inverted dimmer" ng-if="uvLoading">
+					<div class="ui loader"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="four wide column"></div>
 </div>

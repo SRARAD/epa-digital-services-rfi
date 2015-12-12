@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="semantic"/>
-		<title>Page Title</title>
+		<title>EPA Digital Services RFI - Search</title>
 	</head>
 	<body>
 		<div class="ui segment">

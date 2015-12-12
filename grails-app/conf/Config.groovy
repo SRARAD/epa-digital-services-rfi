@@ -93,5 +93,6 @@ grails.plugin.springsecurity.authority.className = 'com.csra.epa.domains.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**':								['permitAll'],
 	'/home/health':						['permitAll'],
+	'/home/index':						['permitAll'],
 	'/home/**':							['ROLE_USER', 'ROLE_ADMIN']
 ]

@@ -33,26 +33,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="menu-wrapper">
-			<sec:ifLoggedIn>
-				<div class="ui menu">
-					<a class="item menu-home" href="/">
-						<i class="icon home"></i>
-						Home
-					</a>
-					<div class="right menu">
-						<div class="ui dropdown item">
-							<sec:username/><i class="icon dropdown"></i>
-							<div class="menu">
-								<g:link class="item" controller="logout">
-									<i class="icon sign out"></i> Logout
-								</g:link>
-							</div>
-						</div>
-					</div>
-				</div>
-			</sec:ifLoggedIn>
-		</div>
 
 		<div class="content">
 			<g:layoutBody/>
@@ -65,19 +45,5 @@
 		</div>
 
 		<r:layoutResources />
-		<script>
-			var activeMenu = function(id) {
-				if ($('.menu-' + id).is('a')) {
-					$('.menu-' + id).addClass('active');
-				} else {
-					$('.menu-' + id).addClass('selected');
-				}
-			};
-			$(function() {
-				$('.ui.dropdown').dropdown({
-					on: 'hover'
-				});
-			});
-		</script>
 	</body>
 </html>

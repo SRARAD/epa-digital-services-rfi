@@ -12,5 +12,8 @@
 		<div class="ui segment" ng-app="epaApp">
 			<div ng-view></div>
 		</div>
+		<script>
+			var states = ${ grailsApplication.parentContext.getResource('data/states.json').file.text };
+		</script>
 	</body>
 </html>

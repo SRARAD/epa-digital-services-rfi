@@ -53,6 +53,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.currentViolations = [];
 
 	$scope.geocoder = new google.maps.Geocoder();
+	$scope.stateCodes = states;
 
 	$scope.getQueryZipcode = function() {
 		var d = $q.defer();
@@ -77,13 +78,20 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	};
 
 	$scope.retrieveData = function() {
-		$scope.getUVData();
-		$scope.getWaterQualityData();
+		$scope.uvLoading = true;
+		$scope.waterLoading = true;
+		$scope.violations = [];
+		$scope.facilities = [];
+		$scope.affectedFacilities = [];
+		$scope.getQueryZipcode().then(function(location) {
+			$scope.getUVData(location);
+			$scope.getWaterQualityData(location);
+		});
 	};
 
-	$scope.getUVData = function() {
-		$scope.uvLoading = true;
-		$http.jsonp(uvRoot + 'ZIP/' + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
+	$scope.getUVData = function(location) {
+		var urlQuery = location.postal_code ? 'ZIP/' + location.postal_code : 'CITY/' + location.locality.toUpperCase() + '/STATE/' + states[location.administrative_area_level_1];
+		$http.jsonp(uvRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
 			if (data.length == 0) {
 				$scope.uvData = undefined;
 			} else {
@@ -136,12 +144,9 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.uvData.rating = result.UV_INDEX;
 	};
 
-	$scope.getWaterQualityData = function() {
-		$scope.waterLoading = true;
-		$scope.violations = [];
-		$scope.facilities = [];
-		$scope.affectedFacilities = [];
-		$http.jsonp(waterRoot + 'ZIP_CODE/' + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
+	$scope.getWaterQualityData = function(location) {
+		var urlQuery = location.postal_code ? 'ZIP_CODE/' + location.postal_code : 'CITY_NAME/' + location.locality.toUpperCase() + '/STATE_CODE/' + states[location.administrative_area_level_1];
+		$http.jsonp(waterRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
 			if (facilities.length == 0) {
 				$scope.waterLoading = false;

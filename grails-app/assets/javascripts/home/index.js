@@ -24,9 +24,11 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 
 app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/ZIP/';
+	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/ZIP_CODE/';
 
 	$scope.query = decodeURIComponent($routeParams.query);
 	$scope.uvLoading = false;
+	$scope.waterLoading = false;
 
 	$scope.requery = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));
@@ -34,6 +36,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 
 	$scope.retrieveData = function() {
 		$scope.getUVData();
+		$scope.getWaterQualityData();
 	};
 
 	$scope.getUVData = function() {
@@ -89,6 +92,17 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 			};
 		}
 		$scope.uvData.rating = result.UV_INDEX;
+	};
+
+	$scope.getWaterQualityData = function() {
+		$scope.waterLoading = true;
+		$http.jsonp(waterRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
+			$scope.facilities = facilities;
+		}).error(function() {
+			$scope.facilities = [];
+		}).finally(function() {
+			$scope.waterLoading = false;
+		});
 	};
 
 	$scope.retrieveData();

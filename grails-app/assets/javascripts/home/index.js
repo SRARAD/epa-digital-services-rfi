@@ -22,11 +22,29 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 	};
 }]);
 
-app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
+app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', function($scope, $http, $filter, $location, $routeParams, $q) {
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/ZIP/';
+	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/ZIP_CODE/';
+	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
+
+	$scope.waterViolationCodes = [{
+		label: 'Maximum Contaminant Level',
+		code: 'MCL'
+	}, {
+		label: 'Maximum Residual Disinfectant Level',
+		code: 'MRDL'
+	}, {
+		label: 'Treatment Technique',
+		code: 'TT'
+	}, {
+		label: 'Monitoring and Reporting',
+		code: 'MR'
+	}];
 
 	$scope.query = decodeURIComponent($routeParams.query);
 	$scope.uvLoading = false;
+	$scope.waterLoading = false;
+	$scope.currentViolations = [];
 
 	$scope.requery = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));
@@ -34,6 +52,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 
 	$scope.retrieveData = function() {
 		$scope.getUVData();
+		$scope.getWaterQualityData();
 	};
 
 	$scope.getUVData = function() {
@@ -91,7 +110,56 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 		$scope.uvData.rating = result.UV_INDEX;
 	};
 
+	$scope.getWaterQualityData = function() {
+		$scope.waterLoading = true;
+		$scope.violations = [];
+		$scope.facilities = [];
+		$scope.affectedFacilities = [];
+		$http.jsonp(waterRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
+			$scope.facilities = facilities;
+			if (facilities.length == 0) {
+				$scope.waterLoading = false;
+			} else {
+				$q.all(facilities.map(function(facility) {
+					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
+						results.forEach(function(violation) {
+							violation.facility = facility;
+						});
+						if (results.length != 0) {
+							$scope.affectedFacilities.push(facility);
+						}
+						$scope.violations = $scope.violations.concat(results);
+					});
+				})).then(function() {
+					$scope.waterLoading = false;
+				});
+			}
+		}).error(function() {
+			$scope.facilities = [];
+			$scope.waterLoading = false;
+		});
+	};
+
+	$scope.selectViolationCategory = function(category) {
+		$scope.currentCategory = category;
+		$scope.currentViolations = $scope.getViolations(category);
+		setTimeout(function() {
+			$('#violation-modal').modal('show');
+		}, 0);
+	};
+
+	$scope.getViolations = function(category) {
+		return $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code});
+	};
+
+	$scope.hasViolations = function(category) {
+		return $scope.getViolations(category).length != 0;
+	};
+
 	$scope.retrieveData();
+	$('#violation-modal').modal({
+		blurring: true
+	});
 }]);
 
 app.directive('enterKey', function() {

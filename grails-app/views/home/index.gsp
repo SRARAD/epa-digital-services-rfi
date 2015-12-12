@@ -17,12 +17,17 @@
 							<div class="sub header">Enter a zipcode or address</div>
 						</h1>
 						<div class="ui icon huge input">
-							<input type="text" placeholder="Search...">
+							<input id="search" type="text" placeholder="Search...">
 							<i class="inverted circular search link icon"></i>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			$(function() {
+				$('#search').focus();
+			});
+		</script>
 	</body>
 </html>

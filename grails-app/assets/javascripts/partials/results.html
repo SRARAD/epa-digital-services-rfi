@@ -6,6 +6,13 @@
 	<button class="ui primary button" style="font-size: 1em;" ng-click="requery()">Search</button>
 </div>
 <div class="ui divider" style="clear: both;"></div>
+<div class="ui icon negative message" ng-if="locationError">
+	<i class="warning sign icon"></i>
+	<div class="content">
+		<div class="header">Location Error</div>
+		<p>The location you searched is too general, please search for a city or zipcode.</p>
+	</div>
+</div>
 <p>Showing results for: <b>{{location}}</b></p>
 <div class="ui grid">
 	<div class="six wide column">

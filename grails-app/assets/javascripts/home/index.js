@@ -79,6 +79,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	};
 
 	$scope.retrieveData = function() {
+		$scope.locationError = false;
 		$scope.uvLoading = true;
 		$scope.waterLoading = true;
 		$scope.violations = [];
@@ -86,8 +87,14 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.affectedFacilities = [];
 		$scope.location = '';
 		$scope.getQueryZipcode().then(function(location) {
-			$scope.getUVData(location);
-			$scope.getWaterQualityData(location);
+			if (location.postal_code || (location.locality && location.administrative_area_level_1)) {
+				$scope.getUVData(location);
+				$scope.getWaterQualityData(location);
+			} else {
+				$scope.locationError = true;
+				$scope.uvLoading = false;
+				$scope.waterLoading = false;
+			}
 		});
 	};
 

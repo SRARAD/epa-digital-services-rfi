@@ -73,7 +73,7 @@
 			<tbody>
 				<tr ng-repeat="violation in currentViolations">
 					<td>{{violation.facility.PWS_NAME}}</td>
-					<td></td>
+					<td>{{contaminantCodes[violation.CONTAMINANT_CODE]}}</td>
 					<td>{{violation.COMPL_PER_BEGIN_DATE}}</td>
 					<td>{{violation.COMPL_PER_END_DATE}}</td>
 				</tr>

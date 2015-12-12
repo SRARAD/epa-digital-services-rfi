@@ -42,6 +42,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	}];
 
 	$scope.query = decodeURIComponent($routeParams.query);
+	$scope.contaminantCodes = contaminantCodes;
 	$scope.uvLoading = false;
 	$scope.waterLoading = false;
 	$scope.currentViolations = [];

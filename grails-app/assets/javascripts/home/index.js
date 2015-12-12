@@ -93,3 +93,16 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 
 	$scope.retrieveData();
 }]);
+
+app.directive('enterKey', function() {
+	return function($scope, $element, $attrs) {
+		$element.bind('keydown keypress', function(e) {
+			if (e.which === 13) {
+				$scope.$apply(function() {
+					$scope.$eval($attrs.enterKey);
+				});
+				e.preventDefault();
+			}
+		});
+	}
+});

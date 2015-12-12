@@ -17,7 +17,6 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/0.5.0/sweet-alert.css" type="text/css">
 
 		<g:layoutHead/>
-		<r:layoutResources />
 	</head>
 
 	<body>
@@ -44,6 +43,5 @@
 			</div>
 		</div>
 
-		<r:layoutResources />
 	</body>
 </html>

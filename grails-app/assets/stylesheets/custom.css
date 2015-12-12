@@ -6,6 +6,10 @@ body > .content, .menu-wrapper {
 	 padding: 0 1rem;
 }
 
+.hoverable {
+	cursor: pointer;
+}
+
 /* Menu */
 
 .selected {

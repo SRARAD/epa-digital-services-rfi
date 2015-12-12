@@ -15,12 +15,10 @@
 				<i class="circular check icon"></i>
 				No Violations Found
 			</h4>
-			<div class="ui list" ng-if="violations.length != 0">
-				<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
-					<div class="content">
-						{{category.label}} - ({{violationCount(category)}})
-					</div>
-				</div>
+			<div class="ui link list" ng-if="violations.length != 0">
+				<a class="item" ng-repeat="category in waterViolationCodes | filter: hasViolations">
+					{{category.label}} - ({{getViolations(category).length}})
+				</a>
 			</div>
 			<div class="ui active inverted dimmer" ng-if="waterLoading">
 				<div class="ui loader"></div>

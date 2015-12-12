@@ -131,12 +131,12 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		});
 	};
 
-	$scope.violationCount = function(category) {
-		return $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code}).length;
+	$scope.getViolations = function(category) {
+		return $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code});
 	};
 
 	$scope.hasViolations = function(category) {
-		return $scope.violationCount(category) != 0;
+		return $scope.getViolations(category).length != 0;
 	};
 
 	$scope.retrieveData();

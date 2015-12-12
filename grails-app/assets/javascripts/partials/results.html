@@ -11,7 +11,11 @@
 		<div class="ui segment">
 			<h3 class="ui header">Water Quality Health Violations</h3>
 			<p><b>Facilities</b> - {{facilities.length}}</p>
-			<div class="ui list">
+			<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
+				<i class="circular check icon"></i>
+				No Violations Found
+			</h4>
+			<div class="ui list" ng-if="violations.length != 0">
 				<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
 					<div class="content">
 						{{category.label}} - ({{violationCount(category)}})

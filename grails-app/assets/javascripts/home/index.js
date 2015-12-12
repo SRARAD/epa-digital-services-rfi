@@ -22,7 +22,7 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 	};
 }]);
 
-app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', function($scope, $http, $filter, $location, $routeParams) {
+app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', function($scope, $http, $filter, $location, $routeParams, $q) {
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/ZIP/';
 	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/ZIP_CODE/';
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
@@ -114,14 +114,19 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.violations = [];
 		$http.jsonp(waterRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
-			facilities.forEach(function(facility) {
-				$http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
-					$scope.violations = $scope.violations.concat(results);
+			if (facilities.length == 0) {
+				$scope.waterLoading = false;
+			} else {
+				$q.all(facilities.map(function(facility) {
+					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
+						$scope.violations = $scope.violations.concat(results);
+					});
+				})).then(function() {
+					$scope.waterLoading = false;
 				});
-			});
+			}
 		}).error(function() {
 			$scope.facilities = [];
-		}).finally(function() {
 			$scope.waterLoading = false;
 		});
 	};

@@ -22,10 +22,14 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 	};
 }]);
 
-app.controller('ResultsCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/ZIP/';
 
 	$scope.query = decodeURIComponent($routeParams.query);
+
+	$scope.requery = function() {
+		$location.path('/search/' + encodeURIComponent($scope.query));
+	};
 
 	$scope.retrieveData = function() {
 		$scope.getUVData();

@@ -26,6 +26,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/ZIP/';
 
 	$scope.query = decodeURIComponent($routeParams.query);
+	$scope.uvLoading = false;
 
 	$scope.requery = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));
@@ -36,6 +37,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 	};
 
 	$scope.getUVData = function() {
+		$scope.uvLoading = true;
 		$http.jsonp(uvRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
 			if (data.length == 0) {
 				$scope.uvData = undefined;
@@ -44,6 +46,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 			}
 		}).error(function() {
 			$scope.uvData = undefined;
+		}).finally(function() {
+			$scope.uvLoading = false;
 		});
 	};
 

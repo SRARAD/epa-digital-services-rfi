@@ -12,15 +12,18 @@
 		<div class="ui fluid card">
 			<div class="content">
 				<div class="header">Today's UV Index</div>
-				<div class="ui icon message {{uvData.color}}" ng-if="uvData">
+				<div class="ui icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
 					<i class="{{uvData.icon}} icon"></i>
 					<div class="content">
 						<div class="header">{{uvData.rating}} - {{uvData.header}}</div>
 						<p>{{uvData.text}}</p>
 					</div>
 				</div>
-				<div class="description" ng-if="!uvData">
+				<div class="description" ng-if="!uvLoading && !uvData">
 					No data was available for your query
+				</div>
+				<div class="ui active inverted dimmer" ng-if="uvLoading">
+					<div class="ui loader"></div>
 				</div>
 			</div>
 		</div>

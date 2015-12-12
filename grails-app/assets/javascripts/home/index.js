@@ -44,6 +44,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.query = decodeURIComponent($routeParams.query);
 	$scope.uvLoading = false;
 	$scope.waterLoading = false;
+	$scope.currentViolations = [];
 
 	$scope.requery = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));
@@ -119,6 +120,9 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			} else {
 				$q.all(facilities.map(function(facility) {
 					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
+						results.forEach(function(violation) {
+							violation.facility = facility;
+						});
 						$scope.violations = $scope.violations.concat(results);
 					});
 				})).then(function() {
@@ -131,6 +135,14 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		});
 	};
 
+	$scope.selectViolationCategory = function(category) {
+		$scope.currentCategory = category;
+		$scope.currentViolations = $scope.getViolations(category);
+		setTimeout(function() {
+			$('#violation-modal').modal('show');
+		}, 0);
+	};
+
 	$scope.getViolations = function(category) {
 		return $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code});
 	};
@@ -140,4 +152,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	};
 
 	$scope.retrieveData();
+	$('#violation-modal').modal({
+		blurring: true
+	});
 }]);

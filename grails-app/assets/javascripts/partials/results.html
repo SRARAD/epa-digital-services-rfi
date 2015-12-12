@@ -16,8 +16,8 @@
 				No Violations Found
 			</h4>
 			<div class="ui link list" ng-if="violations.length != 0">
-				<a class="item" ng-repeat="category in waterViolationCodes | filter: hasViolations">
-					{{category.label}} - ({{getViolations(category).length}})
+				<a class="item" ng-repeat="category in waterViolationCodes | filter: hasViolations" ng-click="selectViolationCategory(category)">
+					{{category.label}} - {{getViolations(category).length}}
 				</a>
 			</div>
 			<div class="ui active inverted dimmer" ng-if="waterLoading">
@@ -46,4 +46,31 @@
 		</div>
 	</div>
 	<div class="four wide column"></div>
+</div>
+<div id="violation-modal" class="ui modal">
+	<i class="close icon"></i>
+	<div class="header">
+		<i class="circular settings icon"></i>
+		{{currentCategory.label}} - {{currentViolations.length}}
+	</div>
+	<div class="content">
+		<table class="ui celled striped table">
+			<thead>
+				<tr>
+					<th>Facility Name</th>
+					<th>Contaminant Name</th>
+					<th>Compliance Begin Date</th>
+					<th>Compliance Achieved Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="violation in currentViolations">
+					<td>{{violation.facility.PWS_NAME}}</td>
+					<td></td>
+					<td>{{violation.COMPL_PER_BEGIN_DATE}}</td>
+					<td>{{violation.COMPL_PER_END_DATE}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

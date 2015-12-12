@@ -60,6 +60,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		var location = {};
 		$scope.geocoder.geocode({'address': $scope.query}, function(results, status) {
 			if (results.length != 0) {
+				$scope.location = results[0].formatted_address;
 				results[0].address_components.forEach(function(addressComponent) {
 					addressComponentLookup.forEach(function(lookup) {
 						if (addressComponent.types.indexOf(lookup) != -1) {
@@ -83,6 +84,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.violations = [];
 		$scope.facilities = [];
 		$scope.affectedFacilities = [];
+		$scope.location = '';
 		$scope.getQueryZipcode().then(function(location) {
 			$scope.getUVData(location);
 			$scope.getWaterQualityData(location);

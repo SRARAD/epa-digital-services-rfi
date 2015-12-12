@@ -11,6 +11,13 @@
 		<div class="ui segment">
 			<h3 class="ui header">Water Quality Health Violations</h3>
 			<p><b>Facilities</b> - {{facilities.length}}</p>
+			<div class="ui list">
+				<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
+					<div class="content">
+						{{category.label}} - ({{violationCount(category)}})
+					</div>
+				</div>
+			</div>
 			<div class="ui active inverted dimmer" ng-if="waterLoading">
 				<div class="ui loader"></div>
 			</div>

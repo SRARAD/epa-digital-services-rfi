@@ -22,9 +22,24 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 	};
 }]);
 
-app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
+app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', function($scope, $http, $filter, $location, $routeParams) {
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/ZIP/';
 	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/ZIP_CODE/';
+	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
+
+	$scope.waterViolationCodes = [{
+		label: 'Maximum Contaminant Level Violations',
+		code: 'MCL'
+	}, {
+		label: 'Maximum Residual Disinfectant Level',
+		code: 'MRDL'
+	}, {
+		label: 'Treatment Technique Violations',
+		code: 'TT'
+	}, {
+		label: 'Monitoring and Reporting Violations',
+		code: 'M/R'
+	}];
 
 	$scope.query = decodeURIComponent($routeParams.query);
 	$scope.uvLoading = false;
@@ -96,13 +111,27 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$location', '$routeParams', f
 
 	$scope.getWaterQualityData = function() {
 		$scope.waterLoading = true;
+		$scope.violations = [];
 		$http.jsonp(waterRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
+			facilities.forEach(function(facility) {
+				$http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
+					$scope.violations = $scope.violations.concat(results);
+				});
+			});
 		}).error(function() {
 			$scope.facilities = [];
 		}).finally(function() {
 			$scope.waterLoading = false;
 		});
+	};
+
+	$scope.violationCount = function(category) {
+		return $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code}).length;
+	};
+
+	$scope.hasViolations = function(category) {
+		return $scope.violationCount(category) != 0;
 	};
 
 	$scope.retrieveData();

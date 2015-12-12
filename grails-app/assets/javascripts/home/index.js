@@ -27,6 +27,12 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/';
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
 
+	var addressComponentLookup = [
+		'postal_code',
+		'locality',
+		'administrative_area_level_1'
+	];
+
 	$scope.waterViolationCodes = [{
 		label: 'Maximum Contaminant Level',
 		code: 'MCL'
@@ -45,6 +51,26 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.uvLoading = false;
 	$scope.waterLoading = false;
 	$scope.currentViolations = [];
+
+	$scope.geocoder = new google.maps.Geocoder();
+
+	$scope.getQueryZipcode = function() {
+		var d = $q.defer();
+		var location = {};
+		$scope.geocoder.geocode({'address': $scope.query}, function(results, status) {
+			if (results.length != 0) {
+				results[0].address_components.forEach(function(addressComponent) {
+					addressComponentLookup.forEach(function(lookup) {
+						if (addressComponent.types.indexOf(lookup) != -1) {
+							location[lookup] = addressComponent.long_name;
+						}
+					});
+				});
+			}
+			d.resolve(location);
+		});
+		return d.promise;
+	};
 
 	$scope.requery = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));

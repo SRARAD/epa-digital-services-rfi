@@ -9,15 +9,21 @@
 <div class="ui grid">
 	<div class="six wide column">
 		<div class="ui segment">
-			<h3 class="ui header">Water Quality Health Violations</h3>
-			<p><b>Facilities</b> - {{facilities.length}}</p>
+			<h3 class="ui header">
+				Water Quality Health Violations
+				<div class="sub header"><b>Facilities</b> - {{facilities.length}}</div>
+			</h3>
 			<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
 				<i class="circular check icon"></i>
 				No Violations Found
 			</h4>
-			<div class="ui link list" ng-if="violations.length != 0">
+			<div class="ui link divided list" ng-if="violations.length != 0">
 				<a class="item" ng-repeat="category in waterViolationCodes | filter: hasViolations" ng-click="selectViolationCategory(category)">
-					{{category.label}} - {{getViolations(category).length}}
+					<i class="warning sign icon"></i>
+					<div class="content">
+						<div class="header">{{category.label}}</div>
+						<div class="description">{{getViolations(category).length}} violations</div>
+					</div>
 				</a>
 			</div>
 			<div class="ui active inverted dimmer" ng-if="waterLoading">

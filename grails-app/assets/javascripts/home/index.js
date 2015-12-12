@@ -28,16 +28,16 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
 
 	$scope.waterViolationCodes = [{
-		label: 'Maximum Contaminant Level Violations',
+		label: 'Maximum Contaminant Level',
 		code: 'MCL'
 	}, {
 		label: 'Maximum Residual Disinfectant Level',
 		code: 'MRDL'
 	}, {
-		label: 'Treatment Technique Violations',
+		label: 'Treatment Technique',
 		code: 'TT'
 	}, {
-		label: 'Monitoring and Reporting Violations',
+		label: 'Monitoring and Reporting',
 		code: 'MR'
 	}];
 

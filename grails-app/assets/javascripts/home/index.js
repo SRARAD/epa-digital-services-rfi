@@ -38,7 +38,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		code: 'TT'
 	}, {
 		label: 'Monitoring and Reporting Violations',
-		code: 'M/R'
+		code: 'MR'
 	}];
 
 	$scope.query = decodeURIComponent($routeParams.query);

@@ -6,8 +6,24 @@
 	<button class="ui primary button" style="font-size: 1em;">Search</button>
 </div>
 <div class="ui divider" style="clear: both;"></div>
-<div class="ui three column grid">
-	<div class="column"></div>
-	<div class="column"></div>
-	<div class="column"></div>
+<div class="ui grid">
+	<div class="six wide column"></div>
+	<div class="six wide column">
+		<div class="ui fluid card">
+			<div class="content">
+				<div class="header">Today's UV Index</div>
+				<div class="ui icon message {{uvData.color}}" ng-if="uvData">
+					<i class="{{uvData.icon}} icon"></i>
+					<div class="content">
+						<div class="header">{{uvData.rating}} - {{uvData.header}}</div>
+						<p>{{uvData.text}}</p>
+					</div>
+				</div>
+				<div class="description" ng-if="!uvData">
+					No data was available for your query
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="four wide column"></div>
 </div>

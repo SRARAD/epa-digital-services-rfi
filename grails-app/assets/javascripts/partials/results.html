@@ -11,8 +11,9 @@
 		<div class="ui segment">
 			<h3 class="ui header">
 				Water Quality Health Violations
-				<div class="sub header"><b>Facilities</b> - {{facilities.length}}</div>
+				<div class="sub header">{{affectedFacilities.length}} out of {{facilities.length}} facilities have violations</div>
 			</h3>
+			<p>Below are drinking water quality violations for water treatment facilities in this area.</p>
 			<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
 				<i class="circular check icon"></i>
 				No Violations Found

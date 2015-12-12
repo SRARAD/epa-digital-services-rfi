@@ -113,6 +113,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.getWaterQualityData = function() {
 		$scope.waterLoading = true;
 		$scope.violations = [];
+		$scope.facilities = [];
+		$scope.affectedFacilities = [];
 		$http.jsonp(waterRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
 			if (facilities.length == 0) {
@@ -123,6 +125,9 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 						results.forEach(function(violation) {
 							violation.facility = facility;
 						});
+						if (results.length != 0) {
+							$scope.affectedFacilities.push(facility);
+						}
 						$scope.violations = $scope.violations.concat(results);
 					});
 				})).then(function() {

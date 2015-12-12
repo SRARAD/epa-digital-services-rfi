@@ -23,8 +23,8 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 }]);
 
 app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', function($scope, $http, $filter, $location, $routeParams, $q) {
-	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/ZIP/';
-	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/ZIP_CODE/';
+	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/';
+	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/';
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
 
 	$scope.waterViolationCodes = [{
@@ -57,7 +57,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 
 	$scope.getUVData = function() {
 		$scope.uvLoading = true;
-		$http.jsonp(uvRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
+		$http.jsonp(uvRoot + 'ZIP/' + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
 			if (data.length == 0) {
 				$scope.uvData = undefined;
 			} else {
@@ -115,7 +115,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.violations = [];
 		$scope.facilities = [];
 		$scope.affectedFacilities = [];
-		$http.jsonp(waterRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
+		$http.jsonp(waterRoot + 'ZIP_CODE/' + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
 			if (facilities.length == 0) {
 				$scope.waterLoading = false;

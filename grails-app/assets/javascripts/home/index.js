@@ -23,9 +23,15 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 }]);
 
 app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', function($scope, $http, $filter, $location, $routeParams, $q) {
-	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/ZIP/';
-	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/ZIP_CODE/';
+	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/';
+	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/';
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
+
+	var addressComponentLookup = [
+		'postal_code',
+		'locality',
+		'administrative_area_level_1'
+	];
 
 	$scope.waterViolationCodes = [{
 		label: 'Maximum Contaminant Level',
@@ -47,18 +53,55 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.waterLoading = false;
 	$scope.currentViolations = [];
 
+	$scope.geocoder = new google.maps.Geocoder();
+	$scope.stateCodes = states;
+
+	$scope.getQueryZipcode = function() {
+		var d = $q.defer();
+		var location = {};
+		$scope.geocoder.geocode({'address': $scope.query}, function(results, status) {
+			if (results.length != 0) {
+				$scope.location = results[0].formatted_address;
+				results[0].address_components.forEach(function(addressComponent) {
+					addressComponentLookup.forEach(function(lookup) {
+						if (addressComponent.types.indexOf(lookup) != -1) {
+							location[lookup] = addressComponent.long_name;
+						}
+					});
+				});
+			}
+			d.resolve(location);
+		});
+		return d.promise;
+	};
+
 	$scope.requery = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));
 	};
 
 	$scope.retrieveData = function() {
-		$scope.getUVData();
-		$scope.getWaterQualityData();
+		$scope.locationError = false;
+		$scope.uvLoading = true;
+		$scope.waterLoading = true;
+		$scope.violations = [];
+		$scope.facilities = [];
+		$scope.affectedFacilities = [];
+		$scope.location = '';
+		$scope.getQueryZipcode().then(function(location) {
+			if (location.postal_code || (location.locality && location.administrative_area_level_1)) {
+				$scope.getUVData(location);
+				$scope.getWaterQualityData(location);
+			} else {
+				$scope.locationError = true;
+				$scope.uvLoading = false;
+				$scope.waterLoading = false;
+			}
+		});
 	};
 
-	$scope.getUVData = function() {
-		$scope.uvLoading = true;
-		$http.jsonp(uvRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
+	$scope.getUVData = function(location) {
+		var urlQuery = location.postal_code ? 'ZIP/' + location.postal_code : 'CITY/' + location.locality.toUpperCase() + '/STATE/' + states[location.administrative_area_level_1];
+		$http.jsonp(uvRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
 			if (data.length == 0) {
 				$scope.uvData = undefined;
 			} else {
@@ -111,12 +154,9 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.uvData.rating = result.UV_INDEX;
 	};
 
-	$scope.getWaterQualityData = function() {
-		$scope.waterLoading = true;
-		$scope.violations = [];
-		$scope.facilities = [];
-		$scope.affectedFacilities = [];
-		$http.jsonp(waterRoot + $scope.query + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
+	$scope.getWaterQualityData = function(location) {
+		var urlQuery = location.postal_code ? 'ZIP_CODE/' + location.postal_code : 'CITY_NAME/' + location.locality.toUpperCase() + '/STATE_CODE/' + states[location.administrative_area_level_1];
+		$http.jsonp(waterRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
 			if (facilities.length == 0) {
 				$scope.waterLoading = false;

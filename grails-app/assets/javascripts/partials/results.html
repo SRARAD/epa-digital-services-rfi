@@ -68,7 +68,7 @@
 	<i class="close icon"></i>
 	<div class="header">
 		<i class="circular settings icon"></i>
-		{{currentCategory.label}} - {{currentViolations.length}}
+		{{currentCategory.label}} - {{getViolations(currentCategory).length}}
 	</div>
 	<div class="content">
 		<table class="ui celled striped table">
@@ -81,7 +81,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="violation in currentViolations">
+				<tr ng-repeat="violation in violations | filter: filterCurrentViolations">
 					<td>{{violation.facility.PWS_NAME}}</td>
 					<td>{{contaminantCodes[violation.CONTAMINANT_CODE]}}</td>
 					<td>{{violation.COMPL_PER_BEGIN_DATE}}</td>

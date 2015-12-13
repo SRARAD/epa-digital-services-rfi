@@ -183,18 +183,29 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 
 	$scope.selectViolationCategory = function(category) {
 		$scope.currentCategory = category;
-		$scope.currentViolations = $scope.getViolations(category);
 		setTimeout(function() {
 			$('#violation-modal').modal('show');
 		}, 0);
 	};
 
+	$scope.$watch('violations', function() {
+		if ($('#violation-modal').modal('is active')) {
+			setTimeout(function() {
+				$('#violation-modal').modal('refresh');
+			}, 0);
+		}
+	});
+
 	$scope.getViolations = function(category) {
-		return $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code});
+		return category ? $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code}) : [];
 	};
 
 	$scope.hasViolations = function(category) {
 		return $scope.getViolations(category).length != 0;
+	};
+
+	$scope.filterCurrentViolations = function(violation) {
+		return $scope.currentCategory ? violation.VIOLATION_CATEGORY_CODE == $scope.currentCategory.code : false;
 	};
 
 	$scope.retrieveData();

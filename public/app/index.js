@@ -2,11 +2,11 @@ var app = angular.module('epaApp', ['ngRoute']);
 
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {
-		templateUrl: '/partials/landing.html',
+		templateUrl: '/app/partials/landing.html',
 		controller: 'LandingCtrl'
 	}).
 	when('/search/:query', {
-		templateUrl: '/partials/results.html',
+		templateUrl: '/app/partials/results.html',
 		controller: 'ResultsCtrl'
 	}).
 	otherwise({

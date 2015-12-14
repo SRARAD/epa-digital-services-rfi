@@ -42,7 +42,7 @@ Testing requires additional dependencies:
 Install the dependencies with the following command:
 
 ```bash
-npm install -g karma jasmine karma-phantomjs-launcher
+npm install -g karma karma-jasmine jasmine-core karma-phantomjs-launcher
 ```
 
 Run the tests with `karma start karma.conf.js`.

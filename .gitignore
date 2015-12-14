@@ -1,7 +1,1 @@
-/bin
-/.settings
-/target-eclipse
-/target
-/logs
-*.db
 node_modules

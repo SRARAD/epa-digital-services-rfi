@@ -4,6 +4,7 @@ This project is an AngularJS app which is served by a small Express application.
 ## Dependencies
 - Node.js
 - NPM
+- Bower
 
 ## Install
 Run the following commands to get the project up and running:
@@ -12,6 +13,7 @@ Run the following commands to get the project up and running:
 git clone https://github.com/SRARAD/epa-digital-services-rfi.git
 cd epa-digital-services-rfi
 npm install
+bower install
 node index.js
 ```
 

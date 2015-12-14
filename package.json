@@ -20,5 +20,11 @@
   "homepage": "https://github.com/SRARAD/epa-digital-services-rfi#readme",
   "dependencies": {
     "express": "^4.13.3"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.15",
+    "karma-jasmine": "^0.3.6",
+    "phantomjs": "^1.9.19"
   }
 }

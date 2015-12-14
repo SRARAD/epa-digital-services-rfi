@@ -15,4 +15,4 @@ npm install
 node index.js
 ```
 
-Then navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+Then navigate to [http://localhost:8080](http://localhost:8080) to view the application.

@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/SRARAD/epa-digital-services-rfi/issues"
   },
-  "homepage": "https://github.com/SRARAD/epa-digital-services-rfi#readme"
+  "homepage": "https://github.com/SRARAD/epa-digital-services-rfi#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
 }

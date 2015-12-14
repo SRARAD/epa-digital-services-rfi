@@ -18,3 +18,18 @@ node index.js
 ```
 
 Then navigate to [http://localhost:8080](http://localhost:8080) to view the application.
+
+## Docker
+Docker can also be used to build and run the project. To build the container run:
+
+```bash
+docker build -t csra/epa-digital-services-rfi .
+```
+
+Then to run the container run:
+
+```bash
+docker run -d --name epa-digital-services-rfi -p 8080:8080 csra/epa-digital-services-rfi
+```
+
+The app will then be running at http://[docker-ip]:8080.

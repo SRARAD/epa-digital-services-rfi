@@ -33,3 +33,16 @@ docker run -d --name epa-digital-services-rfi -p 8080:8080 csra/epa-digital-serv
 ```
 
 The app will then be running at http://[docker-ip]:8080.
+
+## Testing
+Testing requires additional dependencies:
+- Karma
+- Jasmine
+
+Install the dependencies with the following command:
+
+```bash
+npm install -g karma jasmine karma-phantomjs-launcher
+```
+
+Run the tests with `karma start karma.conf.js`.

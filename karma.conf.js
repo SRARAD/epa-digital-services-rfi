@@ -62,6 +62,7 @@ module.exports = function(config) {
     autoWatch: true,
 
     plugins: [
+      'karma-junit-reporter',
       'karma-phantomjs-launcher',
       'karma-jasmine'
     ],

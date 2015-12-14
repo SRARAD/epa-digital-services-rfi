@@ -39,10 +39,4 @@ Testing requires additional dependencies:
 - Karma
 - Jasmine
 
-Install the dependencies with the following command:
-
-```bash
-npm install -g karma karma-jasmine jasmine-core karma-phantomjs-launcher
-```
-
-Run the tests with `karma start karma.conf.js`.
+Run the tests with `npm test`.

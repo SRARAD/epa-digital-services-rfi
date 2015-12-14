@@ -2,11 +2,11 @@ var app = angular.module('epaApp', ['ngRoute']);
 
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {
-		templateUrl: '/assets/partials/landing.html',
+		templateUrl: '/app/partials/landing.html',
 		controller: 'LandingCtrl'
 	}).
 	when('/search/:query', {
-		templateUrl: '/assets/partials/results.html',
+		templateUrl: '/app/partials/results.html',
 		controller: 'ResultsCtrl'
 	}).
 	otherwise({
@@ -33,6 +33,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		'administrative_area_level_1'
 	];
 
+	$scope.counter = 2;
 	$scope.waterViolationCodes = [{
 		label: 'Maximum Contaminant Level',
 		code: 'MCL'
@@ -48,13 +49,19 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	}];
 
 	$scope.query = decodeURIComponent($routeParams.query);
-	$scope.contaminantCodes = contaminantCodes;
+	$http.get('/data/contaminant_codes.json').then(function(response) {
+		$scope.contaminantCodes = response.data;
+		$scope.counter--;
+	});
 	$scope.uvLoading = false;
 	$scope.waterLoading = false;
-	$scope.currentViolations = [];
+	$scope.violations = [];
 
 	$scope.geocoder = new google.maps.Geocoder();
-	$scope.stateCodes = states;
+	$http.get('/data/states.json').then(function(response) {
+		$scope.states = response.data;
+		$scope.counter--;
+	});
 
 	$scope.getQueryZipcode = function() {
 		var d = $q.defer();
@@ -100,7 +107,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	};
 
 	$scope.getUVData = function(location) {
-		var urlQuery = location.postal_code ? 'ZIP/' + location.postal_code : 'CITY/' + location.locality.toUpperCase() + '/STATE/' + states[location.administrative_area_level_1];
+		var urlQuery = location.postal_code ? 'ZIP/' + location.postal_code : 'CITY/' + location.locality.toUpperCase() + '/STATE/' + $scope.states[location.administrative_area_level_1];
 		$http.jsonp(uvRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
 			if (data.length == 0) {
 				$scope.uvData = undefined;
@@ -155,7 +162,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	};
 
 	$scope.getWaterQualityData = function(location) {
-		var urlQuery = location.postal_code ? 'ZIP_CODE/' + location.postal_code : 'CITY_NAME/' + location.locality.toUpperCase() + '/STATE_CODE/' + states[location.administrative_area_level_1];
+		var urlQuery = location.postal_code ? 'ZIP_CODE/' + location.postal_code : 'CITY_NAME/' + location.locality.toUpperCase() + '/STATE_CODE/' + $scope.states[location.administrative_area_level_1];
 		$http.jsonp(waterRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
 			if (facilities.length == 0) {
@@ -208,9 +215,13 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		return $scope.currentCategory ? violation.VIOLATION_CATEGORY_CODE == $scope.currentCategory.code : false;
 	};
 
-	$scope.retrieveData();
-	$('#violation-modal').modal({
-		blurring: true
+	$scope.$watch('counter', function() {
+		if ($scope.counter == 0) {
+			$scope.retrieveData();
+			$('#violation-modal').modal({
+				blurring: true
+			});
+		}
 	});
 
 	$scope.$on('$destroy', function() {

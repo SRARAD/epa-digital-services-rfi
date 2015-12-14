@@ -1,0 +1,24 @@
+{
+  "name": "epa-digital-services-rfi",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SRARAD/epa-digital-services-rfi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SRARAD/epa-digital-services-rfi/issues"
+  },
+  "homepage": "https://github.com/SRARAD/epa-digital-services-rfi#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}

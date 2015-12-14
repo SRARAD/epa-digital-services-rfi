@@ -1,6 +1,7 @@
-/bin
-/.settings
-/target-eclipse
-/target
-/logs
-*.db
+logs
+*.log
+npm-debug.log*
+
+node_modules
+
+.npm

@@ -212,6 +212,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$('#violation-modal').modal({
 		blurring: true
 	});
+
+	$scope.$on('$destroy', function() {
+		$('#violation-modal').remove();
+	});
 }]);
 
 app.directive('enterKey', function() {

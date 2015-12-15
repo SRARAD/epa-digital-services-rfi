@@ -168,6 +168,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 						});
 						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);
+							googleFactory.addFacility($scope.map, facility);
 						}
 						$scope.violations = $scope.violations.concat(results);
 						$('.ui.accordion').accordion();
@@ -177,6 +178,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				});
 				setTimeout(function() {
 					$scope.map = googleFactory.initMap('map', locationObject.lat, locationObject.lng);
+					$scope.$apply();
 				}, 0);
 			}
 		}).error(function() {
@@ -288,6 +290,18 @@ app.factory('googleFactory', ['$q', function($q) {
 			zoom: 12
 		});
 		return map;
+	};
+
+	service.addFacility = function(map, facility) {
+		service.getQueryZipcode(facility.ADDRESS_LINE1 + (facility.ADDRESS_LINE1 ? ' ' + facility.ADDRESS_LINE1 : '') + ' ' + facility.CITY_NAME).then(function(location) {
+			new google.maps.Marker({
+				map: map,
+				position: {
+					lat: location.lat,
+					lng: location.lng
+				}
+			});
+		});
 	};
 
 	return service;

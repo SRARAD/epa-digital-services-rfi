@@ -67,7 +67,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		var d = $q.defer();
 		var location = {};
 		$scope.geocoder.geocode({'address': $scope.query}, function(results, status) {
-			if (results.length != 0) {
+			if (results.length !== 0) {
 				$scope.location = results[0].formatted_address;
 				results[0].address_components.forEach(function(addressComponent) {
 					addressComponentLookup.forEach(function(lookup) {
@@ -109,7 +109,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.getUVData = function(location) {
 		var urlQuery = location.postal_code ? 'ZIP/' + location.postal_code : 'CITY/' + location.locality.toUpperCase() + '/STATE/' + $scope.states[location.administrative_area_level_1];
 		$http.jsonp(uvRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(data) {
-			if (data.length == 0) {
+			if (data.length === 0) {
 				$scope.uvData = undefined;
 			} else {
 				$scope.interpretUVData(data[0]);
@@ -165,7 +165,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		var urlQuery = location.postal_code ? 'ZIP_CODE/' + location.postal_code : 'CITY_NAME/' + location.locality.toUpperCase() + '/STATE_CODE/' + $scope.states[location.administrative_area_level_1];
 		$http.jsonp(waterRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
-			if (facilities.length == 0) {
+			if (facilities.length === 0) {
 				$scope.waterLoading = false;
 			} else {
 				$q.all(facilities.map(function(facility) {
@@ -173,7 +173,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 						results.forEach(function(violation) {
 							violation.facility = facility;
 						});
-						if (results.length != 0) {
+						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);
 						}
 						$scope.violations = $scope.violations.concat(results);
@@ -208,7 +208,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	};
 
 	$scope.hasViolations = function(category) {
-		return $scope.getViolations(category).length != 0;
+		return $scope.getViolations(category).length !== 0;
 	};
 
 	$scope.filterCurrentViolations = function(violation) {
@@ -216,7 +216,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	};
 
 	$scope.$watch('counter', function() {
-		if ($scope.counter == 0) {
+		if ($scope.counter === 0) {
 			$scope.retrieveData();
 			$('#violation-modal').modal({
 				blurring: true
@@ -239,5 +239,5 @@ app.directive('enterKey', function() {
 				e.preventDefault();
 			}
 		});
-	}
+	};
 });

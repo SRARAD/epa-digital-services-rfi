@@ -5,3 +5,4 @@ node_modules
 .npm
 public/lib
 PhantomJS*
+config.json

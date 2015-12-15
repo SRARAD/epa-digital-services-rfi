@@ -213,10 +213,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		label: 'Contaminant Name',
 		field: 'contaminantName'
 	}, {
-		label: 'Compliance Begin Date',
+		label: 'Compliance Begin',
 		field: 'startDate'
 	}, {
-		label: 'Compliance Achieved Date',
+		label: 'Compliance Achieved',
 		field: 'endDate'
 	}];
 	$scope.sortField = 'startDate';

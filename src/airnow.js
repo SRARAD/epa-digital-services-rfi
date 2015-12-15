@@ -116,5 +116,5 @@ function calculateLatLngDistance(lat1, lng1, lat2, lng2) {
 
 function constructHourlyFileName() {
 	var date = new Date();
-	return date.getFullYear().toString() + date.getUTCMonth().toString() + date.getUTCDate().toString() + date.getUTCHours().toString() + '.dat';
+	return date.getFullYear().toString() + (date.getUTCMonth() + 1).toString() + date.getUTCDate().toString() + (date.getUTCHours() - 1).toString() + '.dat';
 }

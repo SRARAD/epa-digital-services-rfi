@@ -174,6 +174,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 							violation.facilityName = facility.PWS_NAME;
 							violation.facility = facility;
 							violation.contaminantName = $scope.contaminantCodes[violation.CONTAMINANT_CODE];
+							violation.startDate = moment(violation.COMPL_PER_BEGIN_DATE, 'DD-MMM-YY');
+							violation.endDate = moment(violation.COMPL_PER_END_DATE, 'DD-MMM-YY');
 						});
 						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);
@@ -226,13 +228,13 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		field: 'contaminantName'
 	}, {
 		label: 'Compliance Begin Date',
-		field: 'COMPL_PER_BEGIN_DATE'
+		field: 'startDate'
 	}, {
 		label: 'Compliance Achieved Date',
-		field: 'COMPL_PER_END_DATE'
+		field: 'endDate'
 	}];
-	$scope.sortField = 'COMPL_PER_BEGIN_DATE';
-	$scope.reverse = false;
+	$scope.sortField = 'startDate';
+	$scope.reverse = true;
 
 	$scope.changeSort = function(field) {
 		if ($scope.sortField == field) {

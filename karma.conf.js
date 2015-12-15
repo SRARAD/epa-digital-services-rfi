@@ -20,6 +20,7 @@ module.exports = function(config) {
       'public/lib/angular-route/angular-route.js',
       'public/lib/angular-mocks/angular-mocks.js',
       'public/lib/jquery/dist/jquery.js',
+      'public/lib//moment/moment.js',
       'public/app/js/**/*.js',
       'tests/unit/**/*.js'
     ],

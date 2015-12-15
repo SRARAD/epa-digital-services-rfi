@@ -21,7 +21,7 @@
 				<div class="header">Air Quality</div>
 				<div class="description" ng-if="!airLoading && airData.location">
 					<p>{{airData.location}}</p>
-					<table class="ui table">
+					<table class="ui small table">
 						<thead>
 							<tr>
 								<th>Contaminant</th>
@@ -83,6 +83,7 @@
 		<i class="circular check icon"></i>
 		No Violations Found
 	</h4>
+	<div id="map" ng-if="facilities.length != 0"></div>
 	<div class="ui styled fluid accordion" ng-if="violations.length != 0">
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
 			<div class="title">
@@ -90,7 +91,7 @@
 				{{category.label}} - {{getViolations(category).length}} violations
 			</div>
 			<div class="content">
-				<table class="ui celled striped table">
+				<table class="ui celled small compact striped table">
 					<thead>
 						<tr>
 							<th class="hoverable" ng-repeat="header in tableHeaders" ng-click="changeSort(header.field)">

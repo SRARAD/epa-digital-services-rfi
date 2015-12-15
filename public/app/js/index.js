@@ -83,7 +83,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			var loc = locationObject.location;
 			if (loc.country == 'United States' && (loc.postal_code || (loc.locality && loc.administrative_area_level_1))) {
 				$scope.getUVData(locationObject.location);
-				$scope.getWaterQualityData(locationObject.location);
+				$scope.getWaterQualityData(locationObject);
 				$scope.getAirQualityData(locationObject.lat, locationObject.lng);
 			} else {
 				$scope.locationError = true;
@@ -149,7 +149,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.uvData.rating = result.UV_INDEX;
 	};
 
-	$scope.getWaterQualityData = function(location) {
+	$scope.getWaterQualityData = function(locationObject) {
+		var location = locationObject.location;
 		var urlQuery = location.postal_code ? 'ZIP_CODE/' + location.postal_code : 'CITY_NAME/' + location.locality.toUpperCase() + '/STATE_CODE/' + $scope.states[location.administrative_area_level_1];
 		$http.jsonp(waterRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
@@ -167,6 +168,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 						});
 						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);
+							googleFactory.addFacility($scope.map, facility);
 						}
 						$scope.violations = $scope.violations.concat(results);
 						$('.ui.accordion').accordion();
@@ -174,6 +176,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				})).then(function() {
 					$scope.waterLoading = false;
 				});
+				setTimeout(function() {
+					$scope.map = googleFactory.initMap('map', locationObject.lat, locationObject.lng);
+					$scope.$apply();
+				}, 0);
 			}
 		}).error(function() {
 			$scope.facilities = [];
@@ -213,10 +219,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		label: 'Contaminant Name',
 		field: 'contaminantName'
 	}, {
-		label: 'Compliance Begin Date',
+		label: 'Compliance Begin',
 		field: 'startDate'
 	}, {
-		label: 'Compliance Achieved Date',
+		label: 'Compliance Achieved',
 		field: 'endDate'
 	}];
 	$scope.sortField = 'startDate';
@@ -276,6 +282,26 @@ app.factory('googleFactory', ['$q', function($q) {
 			}
 		});
 		return d.promise;
+	};
+
+	service.initMap = function(id, lat, lng) {
+		var map = new google.maps.Map(document.getElementById(id), {
+			center: {lat: lat, lng: lng},
+			zoom: 12
+		});
+		return map;
+	};
+
+	service.addFacility = function(map, facility) {
+		service.getQueryZipcode(facility.ADDRESS_LINE1 + (facility.ADDRESS_LINE1 ? ' ' + facility.ADDRESS_LINE1 : '') + ' ' + facility.CITY_NAME).then(function(location) {
+			new google.maps.Marker({
+				map: map,
+				position: {
+					lat: location.lat,
+					lng: location.lng
+				}
+			});
+		});
 	};
 
 	return service;

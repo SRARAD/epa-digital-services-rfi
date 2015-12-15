@@ -83,7 +83,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			var loc = locationObject.location;
 			if (loc.country == 'United States' && (loc.postal_code || (loc.locality && loc.administrative_area_level_1))) {
 				$scope.getUVData(locationObject.location);
-				$scope.getWaterQualityData(locationObject.location);
+				$scope.getWaterQualityData(locationObject);
 				$scope.getAirQualityData(locationObject.lat, locationObject.lng);
 			} else {
 				$scope.locationError = true;
@@ -149,7 +149,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.uvData.rating = result.UV_INDEX;
 	};
 
-	$scope.getWaterQualityData = function(location) {
+	$scope.getWaterQualityData = function(locationObject) {
+		var location = locationObject.location;
 		var urlQuery = location.postal_code ? 'ZIP_CODE/' + location.postal_code : 'CITY_NAME/' + location.locality.toUpperCase() + '/STATE_CODE/' + $scope.states[location.administrative_area_level_1];
 		$http.jsonp(waterRoot + urlQuery + '/JSONP?callback=JSON_CALLBACK').success(function(facilities) {
 			$scope.facilities = facilities;
@@ -174,6 +175,9 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				})).then(function() {
 					$scope.waterLoading = false;
 				});
+				setTimeout(function() {
+					$scope.map = googleFactory.initMap('map', locationObject.lat, locationObject.lng);
+				}, 0);
 			}
 		}).error(function() {
 			$scope.facilities = [];
@@ -276,6 +280,14 @@ app.factory('googleFactory', ['$q', function($q) {
 			}
 		});
 		return d.promise;
+	};
+
+	service.initMap = function(id, lat, lng) {
+		var map = new google.maps.Map(document.getElementById(id), {
+			center: {lat: lat, lng: lng},
+			zoom: 12
+		});
+		return map;
 	};
 
 	return service;

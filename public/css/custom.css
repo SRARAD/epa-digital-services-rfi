@@ -15,3 +15,10 @@ body > .content, .menu-wrapper {
 .selected {
 	box-shadow: 0 2px 0 inset;
 }
+
+/* Google Map */
+
+#map {
+	height: 400px;
+	margin-bottom: 1em;
+}

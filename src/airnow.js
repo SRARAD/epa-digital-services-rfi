@@ -9,40 +9,36 @@ try {
 	console.log('Can\'t find local config, using the defaults.');
 }
 
-var locationsHost = 'ftp.airnowapi.org';
+var ftpHost = 'ftp.airnowapi.org';
 var locationsUri = '/Locations/monitoring_site_locations.dat';
 
 var locationArray = [];
 
 module.exports = {
 	init: function() {
-		loadLocationFile();
+		pullFtpFile(locationsUri)
+		.then(function(targetLocation) {
+			locationArray = parseLocationFile(targetLocation);
+		})
+		.catch(function(error) {
+			console.log(error);
+		});
 	}
 };
 
-function loadLocationFile() {
-	pullLocationFile()
-	.then(function(targetLocation) {
-		locationArray = parseLocationFile(targetLocation);
-	})
-	.catch(function(error) {
-		console.log(error);
-	});
-}
-
-function pullLocationFile() {
+function pullFtpFile(fileUri) {
 	var d = Q.defer();
 	var ftp = new jsftp({
-		host: locationsHost,
+		host: ftpHost,
 		user: config.airnowUsername,
 		pass: config.airnowPassword
 	});
-	var targetLocation = 'target/locations.dat';
-	ftp.get(locationsUri, targetLocation, function(hadError) {
+	var targetLocation = 'target/temp.dat';
+	ftp.get(fileUri, targetLocation, function(hadError) {
 		if (hadError) {
-			d.reject('The locations file could not be received.');
+			d.reject('The FTP file could not be received.');
 		} else {
-			console.log('Successfully pulled locations file.');
+			console.log('Successfully pulled FTP file.');
 			d.resolve(targetLocation);
 		}
 	});

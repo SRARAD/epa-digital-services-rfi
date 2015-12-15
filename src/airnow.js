@@ -1,4 +1,5 @@
 var jsftp = require('jsftp');
+var Q = require('q');
 
 var config = {};
 try {
@@ -17,10 +18,14 @@ module.exports = {
 };
 
 function loadLocationFile() {
-	var targetLocation = pullLocationFile();
+	pullLocationFile()
+	.catch(function(error) {
+		console.log(error);
+	});
 }
 
 function pullLocationFile() {
+	var d = Q.defer();
 	var ftp = new jsftp({
 		host: locationsHost,
 		user: config.airnowUsername,
@@ -29,10 +34,11 @@ function pullLocationFile() {
 	var targetLocation = 'target/locations.dat';
 	ftp.get(locationsUri, targetLocation, function(hadError) {
 		if (hadError) {
-			console.error('The locations file could not be received.');
+			d.reject('The locations file could not be received.');
 		} else {
 			console.log('Successfully pulled locations file.');
+			d.resolve(targetLocation);
 		}
 	});
-	return targetLocation;
+	return d.promise;
 }

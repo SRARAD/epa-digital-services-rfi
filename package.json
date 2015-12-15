@@ -20,7 +20,8 @@
   "homepage": "https://github.com/SRARAD/epa-digital-services-rfi#readme",
   "dependencies": {
     "express": "^4.13.3",
-    "jsftp": "^1.5.3"
+    "jsftp": "^1.5.3",
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "jasmine-core": "^2.4.1",

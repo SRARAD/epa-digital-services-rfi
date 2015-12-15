@@ -18,17 +18,17 @@ var hourlyDataObject = {};
 
 module.exports = {
 	init: function() {
-		console.log('Pulling Locations Data');
+		console.log('Pulling Hourly Data');
 		pullFtpFile(hourlyUriRoot + constructHourlyFileName())
 		.then(function(targetLocation) {
-			locationArray = parseLocationFile(targetLocation);
+			hourlyDataObject = parseHourlyData(targetLocation);
 		})
 		.then(function() {
-			console.log('Pulling Hourly Data');
+			console.log('Pulling Locations Data');
 			return pullFtpFile(locationsUri);
 		})
 		.then(function(targetLocation) {
-			hourlyDataObject = parseHourlyData(targetLocation);
+			locationArray = parseLocationFile(targetLocation, Object.keys(hourlyDataObject));
 		})
 		.catch(function(error) {
 			console.log(error);
@@ -55,7 +55,7 @@ function pullFtpFile(fileUri) {
 	return d.promise;
 }
 
-function parseLocationFile(targetLocation) {
+function parseLocationFile(targetLocation, readingLocationIds) {
 	var rawData = fs.readFileSync(targetLocation, 'utf-8');
 	return rawData.split('\n').map(function(row) {
 		var columns = row.split('|');
@@ -65,7 +65,7 @@ function parseLocationFile(targetLocation) {
 			lng: columns[9]
 		};
 	}).filter(function(obj) {
-		return obj.id;
+		return obj.id && readingLocationIds.indexOf(obj.id) != -1;
 	});
 }
 

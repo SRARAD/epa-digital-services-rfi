@@ -16,54 +16,6 @@
 <p>Showing results for: <b>{{location}}</b></p>
 <div class="ui grid">
 	<div class="six wide column">
-		<div class="ui segment">
-			<h3 class="ui header">
-				Water Quality Health Violations
-				<div class="sub header">{{affectedFacilities.length}} out of {{facilities.length}} facilities have violations</div>
-			</h3>
-			<p>Below are drinking water quality violations for water treatment facilities in this area.</p>
-			<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
-				<i class="circular check icon"></i>
-				No Violations Found
-			</h4>
-			<div class="ui link divided list" ng-if="violations.length != 0">
-				<a class="item" ng-repeat="category in waterViolationCodes | filter: hasViolations" ng-click="selectViolationCategory(category)">
-					<i class="warning sign icon"></i>
-					<div class="content">
-						<div class="header">{{category.label}}</div>
-						<div class="description">{{getViolations(category).length}} violations</div>
-					</div>
-				</a>
-			</div>
-			<div class="ui active inline centered loader" ng-if="waterLoading"></div>
-		</div>
-	</div>
-	<div class="six wide column">
-		<div class="ui fluid card">
-			<div class="content">
-				<div class="header">Today's UV Index</div>
-				<div class="ui icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
-					<i class="{{uvData.icon}} icon"></i>
-					<div class="content">
-						<div class="header">{{uvData.rating}} - {{uvData.header}}</div>
-						<p>{{uvData.text}}</p>
-					</div>
-				</div>
-				<div class="description" ng-if="!uvLoading && !uvData">
-					No data was available for your query
-				</div>
-				<div class="ui active inverted dimmer" ng-if="uvLoading">
-					<div class="ui loader"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="four wide column">
-		<div class="ui hoverable blue link segment" ng-class="{inverted: signUpHover}" ng-mouseenter="signUpHover = true" ng-mouseleave="signUpHover = false" style="font-size: .75em;">
-			<h4 class="ui centered header">Sign up for notifications via phone or email</h4>
-		</div>
-	</div>
-	<div class="six wide column">
 		<div class="ui fluid card">
 			<div class="content">
 				<div class="header">Air Quality</div>
@@ -95,31 +47,69 @@
 			</div>
 		</div>
 	</div>
+	<div class="six wide column">
+		<div class="ui fluid card">
+			<div class="content">
+				<div class="header">Today's UV Index</div>
+				<div class="ui icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
+					<i class="{{uvData.icon}} icon"></i>
+					<div class="content">
+						<div class="header">{{uvData.rating}} - {{uvData.header}}</div>
+						<p>{{uvData.text}}</p>
+					</div>
+				</div>
+				<div class="description" ng-if="!uvLoading && !uvData">
+					No data was available for your query
+				</div>
+				<div class="ui active inverted dimmer" ng-if="uvLoading">
+					<div class="ui loader"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="four wide column">
+		<div class="ui hoverable blue link segment" ng-class="{inverted: signUpHover}" ng-mouseenter="signUpHover = true" ng-mouseleave="signUpHover = false" style="font-size: .75em;">
+			<h4 class="ui centered header">Sign up for notifications via phone or email</h4>
+		</div>
+	</div>
 </div>
-<div id="violation-modal" class="ui modal">
-	<i class="close icon"></i>
-	<div class="header">
-		<i class="circular settings icon"></i>
-		{{currentCategory.label}} - {{getViolations(currentCategory).length}}
+<div class="ui segment">
+	<h3 class="ui header">
+		Water Quality Health Violations
+		<div class="sub header">{{affectedFacilities.length}} out of {{facilities.length}} facilities have violations</div>
+	</h3>
+	<p>Below are drinking water quality violations for water treatment facilities in this area.</p>
+	<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
+		<i class="circular check icon"></i>
+		No Violations Found
+	</h4>
+	<div class="ui styled fluid accordion" ng-if="violations.length != 0">
+		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
+			<div class="title">
+				<i class="dropdown icon"></i>
+				{{category.label}} - {{getViolations(category).length}} violations
+			</div>
+			<div class="content">
+				<table class="ui celled striped table">
+					<thead>
+						<tr>
+							<th class="hoverable" ng-repeat="header in tableHeaders" ng-click="changeSort(header.field)">
+								{{header.label}}
+								<i ng-if="sortField == header.field" class="ui sort {{ reverse ? 'ascending' : 'descending' }} icon"></i>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="violation in getViolations(category) | orderBy: sortField : reverse">
+							<td>{{violation.facilityName}}</td>
+							<td>{{violation.contaminantName}}</td>
+							<td>{{violation.startDate.format('MM/DD/YY')}}</td>
+							<td>{{violation.endDate.format('MM/DD/YY')}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
-	<div class="content">
-		<table class="ui celled striped table">
-			<thead>
-				<tr>
-					<th class="hoverable" ng-repeat="header in tableHeaders" ng-click="changeSort(header.field)">
-						{{header.label}}
-						<i ng-if="sortField == header.field" class="ui sort {{ reverse ? 'ascending' : 'descending' }} icon"></i>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="violation in violations | filter: filterCurrentViolations | orderBy: sortField : reverse">
-					<td>{{violation.facilityName}}</td>
-					<td>{{violation.contaminantName}}</td>
-					<td>{{violation.startDate.format('MM/DD/YY')}}</td>
-					<td>{{violation.endDate.format('MM/DD/YY')}}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<div class="ui active inline centered loader" ng-if="waterLoading"></div>
 </div>

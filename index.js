@@ -1,8 +1,11 @@
 var express = require('express');
+var airnow = require('./src/airnow.js');
 
 var app = express();
 
 app.use(express.static('public'));
+
+airnow.init();
 
 var server = app.listen(8080, function () {
 	var host = server.address().address;

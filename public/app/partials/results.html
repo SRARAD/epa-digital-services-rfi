@@ -63,6 +63,38 @@
 			<h4 class="ui centered header">Sign up for notifications via phone or email</h4>
 		</div>
 	</div>
+	<div class="six wide column">
+		<div class="ui fluid card">
+			<div class="content">
+				<div class="header">Air Quality</div>
+				<div class="description" ng-if="!airLoading && airData.name">
+					<p>{{airData.name}} - {{airData.date}}</p>
+					<table class="ui table">
+						<thead>
+							<tr>
+								<th>Contaminant</th>
+								<th>Units</th>
+								<th>Value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="reading in airData.readings">
+								<td>{{reading.label}}</td>
+								<td>{{reading.units}}</td>
+								<td>{{reading.value}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="description" ng-if="!airLoading && airData.error">
+					{{airData.error}}
+				</div>
+				<div class="ui active inverted dimmer" ng-if="airLoading">
+					<div class="ui loader"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div id="violation-modal" class="ui modal">
 	<i class="close icon"></i>

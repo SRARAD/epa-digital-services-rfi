@@ -81,7 +81,7 @@ function parseReportingAreaFile(targetLocation) {
 		}, []).sort(function(date1, date2) {
 			return new Date(date1) - new Date(date2);
 		});
-		locationObject.forecastDates = forecastDates;
+		locationObject.forecastDates = forecastDates.length > 3 ? forecastDates.slice(0, 3) : forecastDates;
 		all.push(locationObject);
 		return all;
 	}, []).filter(function(obj) {

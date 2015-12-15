@@ -218,6 +218,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		});
 	};
 
+	$scope.truncateDate = function(date) {
+		return moment(date, 'MM/DD/YY').format('MM/DD');
+	};
+
 	/* Sortable Table */
 	$scope.tableHeaders = [{
 		label: 'Facility Name',

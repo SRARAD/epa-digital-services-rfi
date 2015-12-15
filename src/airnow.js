@@ -58,7 +58,7 @@ function pullFtpFile(fileUri) {
 
 function parseLocationFile(targetLocation, readingLocationIds) {
 	var rawData = fs.readFileSync(targetLocation, 'utf-8');
-	return rawData.split('\n').map(function(row) {
+	return rawData.split('\r\n').map(function(row) {
 		var columns = row.split('|');
 		return {
 			id: columns[0],
@@ -72,7 +72,7 @@ function parseLocationFile(targetLocation, readingLocationIds) {
 
 function parseHourlyData(targetLocation) {
 	var rawData = fs.readFileSync(targetLocation, 'utf-8');
-	return rawData.split('\n').reduce(function(all, row) {
+	return rawData.split('\r\n').reduce(function(all, row) {
 		var columns = row.split('|');
 		if (!all[columns[2]]) {
 			all[columns[2]] = {

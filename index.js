@@ -7,6 +7,8 @@ app.use(express.static('public'));
 
 airnow.init();
 
+setInterval(airnow.init, 30 * 60 * 1000);
+
 app.get('/airnow/search', function(req, res) {
 	res.send(JSON.stringify(airnow.getLatLngData(parseFloat(req.query.lat), parseFloat(req.query.lng))));
 });

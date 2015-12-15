@@ -67,21 +67,19 @@
 		<div class="ui fluid card">
 			<div class="content">
 				<div class="header">Air Quality</div>
-				<div class="description" ng-if="!airLoading && airData.name">
-					<p>{{airData.name}} - {{airData.date}}</p>
+				<div class="description" ng-if="!airLoading && airData.location">
+					<p>{{airData.location}}</p>
 					<table class="ui table">
 						<thead>
 							<tr>
 								<th>Contaminant</th>
-								<th>Units</th>
-								<th>Value</th>
+								<th ng-repeat="date in airData.forecastDates">{{date}}</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="reading in airData.readings">
-								<td>{{reading.label}}</td>
-								<td>{{reading.units}}</td>
-								<td>{{reading.value}}</td>
+							<tr ng-repeat="(contaminant, forecast) in airData.forecasts">
+								<td>{{contaminant}}</td>
+								<td ng-repeat="date in airData.forecastDates">{{forecast[date]}}</td>
 							</tr>
 						</tbody>
 					</table>

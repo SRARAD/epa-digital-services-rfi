@@ -1,5 +1,6 @@
 var jsftp = require('jsftp');
 var Q = require('q');
+var fs = require('fs');
 
 var config = {};
 try {
@@ -11,6 +12,8 @@ try {
 var locationsHost = 'ftp.airnowapi.org';
 var locationsUri = '/Locations/monitoring_site_locations.dat';
 
+var locationArray = [];
+
 module.exports = {
 	init: function() {
 		loadLocationFile();
@@ -19,6 +22,9 @@ module.exports = {
 
 function loadLocationFile() {
 	pullLocationFile()
+	.then(function(targetLocation) {
+		locationArray = parseLocationFile(targetLocation);
+	})
 	.catch(function(error) {
 		console.log(error);
 	});
@@ -41,4 +47,18 @@ function pullLocationFile() {
 		}
 	});
 	return d.promise;
+}
+
+function parseLocationFile(targetLocation) {
+	var rawData = fs.readFileSync(targetLocation, 'utf-8');
+	return rawData.split('\n').map(function(row) {
+		var columns = row.split('|');
+		return {
+			id: columns[0],
+			lat: columns[8],
+			lng: columns[9]
+		};
+	}).filter(function(obj) {
+		return obj.id;
+	});
 }

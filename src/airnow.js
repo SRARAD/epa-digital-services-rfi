@@ -10,25 +10,16 @@ try {
 }
 
 var ftpHost = 'ftp.airnowapi.org';
-var locationsUri = '/Locations/monitoring_site_locations.dat';
-var hourlyUriRoot = '/HourlyData/';
+var reportingAreaUri = '/ReportingArea/reportingarea.dat';
 
-var locationArray = [];
-var hourlyDataObject = {};
+var reportingAreaArray = [];
 
 module.exports = {
 	init: function() {
-		console.log('Pulling Hourly Data');
-		pullFtpFile(hourlyUriRoot + constructHourlyFileName())
+		console.log('Pulling Reporting Area Data');
+		pullFtpFile(reportingAreaUri)
 		.then(function(targetLocation) {
-			hourlyDataObject = parseHourlyData(targetLocation);
-		})
-		.then(function() {
-			console.log('Pulling Locations Data');
-			return pullFtpFile(locationsUri);
-		})
-		.then(function(targetLocation) {
-			locationArray = parseLocationFile(targetLocation, Object.keys(hourlyDataObject));
+			reportingAreaArray = parseReportingAreaFile(targetLocation);
 		})
 		.catch(function(error) {
 			console.log(error);
@@ -56,48 +47,54 @@ function pullFtpFile(fileUri) {
 	return d.promise;
 }
 
-function parseLocationFile(targetLocation, readingLocationIds) {
+function parseReportingAreaFile(targetLocation) {
 	var rawData = fs.readFileSync(targetLocation, 'utf-8');
-	return rawData.split('\r\n').map(function(row) {
+	var locationMap = rawData.split('\r\n').reduce(function(all, row) {
 		var columns = row.split('|');
-		return {
-			id: columns[0],
-			lat: columns[8],
-			lng: columns[9]
-		};
-	}).filter(function(obj) {
-		return obj.id && readingLocationIds.indexOf(obj.id) != -1;
+		var location =columns[7] + ', ' + columns[8];
+		if (!all[location]) {
+			all[location] = {
+				location: location,
+				lat: columns[9],
+				lng: columns[10],
+				forecasts: {}
+			};
+		}
+		var contaminant = columns[11];
+		if (!all[location].forecasts[contaminant]) {
+			all[location].forecasts[contaminant] = {};
+		}
+		var forecastDate = columns[1];
+		var aqi = columns[13];
+		all[location].forecasts[contaminant][forecastDate] = aqi;
+		return all;
+	}, {});
+	return Object.keys(locationMap).reduce(function(all, key) {
+		var locationObject = locationMap[key];
+		var forecasts = locationMap[key].forecasts;
+		var forecastDates = Object.keys(forecasts).reduce(function(allDates, contaminant) {
+			var curDates = Object.keys(forecasts[contaminant]);
+			var duplicateDates = allDates.concat(curDates);
+			return duplicateDates.filter(function(elem, pos) {
+				return duplicateDates.indexOf(elem) == pos;
+			});
+		}, []).sort(function(date1, date2) {
+			return new Date(date1) - new Date(date2);
+		});
+		locationObject.forecastDates = forecastDates;
+		all.push(locationObject);
+		return all;
+	}, []).filter(function(obj) {
+		return obj.location;
 	});
 }
 
-function parseHourlyData(targetLocation) {
-	var rawData = fs.readFileSync(targetLocation, 'utf-8');
-	return rawData.split('\r\n').reduce(function(all, row) {
-		var columns = row.split('|');
-		if (!all[columns[2]]) {
-			all[columns[2]] = {
-				date: columns[0] + ' ' + columns[1],
-				location: columns[3],
-				name: columns[8],
-				readings: []
-			};
-		}
-		all[columns[2]].readings.push({
-			label: columns[5],
-			units: columns[6],
-			value: columns[7]
-		});
-		return all;
-	}, {});
-}
-
 function getLatLngData(lat, lng) {
-	if (locationArray.length !== 0) {
-		var sortedLocations = locationArray.sort(function(loc1, loc2) {
+	if (reportingAreaArray.length !== 0) {
+		var sortedLocations = reportingAreaArray.sort(function(loc1, loc2) {
 			return calculateLatLngDistance(loc1.lat, loc1.lng, lat, lng) - calculateLatLngDistance(loc2.lat, loc2.lng, lat, lng);
 		});
-		var closestLocation = sortedLocations[0];
-		return hourlyDataObject[closestLocation.id];
+		return sortedLocations[0];
 	} else {
 		return {
 			error: 'No location data available.'
@@ -112,9 +109,4 @@ function calculateLatLngDistance(lat1, lng1, lat2, lng2) {
 	var deltaLambda = (lng2 - lng1) * Math.PI / 180;
 	var a = Math.pow(Math.sin(deltaPhi / 2), 2) + Math.cos(phi1) * Math.cos(phi2) * Math.pow(Math.sin(deltaLambda), 2);
 	return 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
-
-function constructHourlyFileName() {
-	var date = new Date();
-	return date.getFullYear().toString() + (date.getUTCMonth() + 1).toString() + date.getUTCDate().toString() + (date.getUTCHours() - 1).toString() + '.dat';
 }

@@ -22,16 +22,10 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 	};
 }]);
 
-app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', function($scope, $http, $filter, $location, $routeParams, $q) {
+app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', 'googleFactory', function($scope, $http, $filter, $location, $routeParams, $q, googleFactory) {
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/';
 	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/';
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
-
-	var addressComponentLookup = [
-		'postal_code',
-		'locality',
-		'administrative_area_level_1'
-	];
 
 	$scope.counter = 2;
 	$scope.waterViolationCodes = [{
@@ -57,30 +51,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.waterLoading = false;
 	$scope.violations = [];
 
-	$scope.geocoder = new google.maps.Geocoder();
 	$http.get('/data/states.json').then(function(response) {
 		$scope.states = response.data;
 		$scope.counter--;
 	});
-
-	$scope.getQueryZipcode = function() {
-		var d = $q.defer();
-		var location = {};
-		$scope.geocoder.geocode({'address': $scope.query}, function(results, status) {
-			if (results.length !== 0) {
-				$scope.location = results[0].formatted_address;
-				results[0].address_components.forEach(function(addressComponent) {
-					addressComponentLookup.forEach(function(lookup) {
-						if (addressComponent.types.indexOf(lookup) != -1) {
-							location[lookup] = addressComponent.long_name;
-						}
-					});
-				});
-			}
-			d.resolve(location);
-		});
-		return d.promise;
-	};
 
 	$scope.requery = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));
@@ -94,10 +68,11 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.facilities = [];
 		$scope.affectedFacilities = [];
 		$scope.location = '';
-		$scope.getQueryZipcode().then(function(location) {
-			if (location.postal_code || (location.locality && location.administrative_area_level_1)) {
-				$scope.getUVData(location);
-				$scope.getWaterQualityData(location);
+		googleFactory.getQueryZipcode($scope.query).then(function(locationObject) {
+			$scope.location = locationObject.address;
+			if (locationObject.location.postal_code || (locationObject.location.locality && locationObject.location.administrative_area_level_1)) {
+				$scope.getUVData(locationObject.location);
+				$scope.getWaterQualityData(locationObject.location);
 			} else {
 				$scope.locationError = true;
 				$scope.uvLoading = false;
@@ -227,6 +202,46 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.$on('$destroy', function() {
 		$('#violation-modal').remove();
 	});
+}]);
+
+app.factory('googleFactory', ['$q', function($q) {
+	var service = {};
+
+	var geocoder = new google.maps.Geocoder();
+	var addressComponentLookup = [
+		'postal_code',
+		'locality',
+		'administrative_area_level_1'
+	];
+
+	var constructLocationObject = function(result) {
+		var location = {};
+		result.address_components.forEach(function(addressComponent) {
+			addressComponentLookup.forEach(function(lookup) {
+				if (addressComponent.types.indexOf(lookup) != -1) {
+					location[lookup] = addressComponent.long_name;
+				}
+			});
+		});
+		return location;
+	};
+
+	service.getQueryZipcode = function(query) {
+		var d = $q.defer();
+		geocoder.geocode({'address': query}, function(results, status) {
+			if (results.length !== 0) {
+				d.resolve({
+					address: results[0].formatted_address,
+					location: constructLocationObject(results[0])
+				});
+			} else {
+				d.resolve({});
+			}
+		});
+		return d.promise;
+	};
+
+	return service;
 }]);
 
 app.directive('enterKey', function() {

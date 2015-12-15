@@ -214,21 +214,25 @@ app.factory('googleFactory', ['$q', function($q) {
 		'administrative_area_level_1'
 	];
 
+	var constructLocationObject = function(result) {
+		var location = {};
+		result.address_components.forEach(function(addressComponent) {
+			addressComponentLookup.forEach(function(lookup) {
+				if (addressComponent.types.indexOf(lookup) != -1) {
+					location[lookup] = addressComponent.long_name;
+				}
+			});
+		});
+		return location;
+	};
+
 	service.getQueryZipcode = function(query) {
 		var d = $q.defer();
 		geocoder.geocode({'address': query}, function(results, status) {
 			if (results.length !== 0) {
-				var location = {};
-				results[0].address_components.forEach(function(addressComponent) {
-					addressComponentLookup.forEach(function(lookup) {
-						if (addressComponent.types.indexOf(lookup) != -1) {
-							location[lookup] = addressComponent.long_name;
-						}
-					});
-				});
 				d.resolve({
 					address: results[0].formatted_address,
-					location: location
+					location: constructLocationObject(results[0])
 				});
 			} else {
 				d.resolve({});

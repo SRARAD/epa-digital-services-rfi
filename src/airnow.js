@@ -33,7 +33,8 @@ module.exports = {
 		.catch(function(error) {
 			console.log(error);
 		});
-	}
+	},
+	getLatLngData: getLatLngData
 };
 
 function pullFtpFile(fileUri) {
@@ -88,6 +89,29 @@ function parseHourlyData(targetLocation) {
 		});
 		return all;
 	}, {});
+}
+
+function getLatLngData(lat, lng) {
+	if (locationArray.length !== 0) {
+		var sortedLocations = locationArray.sort(function(loc1, loc2) {
+			return calculateLatLngDistance(loc1.lat, loc1.lng, lat, lng) - calculateLatLngDistance(loc2.lat, loc2.lng, lat, lng);
+		});
+		var closestLocation = sortedLocations[0];
+		return hourlyDataObject[closestLocation.id];
+	} else {
+		return {
+			error: 'No location data available.'
+		};
+	}
+}
+
+function calculateLatLngDistance(lat1, lng1, lat2, lng2) {
+	var phi1 = lat1 * Math.PI / 180;
+	var phi2 = lat2 * Math.PI / 180;
+	var deltaPhi = (lat2 - lat1) * Math.PI / 180;
+	var deltaLambda = (lng2 - lng1) * Math.PI / 180;
+	var a = Math.pow(Math.sin(deltaPhi / 2), 2) + Math.cos(phi1) * Math.cos(phi2) * Math.pow(Math.sin(deltaLambda), 2);
+	return 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
 function constructHourlyFileName() {

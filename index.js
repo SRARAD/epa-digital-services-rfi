@@ -7,6 +7,10 @@ app.use(express.static('public'));
 
 airnow.init();
 
+app.get('/airnow/search', function(req, res) {
+	res.send(JSON.stringify(airnow.getLatLngData(parseFloat(req.query.lat), parseFloat(req.query.lng))));
+});
+
 var server = app.listen(8080, function () {
 	var host = server.address().address;
 	var port = server.address().port;

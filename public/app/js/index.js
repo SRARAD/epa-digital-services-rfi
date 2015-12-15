@@ -70,7 +70,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.location = '';
 		googleFactory.getQueryZipcode($scope.query).then(function(locationObject) {
 			$scope.location = locationObject.address;
-			if (locationObject.location.postal_code || (locationObject.location.locality && locationObject.location.administrative_area_level_1)) {
+			var loc = locationObject.location;
+			if (loc.country == 'United States' && (loc.postal_code || (loc.locality && loc.administrative_area_level_1))) {
 				$scope.getUVData(locationObject.location);
 				$scope.getWaterQualityData(locationObject.location);
 			} else {
@@ -241,7 +242,8 @@ app.factory('googleFactory', ['$q', function($q) {
 	var addressComponentLookup = [
 		'postal_code',
 		'locality',
-		'administrative_area_level_1'
+		'administrative_area_level_1',
+		'country'
 	];
 
 	var constructLocationObject = function(result) {

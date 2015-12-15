@@ -41,6 +41,14 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		label: 'Monitoring and Reporting',
 		code: 'MR'
 	}];
+	$scope.airQualityCodes = {
+		'Good': '#00E400',
+		'Moderate': '#FFFF00',
+		'Unhealthy for Sensitive Groups': '#FF7E00',
+		'Unhealthy': '#FF0000',
+		'Very Unhealthy': '#99004C',
+		'Hazardous': '#4C0026',
+	};
 
 	$scope.query = decodeURIComponent($routeParams.query);
 	$http.get('/data/contaminant_codes.json').then(function(response) {
@@ -202,6 +210,11 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.getAirQualityData = function(lat, lng) {
 		$http.get('/airnow/search?lat=' + lat + '&lng=' + lng).then(function(response) {
 			$scope.airData = response.data;
+			setTimeout(function() {
+				$('[data-content]').popup({
+					position: 'top center'
+				});
+			}, 0);
 		});
 	};
 

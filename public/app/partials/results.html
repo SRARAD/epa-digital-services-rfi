@@ -79,7 +79,9 @@
 						<tbody>
 							<tr ng-repeat="(contaminant, forecast) in airData.forecasts">
 								<td>{{contaminant}}</td>
-								<td ng-repeat="date in airData.forecastDates">{{forecast[date]}}</td>
+								<td ng-repeat="date in airData.forecastDates">
+									<a class="ui empty circular label" style="background-color: {{airQualityCodes[forecast[date]]}};" data-content="{{forecast[date]}}"></a>
+								</td>
 							</tr>
 						</tbody>
 					</table>

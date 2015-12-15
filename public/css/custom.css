@@ -7,7 +7,7 @@ body > .content, .menu-wrapper {
 }
 
 .hoverable {
-	cursor: pointer;
+	cursor: pointer!important;
 }
 
 /* Menu */

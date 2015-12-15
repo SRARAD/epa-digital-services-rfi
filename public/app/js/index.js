@@ -146,7 +146,11 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				$q.all(facilities.map(function(facility) {
 					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
 						results.forEach(function(violation) {
+							violation.facilityName = facility.PWS_NAME;
 							violation.facility = facility;
+							violation.contaminantName = $scope.contaminantCodes[violation.CONTAMINANT_CODE];
+							violation.startDate = moment(violation.COMPL_PER_BEGIN_DATE, 'DD-MMM-YY');
+							violation.endDate = moment(violation.COMPL_PER_END_DATE, 'DD-MMM-YY');
 						});
 						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);
@@ -188,6 +192,32 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 
 	$scope.filterCurrentViolations = function(violation) {
 		return $scope.currentCategory ? violation.VIOLATION_CATEGORY_CODE == $scope.currentCategory.code : false;
+	};
+
+	/* Sortable Table */
+	$scope.tableHeaders = [{
+		label: 'Facility Name',
+		field: 'facilityName'
+	}, {
+		label: 'Contaminant Name',
+		field: 'contaminantName'
+	}, {
+		label: 'Compliance Begin Date',
+		field: 'startDate'
+	}, {
+		label: 'Compliance Achieved Date',
+		field: 'endDate'
+	}];
+	$scope.sortField = 'startDate';
+	$scope.reverse = true;
+
+	$scope.changeSort = function(field) {
+		if ($scope.sortField == field) {
+			$scope.reverse = !$scope.reverse;
+		} else {
+			$scope.sortField = field;
+			$scope.reverse = false;
+		}
 	};
 
 	$scope.$watch('counter', function() {

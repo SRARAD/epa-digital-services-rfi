@@ -74,18 +74,18 @@
 		<table class="ui celled striped table">
 			<thead>
 				<tr>
-					<th>Facility Name</th>
-					<th>Contaminant Name</th>
-					<th>Compliance Begin Date</th>
-					<th>Compliance Achieved Date</th>
+					<th class="hoverable" ng-repeat="header in tableHeaders" ng-click="changeSort(header.field)">
+						{{header.label}}
+						<i ng-if="sortField == header.field" class="ui sort {{ reverse ? 'ascending' : 'descending' }} icon"></i>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="violation in violations | filter: filterCurrentViolations">
-					<td>{{violation.facility.PWS_NAME}}</td>
-					<td>{{contaminantCodes[violation.CONTAMINANT_CODE]}}</td>
-					<td>{{violation.COMPL_PER_BEGIN_DATE}}</td>
-					<td>{{violation.COMPL_PER_END_DATE}}</td>
+				<tr ng-repeat="violation in violations | filter: filterCurrentViolations | orderBy: sortField : reverse">
+					<td>{{violation.facilityName}}</td>
+					<td>{{violation.contaminantName}}</td>
+					<td>{{violation.startDate.format('MM/DD/YY')}}</td>
+					<td>{{violation.endDate.format('MM/DD/YY')}}</td>
 				</tr>
 			</tbody>
 		</table>

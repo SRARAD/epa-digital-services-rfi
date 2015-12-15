@@ -171,7 +171,9 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				$q.all(facilities.map(function(facility) {
 					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
 						results.forEach(function(violation) {
+							violation.facilityName = facility.PWS_NAME;
 							violation.facility = facility;
+							violation.contaminantName = $scope.contaminantCodes[violation.CONTAMINANT_CODE];
 						});
 						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);

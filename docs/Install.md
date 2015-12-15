@@ -14,6 +14,8 @@ git clone https://github.com/SRARAD/epa-digital-services-rfi.git
 cd epa-digital-services-rfi
 npm install
 bower install
+cp config.json.example config.json
+nano config.json // Add appropriate config items
 node index.js
 ```
 

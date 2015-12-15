@@ -1,0 +1,4 @@
+{
+	"airnowUsername": "[username for https://docs.airnowapi.org/webservices]",
+	"airnowPassword": "[password for https://docs.airnowapi.org/webservices]"
+}

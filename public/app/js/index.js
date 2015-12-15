@@ -41,6 +41,14 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		label: 'Monitoring and Reporting',
 		code: 'MR'
 	}];
+	$scope.airQualityCodes = {
+		'Good': '#00E400',
+		'Moderate': '#FFFF00',
+		'Unhealthy for Sensitive Groups': '#FF7E00',
+		'Unhealthy': '#FF0000',
+		'Very Unhealthy': '#99004C',
+		'Hazardous': '#4C0026',
+	};
 
 	$scope.query = decodeURIComponent($routeParams.query);
 	$http.get('/data/contaminant_codes.json').then(function(response) {
@@ -49,6 +57,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	});
 	$scope.uvLoading = false;
 	$scope.waterLoading = false;
+	$scope.airLoading = false;
 	$scope.violations = [];
 
 	$http.get('/data/states.json').then(function(response) {
@@ -64,6 +73,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.locationError = false;
 		$scope.uvLoading = true;
 		$scope.waterLoading = true;
+		$scope.airLoading = false;
 		$scope.violations = [];
 		$scope.facilities = [];
 		$scope.affectedFacilities = [];
@@ -74,10 +84,12 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			if (loc.country == 'United States' && (loc.postal_code || (loc.locality && loc.administrative_area_level_1))) {
 				$scope.getUVData(locationObject.location);
 				$scope.getWaterQualityData(locationObject.location);
+				$scope.getAirQualityData(locationObject.lat, locationObject.lng);
 			} else {
 				$scope.locationError = true;
 				$scope.uvLoading = false;
 				$scope.waterLoading = false;
+				$scope.airLoading = true;
 			}
 		});
 	};
@@ -195,6 +207,22 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		return $scope.currentCategory ? violation.VIOLATION_CATEGORY_CODE == $scope.currentCategory.code : false;
 	};
 
+	/* Air Quality */
+	$scope.getAirQualityData = function(lat, lng) {
+		$http.get('/airnow/search?lat=' + lat + '&lng=' + lng).then(function(response) {
+			$scope.airData = response.data;
+			setTimeout(function() {
+				$('[data-content]').popup({
+					position: 'top center'
+				});
+			}, 0);
+		});
+	};
+
+	$scope.truncateDate = function(date) {
+		return moment(date, 'MM/DD/YY').format('MM/DD');
+	};
+
 	/* Sortable Table */
 	$scope.tableHeaders = [{
 		label: 'Facility Name',
@@ -264,7 +292,9 @@ app.factory('googleFactory', ['$q', function($q) {
 			if (results.length !== 0) {
 				d.resolve({
 					address: results[0].formatted_address,
-					location: constructLocationObject(results[0])
+					location: constructLocationObject(results[0]),
+					lat: results[0].geometry.location.lat(),
+					lng: results[0].geometry.location.lng()
 				});
 			} else {
 				d.resolve({});

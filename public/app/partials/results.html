@@ -16,54 +16,6 @@
 <p>Showing results for: <b>{{location}}</b></p>
 <div class="ui grid">
 	<div class="six wide column">
-		<div class="ui segment">
-			<h3 class="ui header">
-				Water Quality Health Violations
-				<div class="sub header">{{affectedFacilities.length}} out of {{facilities.length}} facilities have violations</div>
-			</h3>
-			<p>Below are drinking water quality violations for water treatment facilities in this area.</p>
-			<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
-				<i class="circular check icon"></i>
-				No Violations Found
-			</h4>
-			<div class="ui link divided list" ng-if="violations.length != 0">
-				<a class="item" ng-repeat="category in waterViolationCodes | filter: hasViolations" ng-click="selectViolationCategory(category)">
-					<i class="warning sign icon"></i>
-					<div class="content">
-						<div class="header">{{category.label}}</div>
-						<div class="description">{{getViolations(category).length}} violations</div>
-					</div>
-				</a>
-			</div>
-			<div class="ui active inline centered loader" ng-if="waterLoading"></div>
-		</div>
-	</div>
-	<div class="six wide column">
-		<div class="ui fluid card">
-			<div class="content">
-				<div class="header">Today's UV Index</div>
-				<div class="ui icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
-					<i class="{{uvData.icon}} icon"></i>
-					<div class="content">
-						<div class="header">{{uvData.rating}} - {{uvData.header}}</div>
-						<p>{{uvData.text}}</p>
-					</div>
-				</div>
-				<div class="description" ng-if="!uvLoading && !uvData">
-					No data was available for your query
-				</div>
-				<div class="ui active inverted dimmer" ng-if="uvLoading">
-					<div class="ui loader"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="four wide column">
-		<div class="ui hoverable blue link segment" ng-class="{inverted: signUpHover}" ng-mouseenter="signUpHover = true" ng-mouseleave="signUpHover = false" style="font-size: .75em;">
-			<h4 class="ui centered header">Sign up for notifications via phone or email</h4>
-		</div>
-	</div>
-	<div class="six wide column">
 		<div class="ui fluid card">
 			<div class="content">
 				<div class="header">Air Quality</div>
@@ -93,6 +45,54 @@
 					<div class="ui loader"></div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="six wide column">
+		<div class="ui fluid card">
+			<div class="content">
+				<div class="header">Today's UV Index</div>
+				<div class="ui icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
+					<i class="{{uvData.icon}} icon"></i>
+					<div class="content">
+						<div class="header">{{uvData.rating}} - {{uvData.header}}</div>
+						<p>{{uvData.text}}</p>
+					</div>
+				</div>
+				<div class="description" ng-if="!uvLoading && !uvData">
+					No data was available for your query
+				</div>
+				<div class="ui active inverted dimmer" ng-if="uvLoading">
+					<div class="ui loader"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="four wide column">
+		<div class="ui hoverable blue link segment" ng-class="{inverted: signUpHover}" ng-mouseenter="signUpHover = true" ng-mouseleave="signUpHover = false" style="font-size: .75em;">
+			<h4 class="ui centered header">Sign up for notifications via phone or email</h4>
+		</div>
+	</div>
+	<div class="six wide column">
+		<div class="ui segment">
+			<h3 class="ui header">
+				Water Quality Health Violations
+				<div class="sub header">{{affectedFacilities.length}} out of {{facilities.length}} facilities have violations</div>
+			</h3>
+			<p>Below are drinking water quality violations for water treatment facilities in this area.</p>
+			<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
+				<i class="circular check icon"></i>
+				No Violations Found
+			</h4>
+			<div class="ui link divided list" ng-if="violations.length != 0">
+				<a class="item" ng-repeat="category in waterViolationCodes | filter: hasViolations" ng-click="selectViolationCategory(category)">
+					<i class="warning sign icon"></i>
+					<div class="content">
+						<div class="header">{{category.label}}</div>
+						<div class="description">{{getViolations(category).length}} violations</div>
+					</div>
+				</a>
+			</div>
+			<div class="ui active inline centered loader" ng-if="waterLoading"></div>
 		</div>
 	</div>
 </div>

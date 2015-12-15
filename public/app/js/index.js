@@ -169,6 +169,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 							$scope.affectedFacilities.push(facility);
 						}
 						$scope.violations = $scope.violations.concat(results);
+						$('.ui.accordion').accordion();
 					});
 				})).then(function() {
 					$scope.waterLoading = false;
@@ -180,31 +181,12 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		});
 	};
 
-	$scope.selectViolationCategory = function(category) {
-		$scope.currentCategory = category;
-		setTimeout(function() {
-			$('#violation-modal').modal('show');
-		}, 0);
-	};
-
-	$scope.$watch('violations', function() {
-		if ($('#violation-modal').modal('is active')) {
-			setTimeout(function() {
-				$('#violation-modal').modal('refresh');
-			}, 0);
-		}
-	});
-
 	$scope.getViolations = function(category) {
 		return category ? $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code}) : [];
 	};
 
 	$scope.hasViolations = function(category) {
 		return $scope.getViolations(category).length !== 0;
-	};
-
-	$scope.filterCurrentViolations = function(violation) {
-		return $scope.currentCategory ? violation.VIOLATION_CATEGORY_CODE == $scope.currentCategory.code : false;
 	};
 
 	/* Air Quality */
@@ -252,14 +234,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.$watch('counter', function() {
 		if ($scope.counter === 0) {
 			$scope.retrieveData();
-			$('#violation-modal').modal({
-				blurring: true
-			});
 		}
-	});
-
-	$scope.$on('$destroy', function() {
-		$('#violation-modal').remove();
 	});
 }]);
 

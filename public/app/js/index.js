@@ -215,6 +215,32 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		return $scope.currentCategory ? violation.VIOLATION_CATEGORY_CODE == $scope.currentCategory.code : false;
 	};
 
+	/* Sortable Table */
+	$scope.tableHeaders = [{
+		label: 'Facility Name',
+		field: 'facilityName'
+	}, {
+		label: 'Contaminant Name',
+		field: 'contaminantName'
+	}, {
+		label: 'Compliance Begin Date',
+		field: 'COMPL_PER_BEGIN_DATE'
+	}, {
+		label: 'Compliance Achieved Date',
+		field: 'COMPL_PER_END_DATE'
+	}];
+	$scope.sortField = 'COMPL_PER_BEGIN_DATE';
+	$scope.reverse = false;
+
+	$scope.changeSort = function(field) {
+		if ($scope.sortField == field) {
+			$scope.reverse = !$scope.reverse;
+		} else {
+			$scope.sortField = field;
+			$scope.reverse = false;
+		}
+	};
+
 	$scope.$watch('counter', function() {
 		if ($scope.counter === 0) {
 			$scope.retrieveData();

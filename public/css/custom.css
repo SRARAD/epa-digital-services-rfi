@@ -26,17 +26,17 @@ body > .content, .menu-wrapper {
 /* Mobile Screen CSS */
 
 @media screen and (max-width: 480px) {
+	body {
+		font-size: .75em;
+	}
+
 	.ui.stackable.grid > .column:not(.row) {
 		padding-left: 0!important;
 		padding-right: 0!important;
 	}
 
 	#query.ui.input {
-		font-size: 1em;
-	}
-
-	.ui.table {
-		font-size: .75em!important;
+		font-size: 1.15em;
 	}
 
 	.ui.air.table th:nth-child(5), .ui.air.table td:nth-child(5), .ui.air.table th:nth-child(6), .ui.air.table td:nth-child(6) {

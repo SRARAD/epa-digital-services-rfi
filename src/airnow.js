@@ -89,7 +89,7 @@ function reduceReportingAreaObject(reportingAreaObject) {
 		}, []).sort(function(date1, date2) {
 			return new Date(date1) - new Date(date2);
 		});
-		locationObject.forecastDates = forecastDates.length > 3 ? forecastDates.slice(0, 3) : forecastDates;
+		locationObject.forecastDates = forecastDates.length > 5 ? forecastDates.slice(0, 5) : forecastDates;
 		all.push(locationObject);
 		return all;
 	}, []).filter(function(obj) {

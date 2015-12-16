@@ -18,18 +18,18 @@
 	About
 </div>
 <p>Showing results for: <b>{{location}}</b></p>
-<div class="ui grid" style="clear: both;">
-	<div class="six wide column">
+<div class="ui stackable grid" style="clear: both;">
+	<div class="ten wide column">
 		<div class="ui fluid card">
 			<div class="content">
 				<div class="header">Air Quality</div>
 				<div class="description" ng-if="!airLoading && airData.location">
 					<p>{{airData.location}}</p>
-					<table class="ui small table">
+					<table class="ui small unstackable table">
 						<thead>
 							<tr>
 								<th>Contaminant</th>
-								<th ng-repeat="date in airData.forecastDates">{{truncateDate(date)}}</th>
+								<th class="center aligned" ng-repeat="date in airData.forecastDates">{{truncateDate(date)}}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -76,8 +76,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="four wide column">
 		<div class="ui hoverable blue link segment" ng-class="{inverted: signUpHover}" ng-mouseenter="signUpHover = true" ng-mouseleave="signUpHover = false" style="font-size: .75em;">
 			<h4 class="ui centered header">Sign up for notifications via phone or email</h4>
 		</div>
@@ -101,7 +99,7 @@
 				{{category.label}} - {{getViolations(category).length}} violations
 			</div>
 			<div class="content">
-				<table class="ui celled small compact striped table">
+				<table class="ui celled unstackable small compact striped table">
 					<thead>
 						<tr>
 							<th class="hoverable" ng-repeat="header in tableHeaders" ng-click="changeSort(header.field)">

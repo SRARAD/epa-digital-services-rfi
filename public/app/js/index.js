@@ -89,7 +89,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				$scope.locationError = true;
 				$scope.uvLoading = false;
 				$scope.waterLoading = false;
-				$scope.airLoading = true;
+				$scope.airLoading = false;
 			}
 		});
 	};

@@ -41,6 +41,9 @@
 				<div class="description" ng-if="!airLoading && airData.error">
 					{{airData.error}}
 				</div>
+				<div class="description" ng-if="!airLoading && !airData">
+					No data was available for your query
+				</div>
 				<div class="ui active inverted dimmer" ng-if="airLoading">
 					<div class="ui loader"></div>
 				</div>

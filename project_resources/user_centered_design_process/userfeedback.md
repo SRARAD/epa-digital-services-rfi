@@ -1,4 +1,4 @@
-Day 1: 
+###Day 1:
 
 General:
 - Rename the tool to encompass more than just EPA
@@ -18,7 +18,7 @@ Search results:
 - Add tool tips to define each column header
 - Create linkage to substance registry service from contaminant names to allow users to learn more about an individual contaminant 
 
-Day 2:
+###Day 2:
 
 Air Quality card:
 - Need to define chemicals with rollovers: what are they, in English, and why do they matter?

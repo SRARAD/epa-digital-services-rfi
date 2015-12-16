@@ -20,8 +20,19 @@ Search results:
 
 ###Day 2:
 
+General:
+- Update placeholder/intro text throughout
+Landing Page: 
+- Consider allowing users to sign up for notifications on the landing page as well
 Air Quality card:
 - Need to define chemicals with rollovers: what are they, in English, and why do they matter?
 - Need to create rollovers attached to a question icon to tell you more about a card. Those should be pulling from the master “About this site” page.
-- Placeholder text: rewrite placeholder text (Craig)
+- Users appreciated groupings by type of card (Air info appears together) 
+- Need legend for air quality. Also user was unsure what the dates meant--is that month/year or month/day? Is it projecting data--12/17 appears now but it's 12/16.
+- can we center the dates and dots? looks a little off
+UV Index: 
+- need a legend or scale. Help users understand the "score" ("Is a 2 good? I see it's low, but compared to what?")
+Water Quality card:
+- list is more important than the map--explore design options that place more prominence on the list. user was also unsure what the map was depicting: is it everything? is it just what I have chosen to expose in the list?
 
+###Day 3:

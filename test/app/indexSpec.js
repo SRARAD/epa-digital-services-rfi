@@ -12,6 +12,6 @@ describe('ResultsCtrl', function() {
 	}));
 
 	it('check violation code array length', function () {
-		expect(scope.waterViolationCodes.length).toEqual(4);
+		expect(scope.waterViolationCodes.length).toEqual(3);
 	});
 });

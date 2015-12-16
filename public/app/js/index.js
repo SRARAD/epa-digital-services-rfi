@@ -41,9 +41,6 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	}, {
 		label: 'Treatment Technique',
 		code: 'TT'
-	}, {
-		label: 'Monitoring and Reporting',
-		code: 'MR'
 	}];
 	$scope.airQualityCodes = {
 		'Good': {
@@ -189,13 +186,16 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			} else {
 				$q.all(facilities.map(function(facility) {
 					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
-						results.forEach(function(violation) {
+						var nonMonitoringViolations = results.filter(function(result) {
+							return result.CONTAMINANT_CODE != 'MR';
+						});
+						nonMonitoringViolations.forEach(function(violation) {
 							violation.facilityName = facility.PWS_NAME;
 							violation.facility = facility;
 							violation.contaminantName = $scope.contaminantCodes[violation.CONTAMINANT_CODE];
 							violation.startDate = moment(violation.COMPL_PER_BEGIN_DATE, 'DD-MMM-YY');
 						});
-						if (results.length !== 0) {
+						if (nonMonitoringViolations.length !== 0) {
 							$scope.affectedFacilities.push(facility);
 							if (!$scope.map) {
 								setTimeout(function() {
@@ -207,7 +207,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 								googleFactory.addFacility($scope.map, facility);
 							}, 0);
 						}
-						$scope.violations = $scope.violations.concat(results);
+						$scope.violations = $scope.violations.concat(nonMonitoringViolations);
 						setTimeout(function() {
 							$('.ui.accordion').accordion();
 							$('[data-html]').popup({

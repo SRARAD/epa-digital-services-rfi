@@ -1,0 +1,466 @@
+{
+	"Aberdeen, WA": {
+		"location": "Aberdeen, WA",
+		"lat": "46.9725",
+		"lng": "-123.8317",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Aiken-Augusta - SC/GA, SC": {
+		"location": "Aiken-Augusta - SC/GA, SC",
+		"lat": "33.3700",
+		"lng": "-81.9700",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good"
+			},
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Albany, NY": {
+		"location": "Albany, NY",
+		"lat": "42.6810",
+		"lng": "-73.7580",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"OZONE": {
+				"12/14/15": "Good"
+			}
+		}
+	},
+	"Albany, OR": {
+		"location": "Albany, OR",
+		"lat": "44.6157",
+		"lng": "-123.0915",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Moderate",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Albuquerque, NM": {
+		"location": "Albuquerque, NM",
+		"lat": "35.0833",
+		"lng": "-106.6511",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			},
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"PM10": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Alexandria, LA": {
+		"location": "Alexandria, LA",
+		"lat": "31.3101",
+		"lng": "-92.4401",
+		"forecasts": {
+			"OZONE": {
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good"
+			},
+			"PM2.5": {
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good"
+			}
+		}
+	},
+	"Altoona, PA": {
+		"location": "Altoona, PA",
+		"lat": "40.5187",
+		"lng": "-78.3947",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			},
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Anacortes, WA": {
+		"location": "Anacortes, WA",
+		"lat": "48.5205",
+		"lng": "-122.6142",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Anchorage, AK": {
+		"location": "Anchorage, AK",
+		"lat": "61.2167",
+		"lng": "-149.9000",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Ann Arbor, MI": {
+		"location": "Ann Arbor, MI",
+		"lat": "42.2754",
+		"lng": "-83.7308",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good"
+			}
+		}
+	},
+	"Antelope Vly, CA": {
+		"location": "Antelope Vly, CA",
+		"lat": "34.6694",
+		"lng": "-118.1305",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"PM10": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"PM2.5": {
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"CO": {
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"NO2": {
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			}
+		}
+	},
+	"Anza Vly, CA": {
+		"location": "Anza Vly, CA",
+		"lat": "33.5603",
+		"lng": "-116.7659",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Moderate"
+			},
+			"PM10": {
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"CO": {
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"NO2": {
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			}
+		}
+	},
+	"Apache Junction, AZ": {
+		"location": "Apache Junction, AZ",
+		"lat": "33.4214",
+		"lng": "-111.5436",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good",
+				"12/20/15": "Good"
+			},
+			"PM10": {
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good",
+				"12/20/15": "Good"
+			}
+		}
+	},
+	"Applegate Valley, OR": {
+		"location": "Applegate Valley, OR",
+		"lat": "42.2901",
+		"lng": "-123.2321",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Arden Arcade-Del Paso Manor, CA": {
+		"location": "Arden Arcade-Del Paso Manor, CA",
+		"lat": "38.6138",
+		"lng": "-121.3680",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			},
+			"PM2.5": {
+				"12/15/15": "Good",
+				"12/16/15": "Moderate",
+				"12/17/15": "Moderate",
+				"12/18/15": "Moderate",
+				"12/19/15": "Moderate",
+				"12/20/15": "Moderate"
+			}
+		}
+	},
+	"Asheville Ridge Tops (above 4000 feet), NC": {
+		"location": "Asheville Ridge Tops (above 4000 feet), NC",
+		"lat": "35.5847",
+		"lng": "-83.0623",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good"
+			}
+		}
+	},
+	"Asheville Valleys (below 4000 feet), NC": {
+		"location": "Asheville Valleys (below 4000 feet), NC",
+		"lat": "35.5950",
+		"lng": "-82.5510",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good"
+			},
+			"OZONE": {
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good"
+			}
+		}
+	},
+	"Atascadero, CA": {
+		"location": "Atascadero, CA",
+		"lat": "35.4900",
+		"lng": "-120.6900",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good",
+				"12/20/15": "Good"
+			},
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good",
+				"12/20/15": "Good"
+			},
+			"PM10": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good",
+				"12/20/15": "Good"
+			}
+		}
+	},
+	"Atlanta, GA": {
+		"location": "Atlanta, GA",
+		"lat": "33.6500",
+		"lng": "-84.4300",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			},
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"PM10": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Auburn, CA": {
+		"location": "Auburn, CA",
+		"lat": "38.8963",
+		"lng": "-121.0784",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good"
+			},
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Moderate",
+				"12/17/15": "Moderate",
+				"12/18/15": "Moderate",
+				"12/19/15": "Moderate",
+				"12/20/15": "Moderate"
+			}
+		}
+	},
+	"Austin, TX": {
+		"location": "Austin, TX",
+		"lat": "30.2670",
+		"lng": "-97.7340",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good",
+				"12/20/15": "Good"
+			},
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good",
+				"12/20/15": "Good"
+			},
+			"PM10": {
+				"12/15/15": "Good",
+				"12/16/15": "Good",
+				"12/17/15": "Good",
+				"12/18/15": "Good",
+				"12/19/15": "Good",
+				"12/20/15": "Good"
+			}
+		}
+	},
+	"Badlands, SD": {
+		"location": "Badlands, SD",
+		"lat": "43.7456",
+		"lng": "-101.9412",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			},
+			"PM2.5": {
+				"12/14/15": "Good"
+			},
+			"PM10": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Baker City, OR": {
+		"location": "Baker City, OR",
+		"lat": "44.7882",
+		"lng": "-117.8446",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Bakersfield, CA": {
+		"location": "Bakersfield, CA",
+		"lat": "35.3577",
+		"lng": "-119.0046",
+		"forecasts": {
+			"PM2.5": {
+				"12/14/15": "Good",
+				"12/15/15": "Moderate",
+				"12/16/15": "Moderate",
+				"12/17/15": "Moderate",
+				"12/18/15": "Moderate",
+				"12/19/15": "Moderate"
+			},
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good"
+			}
+		}
+	},
+	"Banning, CA": {
+		"location": "Banning, CA",
+		"lat": "33.9208",
+		"lng": "-116.8583",
+		"forecasts": {
+			"OZONE": {
+				"12/14/15": "Good",
+				"12/15/15": "Good",
+				"12/16/15": "Good"
+			},
+			"PM2.5": {
+				"12/15/15": "Good"
+			},
+			"PM10": {
+				"12/15/15": "Good"
+			},
+			"CO": {
+				"12/15/15": "Good"
+			},
+			"NO2": {
+				"12/15/15": "Good"
+			}
+		}
+	}
+}

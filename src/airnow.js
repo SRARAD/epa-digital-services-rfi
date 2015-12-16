@@ -50,24 +50,7 @@ function pullFtpFile(fileUri) {
 function parseReportingAreaFile(targetLocation) {
 	var rawData = fs.readFileSync(targetLocation, 'utf-8');
 	var reportingAreaObject = createReportingAreaObject(rawData);
-	return Object.keys(reportingAreaObject).reduce(function(all, key) {
-		var locationObject = reportingAreaObject[key];
-		var forecasts = reportingAreaObject[key].forecasts;
-		var forecastDates = Object.keys(forecasts).reduce(function(allDates, contaminant) {
-			var curDates = Object.keys(forecasts[contaminant]);
-			var duplicateDates = allDates.concat(curDates);
-			return duplicateDates.filter(function(elem, pos) {
-				return duplicateDates.indexOf(elem) == pos;
-			});
-		}, []).sort(function(date1, date2) {
-			return new Date(date1) - new Date(date2);
-		});
-		locationObject.forecastDates = forecastDates.length > 3 ? forecastDates.slice(0, 3) : forecastDates;
-		all.push(locationObject);
-		return all;
-	}, []).filter(function(obj) {
-		return obj.location;
-	});
+	return reduceReportingAreaObject(reportingAreaObject);
 }
 
 function createReportingAreaObject(rawData) {
@@ -91,6 +74,27 @@ function createReportingAreaObject(rawData) {
 		all[location].forecasts[contaminant][forecastDate] = aqi;
 		return all;
 	}, {});
+}
+
+function reduceReportingAreaObject(reportingAreaObject) {
+	return Object.keys(reportingAreaObject).reduce(function(all, key) {
+		var locationObject = reportingAreaObject[key];
+		var forecasts = reportingAreaObject[key].forecasts;
+		var forecastDates = Object.keys(forecasts).reduce(function(allDates, contaminant) {
+			var curDates = Object.keys(forecasts[contaminant]);
+			var duplicateDates = allDates.concat(curDates);
+			return duplicateDates.filter(function(elem, pos) {
+				return duplicateDates.indexOf(elem) == pos;
+			});
+		}, []).sort(function(date1, date2) {
+			return new Date(date1) - new Date(date2);
+		});
+		locationObject.forecastDates = forecastDates.length > 3 ? forecastDates.slice(0, 3) : forecastDates;
+		all.push(locationObject);
+		return all;
+	}, []).filter(function(obj) {
+		return obj.location;
+	});
 }
 
 function getLatLngData(lat, lng) {

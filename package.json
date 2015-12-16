@@ -8,7 +8,9 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "find ./test/src/ -name '*Spec.js' | xargs mocha -R spec && karma start karma.conf.js"
+    "test": "npm run mocha && npm run karma",
+    "mocha": "find ./test/src/ -name '*Spec.js' | xargs mocha -R spec --reporter mocha-junit-reporter --reporter-options mochaFile=./target/test-results.xml",
+    "karma": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
     "karma-junit-reporter": "^0.3.8",
     "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.3.4",
+    "mocha-junit-reporter": "^1.9.1",
     "phantomjs": "^1.9.19",
     "rewire": "^2.5.1"
   }

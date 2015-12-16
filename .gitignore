@@ -6,4 +6,5 @@ node_modules
 public/lib
 PhantomJS*
 config.json
-target/*.dat
+target/*
+!target/.gitkeep

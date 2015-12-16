@@ -21,7 +21,7 @@
 				<div class="header">Air Quality</div>
 				<div class="description" ng-if="!airLoading && airData.location">
 					<p>{{airData.location}}</p>
-					<table class="ui small table">
+					<table class="ui small unstackable table">
 						<thead>
 							<tr>
 								<th>Contaminant</th>
@@ -95,7 +95,7 @@
 				{{category.label}} - {{getViolations(category).length}} violations
 			</div>
 			<div class="content">
-				<table class="ui celled small compact striped table">
+				<table class="ui celled unstackable small compact striped table">
 					<thead>
 						<tr>
 							<th class="hoverable" ng-repeat="header in tableHeaders" ng-click="changeSort(header.field)">

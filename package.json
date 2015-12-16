@@ -9,7 +9,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "npm run mocha && npm run karma",
-    "mocha": "find ./test/src/ -name '*Spec.js' | xargs mocha -R spec --reporter mocha-junit-reporter --reporter-options mochaFile=./target/test-results.xml",
+    "test-xml": "npm run mocha-xml && npm run karma",
+    "mocha": "find ./test/src/ -name '*Spec.js' | xargs mocha -R spec",
+    "mocha-xml": "find ./test/src/ -name '*Spec.js' | xargs mocha -R spec --reporter mocha-junit-reporter --reporter-options mochaFile=./target/test-results.xml",
     "karma": "karma start karma.conf.js"
   },
   "repository": {

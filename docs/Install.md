@@ -40,5 +40,6 @@ The app will then be running at http://[docker-ip]:8080.
 Testing requires additional dependencies:
 - Karma
 - Jasmine
+- Mocha
 
 Run the tests with `npm test`.

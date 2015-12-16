@@ -27,7 +27,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/';
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
 
-	$scope.counter = 2;
+	$scope.counter = 3;
 	$scope.waterViolationCodes = [{
 		label: 'Maximum Contaminant Level',
 		code: 'MCL'
@@ -71,6 +71,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.query = decodeURIComponent($routeParams.query);
 	$http.get('/data/contaminant_codes.json').then(function(response) {
 		$scope.contaminantCodes = response.data;
+		$scope.counter--;
+	});
+	$http.get('/data/air_contaminant_desc.json').then(function(response) {
+		$scope.airContaminantDescriptions = response.data;
 		$scope.counter--;
 	});
 	$scope.uvLoading = false;
@@ -188,7 +192,14 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 							googleFactory.addFacility($scope.map, facility);
 						}
 						$scope.violations = $scope.violations.concat(results);
-						$('.ui.accordion').accordion();
+						setTimeout(function() {
+							$('.ui.accordion').accordion();
+							$('[data-html]').popup({
+								position: 'top center',
+								html: $(this).attr('data-html'),
+								hoverable: true
+							});
+						}, 0);
 					});
 				})).then(function() {
 					$scope.waterLoading = false;
@@ -219,6 +230,11 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			setTimeout(function() {
 				$('[data-content]').popup({
 					position: 'top center'
+				});
+				$('[data-html]').popup({
+					position: 'top center',
+					html: $(this).attr('data-html'),
+					hoverable: true
 				});
 			}, 0);
 		});

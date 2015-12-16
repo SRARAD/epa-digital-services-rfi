@@ -39,6 +39,10 @@ body > .content, .menu-wrapper {
 		font-size: .75em!important;
 	}
 
+	.ui.air.table th:nth-child(5), .ui.air.table td:nth-child(5), .ui.air.table th:nth-child(6), .ui.air.table td:nth-child(6) {
+		display: none;
+	}
+
 	#map {
 		height: 200px;
 	}

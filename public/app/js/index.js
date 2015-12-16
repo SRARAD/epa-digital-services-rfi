@@ -213,7 +213,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	/* Sortable Table */
 	$scope.tableHeaders = [{
 		label: 'Facility Name',
-		field: 'facilityName'
+		field: 'facilityName',
+		desc: 'Facilities could be one of three types:<ul><li>Community Water Systems: Water Systems that serve the same people year-round (e.g. in homes or businesses).</li><li>Non-Transient Non-Community Water Systems: Water Systems that serve the same people, but not year-round (e.g. schools that have their own water system).</li><li> Transient Non-Community Water Systems: Water Systems that do not consistently serve the same people (e.g. rest stops, campgrounds, gas stations).</li></ul>'
 	}, {
 		label: 'Contaminant Name',
 		field: 'contaminantName'

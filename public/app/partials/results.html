@@ -39,7 +39,7 @@
 									<i class="circular question icon" data-html="{{airContaminantDescriptions[contaminant]}}"></i>
 								</td>
 								<td class="center aligned" ng-repeat="date in airData.forecastDates">
-									<a class="ui empty circular label" style="background-color: {{airQualityCodes[forecast[date]].color}};" data-title="{{forecast[date] || 'Not available'}}" data-content="{{airQualityCodes[forecast[date]].desc}}"></a>
+									<a class="ui empty circular label" ng-style="{'background-color': airQualityCodes[forecast[date]].color}" data-title="{{forecast[date] || 'Not available'}}" data-content="{{airQualityCodes[forecast[date]].desc}}"></a>
 								</td>
 							</tr>
 						</tbody>

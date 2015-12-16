@@ -197,7 +197,15 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 						});
 						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);
-							googleFactory.addFacility($scope.map, facility);
+							if (!$scope.map) {
+								setTimeout(function() {
+									$scope.map = googleFactory.initMap('map', locationObject.lat, locationObject.lng);
+									$scope.$apply();
+								}, 0);
+							}
+							setTimeout(function() {
+								googleFactory.addFacility($scope.map, facility);
+							}, 0);
 						}
 						$scope.violations = $scope.violations.concat(results);
 						setTimeout(function() {
@@ -212,10 +220,6 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				})).then(function() {
 					$scope.waterLoading = false;
 				});
-				setTimeout(function() {
-					$scope.map = googleFactory.initMap('map', locationObject.lat, locationObject.lng);
-					$scope.$apply();
-				}, 0);
 			}
 		}).error(function() {
 			$scope.facilities = [];

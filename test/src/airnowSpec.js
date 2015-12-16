@@ -37,7 +37,7 @@ describe('AirNow#reduceReportingAreaObject', function() {
 		var forecastDateSizeArray = reducedReportingArea.map(function(reportingArea) {
 			return reportingArea.forecastDates.length;
 		});
-		assert(Math.min.apply(null, forecastDateSizeArray) <= 3);
+		assert(Math.min.apply(null, forecastDateSizeArray) <= 5);
 	});
 });
 

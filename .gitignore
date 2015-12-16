@@ -7,3 +7,7 @@ public/lib
 PhantomJS*
 config.json
 target/*.dat
+*.iml
+*.ipr
+*.iws
+

@@ -15,7 +15,7 @@
 </div>
 <p>Showing results for: <b>{{location}}</b></p>
 <div class="ui grid">
-	<div class="six wide column">
+	<div class="ten wide column">
 		<div class="ui fluid card">
 			<div class="content">
 				<div class="header">Air Quality</div>
@@ -25,7 +25,7 @@
 						<thead>
 							<tr>
 								<th>Contaminant</th>
-								<th ng-repeat="date in airData.forecastDates">{{truncateDate(date)}}</th>
+								<th class="center aligned" ng-repeat="date in airData.forecastDates">{{truncateDate(date)}}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,8 +72,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="four wide column">
 		<div class="ui hoverable blue link segment" ng-class="{inverted: signUpHover}" ng-mouseenter="signUpHover = true" ng-mouseleave="signUpHover = false" style="font-size: .75em;">
 			<h4 class="ui centered header">Sign up for notifications via phone or email</h4>
 		</div>

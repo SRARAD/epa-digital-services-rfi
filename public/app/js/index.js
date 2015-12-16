@@ -167,7 +167,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 						});
 						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);
-							googleFactory.addFacility($scope.map, facility);
+							googleFactory.addFacility($scope.map, facility, results);
 						}
 						$scope.violations = $scope.violations.concat(results);
 						$('.ui.accordion').accordion();
@@ -293,16 +293,22 @@ app.factory('googleFactory', ['$q', function($q) {
 		return (facility.ADDRESS_LINE2 ? facility.ADDRESS_LINE2 : facility.ADDRESS_LINE1) + ' ' + facility.CITY_NAME + ' ' + facility.STATE_CODE;
 	};
 
-	var constructFacilityInfo = function(facility) {
+	var constructFacilityInfo = function(facility, violations) {
 		var html = '<h2>' + facility.PWS_NAME + '</h2>';
 		html += '<p>' + constructFacilityAddressQuery(facility) + '</p>';
+		var contaminants = violations.map(function(violation) {
+			return violation.contaminantName;
+		});
+		html += '<p><b>Contaminants:</b> ' + contaminants.filter(function(elem, pos) {
+			return contaminants.indexOf(elem) == pos;
+		}).sort().join(', ') + '</p>';
 		return html;
 	};
 
-	service.addFacility = function(map, facility) {
+	service.addFacility = function(map, facility, violations) {
 		service.getQueryZipcode(constructFacilityAddressQuery(facility)).then(function(location) {
 			var infowindow = new google.maps.InfoWindow({
-				content: constructFacilityInfo(facility)
+				content: constructFacilityInfo(facility, violations)
 			});
 			var marker = new google.maps.Marker({
 				map: map,

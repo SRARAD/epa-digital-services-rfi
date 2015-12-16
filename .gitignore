@@ -8,3 +8,6 @@ PhantomJS*
 config.json
 target/*
 !target/.gitkeep
+*.iml
+*.ipr
+*.iws

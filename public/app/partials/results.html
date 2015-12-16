@@ -30,7 +30,10 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="(contaminant, forecast) in airData.forecasts">
-								<td>{{contaminant}}</td>
+								<td>
+									{{contaminant}}
+									<i class="circular question icon" data-html="{{airContaminantDescriptions[contaminant]}}"></i>
+								</td>
 								<td class="center aligned" ng-repeat="date in airData.forecastDates">
 									<a class="ui empty circular label" style="background-color: {{airQualityCodes[forecast[date]].color}};" data-content="{{forecast[date] || 'Not available'}}"></a>
 								</td>

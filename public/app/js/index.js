@@ -224,6 +224,11 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				$('[data-content]').popup({
 					position: 'top center'
 				});
+				$('[data-html]').popup({
+					position: 'top center',
+					html: $(this).attr('data-html'),
+					hoverable: true
+				});
 			}, 0);
 		});
 	};

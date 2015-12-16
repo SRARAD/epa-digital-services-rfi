@@ -20,6 +20,10 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 	$scope.search = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));
 	};
+
+	$scope.showHelp = function() {
+		$('#about').modal('show');
+	};
 }]);
 
 app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', 'googleFactory', function($scope, $http, $filter, $location, $routeParams, $q, googleFactory) {
@@ -276,10 +280,6 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		if ($scope.counter === 0) {
 			$scope.retrieveData();
 		}
-	});
-
-	$('#about').modal({
-		blurring: true
 	});
 }]);
 

@@ -250,6 +250,7 @@ app.factory('googleFactory', ['$q', function($q) {
 		'administrative_area_level_1',
 		'country'
 	];
+	var previousInfoWindow = false;
 
 	var constructLocationObject = function(result) {
 		var location = {};
@@ -266,7 +267,7 @@ app.factory('googleFactory', ['$q', function($q) {
 	service.getQueryZipcode = function(query) {
 		var d = $q.defer();
 		geocoder.geocode({'address': query}, function(results, status) {
-			if (results.length !== 0) {
+			if (results && results.length !== 0) {
 				d.resolve({
 					address: results[0].formatted_address,
 					location: constructLocationObject(results[0]),
@@ -283,19 +284,40 @@ app.factory('googleFactory', ['$q', function($q) {
 	service.initMap = function(id, lat, lng) {
 		var map = new google.maps.Map(document.getElementById(id), {
 			center: {lat: lat, lng: lng},
-			zoom: 12
+			zoom: 11
 		});
 		return map;
 	};
 
+	var constructFacilityAddressQuery = function(facility) {
+		return (facility.ADDRESS_LINE2 ? facility.ADDRESS_LINE2 : facility.ADDRESS_LINE1) + ' ' + facility.CITY_NAME + ' ' + facility.STATE_CODE;
+	};
+
+	var constructFacilityInfo = function(facility) {
+		var html = '<h2>' + facility.PWS_NAME + '</h2>';
+		html += '<p>' + constructFacilityAddressQuery(facility) + '</p>';
+		return html;
+	};
+
 	service.addFacility = function(map, facility) {
-		service.getQueryZipcode(facility.ADDRESS_LINE1 + (facility.ADDRESS_LINE1 ? ' ' + facility.ADDRESS_LINE1 : '') + ' ' + facility.CITY_NAME).then(function(location) {
-			new google.maps.Marker({
+		service.getQueryZipcode(constructFacilityAddressQuery(facility)).then(function(location) {
+			var infowindow = new google.maps.InfoWindow({
+				content: constructFacilityInfo(facility)
+			});
+			var marker = new google.maps.Marker({
 				map: map,
 				position: {
 					lat: location.lat,
-					lng: location.lng
+					lng: location.lng,
+					title: facility.PWS_NAME
 				}
+			});
+			marker.addListener('click', function() {
+				if (previousInfoWindow) {
+					previousInfoWindow.close();
+				}
+				previousInfoWindow = infowindow;
+				infowindow.open(map, marker);
 			});
 		});
 	};

@@ -266,7 +266,7 @@ app.factory('googleFactory', ['$q', function($q) {
 	service.getQueryZipcode = function(query) {
 		var d = $q.defer();
 		geocoder.geocode({'address': query}, function(results, status) {
-			if (results.length !== 0) {
+			if (results && results.length !== 0) {
 				d.resolve({
 					address: results[0].formatted_address,
 					location: constructLocationObject(results[0]),
@@ -283,7 +283,7 @@ app.factory('googleFactory', ['$q', function($q) {
 	service.initMap = function(id, lat, lng) {
 		var map = new google.maps.Map(document.getElementById(id), {
 			center: {lat: lat, lng: lng},
-			zoom: 12
+			zoom: 11
 		});
 		return map;
 	};

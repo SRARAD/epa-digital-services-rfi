@@ -96,7 +96,6 @@
 		<i class="circular check icon"></i>
 		No Violations Found
 	</h4>
-	<div id="map" ng-if="facilities.length != 0"></div>
 	<div class="ui styled fluid accordion" ng-if="violations.length != 0">
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
 			<div class="title">
@@ -126,5 +125,6 @@
 			</div>
 		</div>
 	</div>
+	<div id="map" ng-if="facilities.length != 0"></div>
 	<div class="ui active inline centered loader" ng-if="waterLoading"></div>
 </div>

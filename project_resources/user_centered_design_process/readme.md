@@ -2,7 +2,7 @@
 
 After some discussion about EPA's strategic plans and opportunities on the web to further the agency's mission, the project team decided that we wanted to build something to serve the public--something that would fill a gap in EPA's service to citizens, be useful and be understandable by an average citizen. We documented our assumptions, hypothesis and a few key tasks. We then conducted several user interviews to validate our assumptions about the value of building a tool that could serve up the type of data we had identified.
 
-<insert assumptions_user tasks_screencap>
+![assumptions user tasks](https://github.com/SRARAD/epa-digital-services-rfi/blob/dev/project_resources/user_centered_design_process/images/Discovery_assumptions_user_tasks.jpg)
   
 In parallel to user interviews,  several technical team members and subject-matter experts with historical knowledge of EPA data reviewed available data to understand its characteristics, context and presentation against user scenarios. The team pulled together an initial list of data for consideration:
   

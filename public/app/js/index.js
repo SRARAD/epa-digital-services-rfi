@@ -288,8 +288,12 @@ app.factory('googleFactory', ['$q', function($q) {
 		return map;
 	};
 
+	var constructFacilityAddressQuery = function(facility) {
+		return (facility.ADDRESS_LINE2 ? facility.ADDRESS_LINE2 : facility.ADDRESS_LINE1) + ' ' + facility.CITY_NAME + ' ' + facility.STATE_CODE;
+	};
+
 	service.addFacility = function(map, facility) {
-		service.getQueryZipcode(facility.ADDRESS_LINE1 + (facility.ADDRESS_LINE1 ? ' ' + facility.ADDRESS_LINE1 : '') + ' ' + facility.CITY_NAME).then(function(location) {
+		service.getQueryZipcode(constructFacilityAddressQuery(facility)).then(function(location) {
 			new google.maps.Marker({
 				map: map,
 				position: {

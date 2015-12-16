@@ -192,7 +192,14 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 							googleFactory.addFacility($scope.map, facility);
 						}
 						$scope.violations = $scope.violations.concat(results);
-						$('.ui.accordion').accordion();
+						setTimeout(function() {
+							$('.ui.accordion').accordion();
+							$('[data-html]').popup({
+								position: 'top center',
+								html: $(this).attr('data-html'),
+								hoverable: true
+							});
+						}, 0);
 					});
 				})).then(function() {
 					$scope.waterLoading = false;

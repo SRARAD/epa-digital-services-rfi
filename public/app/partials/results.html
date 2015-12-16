@@ -89,7 +89,6 @@
 <div class="ui segment">
 	<h3 class="ui header">
 		Water Quality Health Violations
-		<div class="sub header">{{affectedFacilities.length}} out of {{facilities.length}} facilities have violations</div>
 	</h3>
 	<p>Below are drinking water quality violations for water treatment facilities in this area.</p>
 	<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
@@ -100,7 +99,7 @@
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
 			<div class="title">
 				<i class="dropdown icon"></i>
-				{{category.label}} - {{getViolations(category).length}} violations
+				{{category.label}} - {{getViolations(category).length}} violations from {{getViolationFacilities(category).length}} location(s)
 			</div>
 			<div class="content">
 				<table class="ui celled unstackable small compact striped table">

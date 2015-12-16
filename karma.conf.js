@@ -22,7 +22,7 @@ module.exports = function(config) {
       'public/lib/jquery/dist/jquery.js',
       'public/lib//moment/moment.js',
       'public/app/js/**/*.js',
-      'tests/unit/**/*.js'
+      'test/app/**/*.js'
     ],
 
 

@@ -49,9 +49,14 @@ function pullFtpFile(fileUri) {
 
 function parseReportingAreaFile(targetLocation) {
 	var rawData = fs.readFileSync(targetLocation, 'utf-8');
-	var locationMap = rawData.split('\r\n').reduce(function(all, row) {
+	var reportingAreaObject = createReportingAreaObject(rawData);
+	return reduceReportingAreaObject(reportingAreaObject);
+}
+
+function createReportingAreaObject(rawData) {
+	return rawData.split('\r\n').reduce(function(all, row) {
 		var columns = row.split('|');
-		var location =columns[7] + ', ' + columns[8];
+		var location = columns[7] + ', ' + columns[8];
 		if (!all[location]) {
 			all[location] = {
 				location: location,
@@ -69,9 +74,12 @@ function parseReportingAreaFile(targetLocation) {
 		all[location].forecasts[contaminant][forecastDate] = aqi;
 		return all;
 	}, {});
-	return Object.keys(locationMap).reduce(function(all, key) {
-		var locationObject = locationMap[key];
-		var forecasts = locationMap[key].forecasts;
+}
+
+function reduceReportingAreaObject(reportingAreaObject) {
+	return Object.keys(reportingAreaObject).reduce(function(all, key) {
+		var locationObject = reportingAreaObject[key];
+		var forecasts = reportingAreaObject[key].forecasts;
 		var forecastDates = Object.keys(forecasts).reduce(function(allDates, contaminant) {
 			var curDates = Object.keys(forecasts[contaminant]);
 			var duplicateDates = allDates.concat(curDates);
@@ -108,5 +116,5 @@ function calculateLatLngDistance(lat1, lng1, lat2, lng2) {
 	var deltaPhi = (lat2 - lat1) * Math.PI / 180;
 	var deltaLambda = (lng2 - lng1) * Math.PI / 180;
 	var a = Math.pow(Math.sin(deltaPhi / 2), 2) + Math.cos(phi1) * Math.cos(phi2) * Math.pow(Math.sin(deltaLambda), 2);
-	return 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	return 3954 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }

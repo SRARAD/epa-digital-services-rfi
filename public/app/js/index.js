@@ -42,12 +42,24 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		code: 'MR'
 	}];
 	$scope.airQualityCodes = {
-		'Good': '#00E400',
-		'Moderate': '#FFFF00',
-		'Unhealthy for Sensitive Groups': '#FF7E00',
-		'Unhealthy': '#FF0000',
-		'Very Unhealthy': '#99004C',
-		'Hazardous': '#4C0026',
+		'Good': {
+			color: '#00E400'
+		},
+		'Moderate': {
+			color: '#FFFF00'
+		},
+		'Unhealthy for Sensitive Groups': {
+			color: '#FF7E00'
+		},
+		'Unhealthy': {
+			color: '#FF0000'
+		},
+		'Very Unhealthy': {
+			color: '#99004C'
+		},
+		'Hazardous': {
+			color: '#4C0026'
+		},
 	};
 
 	$scope.query = decodeURIComponent($routeParams.query);

@@ -164,7 +164,6 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 							violation.facility = facility;
 							violation.contaminantName = $scope.contaminantCodes[violation.CONTAMINANT_CODE];
 							violation.startDate = moment(violation.COMPL_PER_BEGIN_DATE, 'DD-MMM-YY');
-							violation.endDate = moment(violation.COMPL_PER_END_DATE, 'DD-MMM-YY');
 						});
 						if (results.length !== 0) {
 							$scope.affectedFacilities.push(facility);
@@ -219,11 +218,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		label: 'Contaminant Name',
 		field: 'contaminantName'
 	}, {
-		label: 'Compliance Begin',
+		label: 'Violation Date',
 		field: 'startDate'
-	}, {
-		label: 'Compliance Achieved',
-		field: 'endDate'
 	}];
 	$scope.sortField = 'startDate';
 	$scope.reverse = true;

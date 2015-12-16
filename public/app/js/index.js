@@ -44,27 +44,27 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.airQualityCodes = {
 		'Good': {
 			color: '#00E400',
-            desc: 'Air quality is considered satisfactory, and air pollution poses little or no risk'
+			desc: 'Air quality is considered satisfactory, and air pollution poses little or no risk'
 		},
 		'Moderate': {
 			color: '#FFFF00',
-            desc: 'Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.'
+			desc: 'Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.'
 		},
 		'Unhealthy for Sensitive Groups': {
 			color: '#FF7E00',
-            desc: 'Members of sensitive groups may experience health effects. The general public is not likely to be affected.'
+			desc: 'Members of sensitive groups may experience health effects. The general public is not likely to be affected.'
 		},
 		'Unhealthy': {
 			color: '#FF0000',
-            desc: 'Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.'
+			desc: 'Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.'
 		},
 		'Very Unhealthy': {
 			color: '#99004C',
-            desc: 'Health warnings of emergency conditions. The entire population is more likely to be affected.'
+			desc: 'Health warnings of emergency conditions. The entire population is more likely to be affected.'
 		},
 		'Hazardous': {
 			color: '#4C0026',
-            desc: 'Health alert: everyone may experience more serious health effects.'
+			desc: 'Health alert: everyone may experience more serious health effects.'
 		},
 	};
 

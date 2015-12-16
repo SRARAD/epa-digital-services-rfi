@@ -108,5 +108,5 @@ function calculateLatLngDistance(lat1, lng1, lat2, lng2) {
 	var deltaPhi = (lat2 - lat1) * Math.PI / 180;
 	var deltaLambda = (lng2 - lng1) * Math.PI / 180;
 	var a = Math.pow(Math.sin(deltaPhi / 2), 2) + Math.cos(phi1) * Math.cos(phi2) * Math.pow(Math.sin(deltaLambda), 2);
-	return 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	return 3954 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }

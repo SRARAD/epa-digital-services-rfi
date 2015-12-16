@@ -21,7 +21,7 @@
 <div class="ui stackable grid" style="clear: both;">
 	<div class="ten wide column">
 		<div class="ui segment">
-			<i class="circular question icon" style="float: right;"></i>
+			<i class="circular question hoverable icon" style="float: right;" data-label="air"></i>
 			<h3 class="ui floated left header">Daily Air Quality Forecast</h3>
 			<div class="ui divider" style="clear: both;"></div>
 			<div class="description" ng-if="!airLoading && airData.location">
@@ -59,7 +59,7 @@
 	</div>
 	<div class="six wide column">
 		<div class="ui segment">
-			<i class="circular question icon" style="float: right;"></i>
+			<i class="circular question hoverable icon" style="float: right;" data-label="uv"></i>
 			<h3 class="ui floated left header">Today's UV Index</h3>
 			<div class="ui divider" style="clear: both;"></div>
 			<div class="ui icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
@@ -79,7 +79,7 @@
 	</div>
 </div>
 <div class="ui segment">
-	<i class="circular question icon" style="float: right;"></i>
+	<i class="circular question hoverable icon" style="float: right;" data-label="water"></i>
 	<h3 class="ui floated left header">Water Quality Health Violations</h3>
 	<div class="ui divider" style="clear: both;"></div>
 	<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">

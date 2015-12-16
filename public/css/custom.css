@@ -10,6 +10,10 @@ body > .content, .menu-wrapper {
 	cursor: pointer!important;
 }
 
+#about h4.ui.header {
+	margin-top: .75em;
+}
+
 /* Menu */
 
 .selected {

@@ -295,6 +295,14 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			$scope.retrieveData();
 		}
 	});
+
+	$('[data-label]').toArray().forEach(function(me) {
+		var contentId = $(me).attr('data-label');
+		$(me).popup({
+			position: 'top center',
+			html: $('#' + contentId).html()
+		});
+	});
 }]);
 
 app.factory('googleFactory', ['$q', function($q) {

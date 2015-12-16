@@ -87,6 +87,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.counter--;
 	});
 
+	$scope.showHelp = function() {
+		$('#about').modal('show');
+	};
+
 	$scope.requery = function() {
 		$location.path('/search/' + encodeURIComponent($scope.query));
 	};
@@ -272,6 +276,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		if ($scope.counter === 0) {
 			$scope.retrieveData();
 		}
+	});
+
+	$('#about').modal({
+		blurring: true
 	});
 }]);
 

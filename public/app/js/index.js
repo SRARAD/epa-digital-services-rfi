@@ -250,6 +250,7 @@ app.factory('googleFactory', ['$q', function($q) {
 		'administrative_area_level_1',
 		'country'
 	];
+	var previousInfoWindow = false;
 
 	var constructLocationObject = function(result) {
 		var location = {};
@@ -292,14 +293,31 @@ app.factory('googleFactory', ['$q', function($q) {
 		return (facility.ADDRESS_LINE2 ? facility.ADDRESS_LINE2 : facility.ADDRESS_LINE1) + ' ' + facility.CITY_NAME + ' ' + facility.STATE_CODE;
 	};
 
+	var constructFacilityInfo = function(facility) {
+		var html = '<h2>' + facility.PWS_NAME + '</h2>';
+		html += '<p>' + constructFacilityAddressQuery(facility) + '</p>';
+		return html;
+	};
+
 	service.addFacility = function(map, facility) {
 		service.getQueryZipcode(constructFacilityAddressQuery(facility)).then(function(location) {
-			new google.maps.Marker({
+			var infowindow = new google.maps.InfoWindow({
+				content: constructFacilityInfo(facility)
+			});
+			var marker = new google.maps.Marker({
 				map: map,
 				position: {
 					lat: location.lat,
-					lng: location.lng
+					lng: location.lng,
+					title: facility.PWS_NAME
 				}
+			});
+			marker.addListener('click', function() {
+				if (previousInfoWindow) {
+					previousInfoWindow.close();
+				}
+				previousInfoWindow = infowindow;
+				infowindow.open(map, marker);
 			});
 		});
 	};

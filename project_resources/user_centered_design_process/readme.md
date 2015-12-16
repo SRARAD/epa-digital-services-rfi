@@ -12,7 +12,7 @@ In parallel to user interviews,  several technical team members and subject-matt
 
 The team began by developing a "Vision Canvas," a single document meant to articulate the "elevator pitch" for the product: Who uses it? What is its value? What problems is it solving? How will we measure success?
 
-![vision canvas](/images/Visioning_vision_canvas.jpg "Vision Canvas")
+![vision canvas](/images/Visioning_vision_canvas.jpg)
 
 The Vision Canvas articulated exactly what type of users we would target with the first release of our product, and what value the product would bring those users. From there, we defined two personas; Personas were used to ensure we considered all contexts of use and identified the most critical features to build first to best serve user needs. 
 

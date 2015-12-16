@@ -231,6 +231,16 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		return category ? $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code}) : [];
 	};
 
+	$scope.getViolationFacilities = function(category) {
+		var violations = $scope.getViolations(category);
+		var facilities = violations.map(function(violation) {
+			return violation.facility;
+		});
+		return facilities.filter(function(elem, pos) {
+			return facilities.indexOf(elem) == pos;
+		});
+	};
+
 	$scope.hasViolations = function(category) {
 		return $scope.getViolations(category).length !== 0;
 	};

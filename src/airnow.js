@@ -49,9 +49,31 @@ function pullFtpFile(fileUri) {
 
 function parseReportingAreaFile(targetLocation) {
 	var rawData = fs.readFileSync(targetLocation, 'utf-8');
-	var locationMap = rawData.split('\r\n').reduce(function(all, row) {
+	var reportingAreaObject = createReportingAreaObject(rawData);
+	return Object.keys(reportingAreaObject).reduce(function(all, key) {
+		var locationObject = reportingAreaObject[key];
+		var forecasts = reportingAreaObject[key].forecasts;
+		var forecastDates = Object.keys(forecasts).reduce(function(allDates, contaminant) {
+			var curDates = Object.keys(forecasts[contaminant]);
+			var duplicateDates = allDates.concat(curDates);
+			return duplicateDates.filter(function(elem, pos) {
+				return duplicateDates.indexOf(elem) == pos;
+			});
+		}, []).sort(function(date1, date2) {
+			return new Date(date1) - new Date(date2);
+		});
+		locationObject.forecastDates = forecastDates.length > 3 ? forecastDates.slice(0, 3) : forecastDates;
+		all.push(locationObject);
+		return all;
+	}, []).filter(function(obj) {
+		return obj.location;
+	});
+}
+
+function createReportingAreaObject(rawData) {
+	return rawData.split('\r\n').reduce(function(all, row) {
 		var columns = row.split('|');
-		var location =columns[7] + ', ' + columns[8];
+		var location = columns[7] + ', ' + columns[8];
 		if (!all[location]) {
 			all[location] = {
 				location: location,
@@ -69,24 +91,6 @@ function parseReportingAreaFile(targetLocation) {
 		all[location].forecasts[contaminant][forecastDate] = aqi;
 		return all;
 	}, {});
-	return Object.keys(locationMap).reduce(function(all, key) {
-		var locationObject = locationMap[key];
-		var forecasts = locationMap[key].forecasts;
-		var forecastDates = Object.keys(forecasts).reduce(function(allDates, contaminant) {
-			var curDates = Object.keys(forecasts[contaminant]);
-			var duplicateDates = allDates.concat(curDates);
-			return duplicateDates.filter(function(elem, pos) {
-				return duplicateDates.indexOf(elem) == pos;
-			});
-		}, []).sort(function(date1, date2) {
-			return new Date(date1) - new Date(date2);
-		});
-		locationObject.forecastDates = forecastDates.length > 3 ? forecastDates.slice(0, 3) : forecastDates;
-		all.push(locationObject);
-		return all;
-	}, []).filter(function(obj) {
-		return obj.location;
-	});
 }
 
 function getLatLngData(lat, lng) {

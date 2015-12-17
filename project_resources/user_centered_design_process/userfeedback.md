@@ -40,3 +40,12 @@ Water Quality card:
 - list is more important than the map--explore design options that place more prominence on the list. user was also unsure what the map was depicting: is it everything? is it just what I have chosen to expose in the list?
 
 ###Day 3:
+
+About this site: 
+- Need to update heading in modal to match button label. Also, consider moving the link to the green header bar--user confused the "about" content as contextual help and saw it was more general--perhaps should be treated as a utilty-type link
+- Discuss why we want this in a modal--may want a page with more flexibility to add content and updates re: the tool down the line
+
+Search results: 
+-Entering nothing in to the search box still generates results. Consider adding an error. 
+-Air Quality card still causing some confusion. "If this is a forecast, why is it showing yesterday's score?" also, it's still unclear that this is month and day. Perhaps change format to be Thu Dec 17, Fri Dec 18 and so forth. Maybe with Thu on top and Dec 17 underneath?
+-Water quality: List needs ability to keep both types open at once. Also, looks like pin count doesn't match the total locations in the list. Is this a bug?

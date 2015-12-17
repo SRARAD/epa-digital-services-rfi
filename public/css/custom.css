@@ -68,14 +68,16 @@ body > .content, .ui.top-header > .grid {
 
 /* Mobile Screen CSS */
 
-@media screen and (max-width: 480px) {
-	body {
-		font-size: .75em;
-	}
-
+@media screen and (max-width: 768px) {
 	.ui.stackable.grid > .column:not(.row) {
 		padding-left: 0!important;
 		padding-right: 0!important;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	body {
+		font-size: .75em;
 	}
 
 	#query.ui.input {

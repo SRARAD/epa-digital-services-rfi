@@ -58,6 +58,14 @@ body > .content, .ui.top-header > .grid {
 	width: 30em;
 }
 
+.ui.message {
+	background-color: white!important;
+}
+
+.ui.message p {
+	color: black;
+}
+
 /* Mobile Screen CSS */
 
 @media screen and (max-width: 480px) {

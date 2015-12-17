@@ -6,7 +6,7 @@ After some discussion about EPA's strategic plans and opportunities on the web t
   
 In parallel to user interviews,  several technical team members and subject-matter experts with historical knowledge of EPA data reviewed available data to understand its characteristics, context and presentation against user scenarios. The team pulled together an initial list of data for consideration:
   
-<insert databrainstorm jpg>
+![data set brainstorming](images/dataset-brainstorming.jpg)
   
 ###Visioning:
 
@@ -34,4 +34,4 @@ Our product manager, UX designer and developer collaborated in real-time via Sky
 
 Our core team tested features constantly, but we also put our core group of users to work every day testing the latest release. An email was sent to this group every morning outlining what had changed and asking them to test. Later in the day, the user group gathered with the core team to review and prioritize feedback. High priority items were flagged on the project board as "MVP" and remaining items were added to the backlog for later consideration.
 
-<screen cap of daily user feedback and project board showing feedback translated in to a story>
+![user feedback to story](images/feedback-to-story.jpg)

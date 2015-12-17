@@ -90,7 +90,7 @@
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
 			<div class="title">
 				<i class="blue dropdown icon"></i>
-				{{category.label}} - {{getViolations(category).length}} violations from {{getViolationFacilities(category).length}} location(s)
+				{{category.label}} - {{getViolations(category).length}} violations from {{getViolationFacilities(category).length}} location(s) between {{getViolationDates(category)[0]}} and {{getViolationDates(category)[1]}}
 			</div>
 			<div class="content">
 				<table class="ui celled unstackable small compact striped table">

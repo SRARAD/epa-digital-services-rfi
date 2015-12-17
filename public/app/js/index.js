@@ -231,6 +231,13 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		return category ? $filter('filter')($scope.violations, {VIOLATION_CATEGORY_CODE: category.code}) : [];
 	};
 
+	$scope.getViolationDates = function(category) {
+		var dates = $scope.getViolations(category).map(function(violation) {
+			return violation.startDate;
+		});
+		return [moment(Math.min.apply(null, dates)).format('MM/YYYY'), moment(Math.max.apply(null, dates)).format('MM/YYYY')];
+	};
+
 	$scope.getViolationFacilities = function(category) {
 		var violations = $scope.getViolations(category);
 		var facilities = violations.map(function(violation) {

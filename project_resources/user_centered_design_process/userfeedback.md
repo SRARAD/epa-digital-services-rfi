@@ -47,5 +47,7 @@ About this site:
 
 Search results: 
 - Entering nothing in to the search box still generates results. Consider adding an error. 
-- Air Quality card still causing some confusion. "If this is a forecast, why is it showing yesterday's score?" also, it's still unclear that this is month and day. Perhaps change format to be Thu Dec 17, Fri Dec 18 and so forth. Maybe with Thu on top and Dec 17 underneath?
+- Air Quality card still causing some confusion. "If this is a forecast, why is it showing yesterday's score?" also, it's still unclear that this is month and day. Perhaps change format to be Thu Dec 17, Fri Dec 18 and so forth. Maybe with Thu on top and Dec 17 underneath? Also need to indicate how often each card is updated--daily? hourly?
 - Water quality: List needs ability to keep both types open at once. Also, looks like pin count doesn't match the total locations in the list. Is this a bug?
+- Water quality: we are highlighting the most recent (in the last year) violations with an alert and highlighting rows in the tables. Possible backlog item would be exploring color coding or using a different icon for pins on facilities that fall in to that category to better unify the interface for that card and reinforce the overall concept that this data is meant to focus you on the most recent information in these areas. 
+- Water quality: heard from users that they don't understand how "bad" their water quality violations are--is three bad? how does this compare to other areas? perhaps something for the backlog.

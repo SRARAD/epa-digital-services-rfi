@@ -34,4 +34,4 @@ Our product manager, UX designer and developer collaborated in real-time via Sky
 
 Our core team tested features constantly, but we also put our core group of users to work every day testing the latest release. An email was sent to this group every morning outlining what had changed and asking them to test. Later in the day, the user group gathered with the core team to review and prioritize feedback. High priority items were flagged on the project board as "MVP" and remaining items were added to the backlog for later consideration.
 
-<screen cap of daily user feedback and project board showing feedback translated in to a story>
+![user feedback to story](images/feedback-to-story.jpg)

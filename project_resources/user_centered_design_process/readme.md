@@ -1,3 +1,5 @@
+##User Centered Design Approach
+
 ###Discovery:
 
 After some discussion about EPA's strategic plans and opportunities on the web to further the agency's mission, the project team decided that we wanted to build something to serve the public--something that would fill a gap in EPA's service to citizens, be useful and be understandable by an average citizen. We documented our assumptions, hypothesis and a few key tasks. We then conducted several user interviews to validate our assumptions about the value of building a tool that could serve up the type of data we had identified.

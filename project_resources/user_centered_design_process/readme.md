@@ -26,9 +26,9 @@ Our product manager, UX designer and developer collaborated in real-time via Sky
 
 ![results page screen mockup](images/results_page_mockup.jpg)
 
-![air widget design sketch](images/air-widget-design.jpg)
+![air widget design sketch](images/air-widget-design-sketch.jpg)
 
-![water violation refactor sketch](images/water-violation-refactor-drawing.jpg)
+![water violation refactor sketch](images/water-violation-refactor-sketch.jpg)
 
 ###Testing:
 

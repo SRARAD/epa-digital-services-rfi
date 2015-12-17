@@ -37,6 +37,27 @@ body > .content, .ui.top-header > .grid {
 	margin-top: 0;
 }
 
+.ui.about.button {
+	float: right;
+	background-color: white;
+}
+
+/* Landing Page */
+
+.background-image {
+	background-image: url('/images/landing-photo.jpg');
+	background-position: center;
+	background-size: cover;
+	height: 50em;
+	margin-top: 3em;
+	padding: 1em 3em;
+	border-radius: 5px;
+}
+
+.background-image #query {
+	width: 30em;
+}
+
 /* Mobile Screen CSS */
 
 @media screen and (max-width: 480px) {
@@ -59,5 +80,14 @@ body > .content, .ui.top-header > .grid {
 
 	#map {
 		height: 200px;
+	}
+
+	.background-image {
+		height: 30em;
+		padding: .5em 1em;
+	}
+
+	.background-image #query {
+		width: 20em;
 	}
 }

@@ -1,9 +1,9 @@
 /* General */
 
-body > .content, .menu-wrapper {
-	 max-width: 1000px;
-	 margin: 15px auto;
-	 padding: 0 1rem;
+body > .content, .ui.top-header > .grid {
+	max-width: 1000px;
+	margin: 15px auto;
+	padding: 0 1rem;
 }
 
 .hoverable {
@@ -25,6 +25,16 @@ body > .content, .menu-wrapper {
 #map {
 	height: 400px;
 	margin-top: 1em;
+}
+
+/* Custom Colors */
+
+.ui.top-header {
+	background-color: #298E10;
+}
+
+.ui.top-header > .grid {
+	margin-top: 0;
 }
 
 /* Mobile Screen CSS */

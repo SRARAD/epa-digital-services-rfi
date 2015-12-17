@@ -18,7 +18,4 @@ Our work was always done in the open. We kept phone lines and webex open to supp
 
 The SRA Team is proud to present XXXXX.
 
-To install and run XXXXXX, please follow instructions located in our repository.
-
-
-
+To install and run XXXXXX, please follow the [install instructions](/docs/Install.md).

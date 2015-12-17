@@ -42,6 +42,20 @@ body > .content, .ui.top-header > .grid {
 	background-color: white;
 }
 
+.ui.blue.segment:not(.inverted) {
+	background-color: #E3F4FD;
+	border-top: 1px solid #B3D9EC;
+}
+
+.ui.blue.segment:not(.inverted), .ui.divider:not(.vertical):not(.horizontal) {
+	border-color: #B3D9EC;
+}
+
+.ui.segment > i.circular.question.icon {
+	box-shadow: none;
+	background-color: #B3D9EC;
+}
+
 /* Landing Page */
 
 .background-image {
@@ -58,12 +72,26 @@ body > .content, .ui.top-header > .grid {
 	width: 30em;
 }
 
-.ui.message {
+.ui.uv.message {
 	background-color: white!important;
+	box-shadow: none;
+	border: 1px solid #B3D9EC;
 }
 
 .ui.message p {
 	color: black;
+}
+
+.ui.table {
+	border: 1px solid #B3D9EC;
+}
+
+.ui.table thead th {
+	border-bottom-color: #B3D9EC;
+}
+
+.ui.table tr td {
+	border-top-color: #B3D9EC;
 }
 
 /* Mobile Screen CSS */

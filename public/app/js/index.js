@@ -187,7 +187,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				$q.all(facilities.map(function(facility) {
 					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
 						var nonMonitoringViolations = results.filter(function(result) {
-							return result.CONTAMINANT_CODE != 'MR';
+							return result.VIOLATION_CATEGORY_CODE != 'MR';
 						});
 						nonMonitoringViolations.forEach(function(violation) {
 							violation.facilityName = decodeURIComponent(facility.PWS_NAME);

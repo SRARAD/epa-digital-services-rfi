@@ -1,3 +1,7 @@
+<div class="ui small about basic button" ng-click="showHelp()">
+	About This Site
+</div>
+<img class="ui medium image" src="/images/logo-app.png" style="margin-bottom: 1em;" />
 <div id="query" class="ui huge fluid labeled action input">
 	<div class="ui label">
 		Location
@@ -5,7 +9,7 @@
 	<input type="text" placeholder="Enter address, city, state, and/or zipcode" ng-model="query" enter-key="requery()">
 	<button class="ui primary button" style="font-size: 1em;" ng-click="requery()">Search</button>
 </div>
-<div class="ui divider" style="clear: both;"></div>
+<div class="ui divider" style="clear: both; border: 0;"></div>
 <div class="ui icon negative message" ng-if="locationError">
 	<i class="warning sign icon"></i>
 	<div class="content">
@@ -13,14 +17,10 @@
 		<p>The location you searched is too general or outside of the United States, please search for a US city or zipcode.</p>
 	</div>
 </div>
-<div class="ui small basic left labeled icon button" ng-click="showHelp()" style="float: right;">
-	<i class="ui question icon"></i>
-	About
-</div>
 <p>Showing results for: <b>{{location}}</b></p>
 <div class="ui stackable grid" style="clear: both;">
 	<div class="ten wide column">
-		<div class="ui segment">
+		<div class="ui blue segment">
 			<i class="circular question hoverable icon" style="float: right;" data-label="air"></i>
 			<h3 class="ui floated left header">Daily Air Quality Forecast</h3>
 			<div class="ui divider" style="clear: both;"></div>
@@ -58,11 +58,11 @@
 		</div>
 	</div>
 	<div class="six wide column">
-		<div class="ui segment">
+		<div class="ui blue segment">
 			<i class="circular question hoverable icon" style="float: right;" data-label="uv"></i>
 			<h3 class="ui floated left header">Today's UV Index</h3>
 			<div class="ui divider" style="clear: both;"></div>
-			<div class="ui icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
+			<div class="ui uv icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
 				<i class="{{uvData.icon}} icon"></i>
 				<div class="content">
 					<div class="header">{{uvData.rating}} - {{uvData.header}}</div>
@@ -78,7 +78,7 @@
 		</div>
 	</div>
 </div>
-<div class="ui segment">
+<div class="ui blue segment">
 	<i class="circular question hoverable icon" style="float: right;" data-label="water"></i>
 	<h3 class="ui floated left header">Water Quality Health Violations</h3>
 	<div class="ui divider" style="clear: both;"></div>
@@ -89,7 +89,7 @@
 	<div class="ui styled fluid accordion" ng-if="violations.length != 0">
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
 			<div class="title">
-				<i class="dropdown icon"></i>
+				<i class="blue dropdown icon"></i>
 				{{category.label}} - {{getViolations(category).length}} violations from {{getViolationFacilities(category).length}} location(s)
 			</div>
 			<div class="content">

@@ -1,19 +1,13 @@
-<div class="ui middle aligned centered grid">
-	<div class="row">
-		<div class="sixteen wide">
-			<div class="ui small basic left labeled icon button" ng-click="showHelp()" style="float: right;">
-				<i class="ui question icon"></i>
-				About
-			</div>
-			<h1 class="ui center aligned icon header">
-				<i class="green circular leaf icon"></i>
-				EPA Around Me
-				<div class="sub header">Quickly access environmental health information and alerts in your area</div>
-			</h1>
-			<div id="query" class="ui icon fluid huge input">
-				<input id="search" type="text" placeholder="Enter address, city, state, and/or zipcode" ng-model="query" enter-key="search()">
-				<i class="inverted circular search link icon" ng-click="search()"></i>
-			</div>
-		</div>
+<div class="background-image">
+	<div class="ui small about button" ng-click="showHelp()">
+		About This Site
+	</div>
+	<img class="ui medium image" src="/images/logo-app.png" />
+	<h2 class="ui header" style="max-width: 20em;">
+		Quickly access environmental health information and alerts in your area
+	</h2>
+	<div id="query" class="ui large action input">
+		<input id="search" type="text" placeholder="Enter address, city, state, and/or zipcode" ng-model="query" enter-key="search()">
+		<button class="ui primary button" ng-click="search()">Search</button>
 	</div>
 </div>

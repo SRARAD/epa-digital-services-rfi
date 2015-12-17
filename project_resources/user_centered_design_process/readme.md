@@ -6,7 +6,7 @@ After some discussion about EPA's strategic plans and opportunities on the web t
   
 In parallel to user interviews,  several technical team members and subject-matter experts with historical knowledge of EPA data reviewed available data to understand its characteristics, context and presentation against user scenarios. The team pulled together an initial list of data for consideration:
   
-<insert databrainstorm jpg>
+![data set brainstorming](images/dataset-brainstorming.jpg)
   
 ###Visioning:
 

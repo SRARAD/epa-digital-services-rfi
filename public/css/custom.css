@@ -1,5 +1,9 @@
 /* General */
 
+body {
+	background-color: #F5F5F5;
+}
+
 body > .content, .ui.top-header > .grid {
 	max-width: 1000px;
 	margin: 15px auto;

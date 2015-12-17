@@ -2,9 +2,9 @@
 This project is an AngularJS app which is served by a small Express application.
 
 ## Dependencies
-- Node.js
-- NPM
-- Bower
+- [Node.js](https://nodejs.org/en/)
+- [NPM](https://www.npmjs.com/) (normally comes packaged with Node.js)
+- [Bower](http://bower.io/) (install with `npm install -g bower`)
 
 ## Install
 Run the following commands to get the project up and running:
@@ -37,9 +37,4 @@ docker run -d --name epa-digital-services-rfi -p 8080:8080 csra/epa-digital-serv
 The app will then be running at http://[docker-ip]:8080.
 
 ## Testing
-Testing requires additional dependencies:
-- Karma
-- Jasmine
-- Mocha
-
 Run the tests with `npm test`.

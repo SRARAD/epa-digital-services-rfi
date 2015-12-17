@@ -190,7 +190,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 							return result.CONTAMINANT_CODE != 'MR';
 						});
 						nonMonitoringViolations.forEach(function(violation) {
-							violation.facilityName = facility.PWS_NAME;
+							violation.facilityName = decodeURIComponent(facility.PWS_NAME);
 							violation.facility = facility;
 							violation.contaminantName = $scope.contaminantCodes[violation.CONTAMINANT_CODE];
 							violation.startDate = moment(violation.COMPL_PER_BEGIN_DATE, 'DD-MMM-YY');

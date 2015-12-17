@@ -187,7 +187,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				$q.all(facilities.map(function(facility) {
 					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
 						var nonMonitoringViolations = results.filter(function(result) {
-							return result.VIOLATION_CATEGORY_CODE != 'MR';
+							return result.VIOLATION_CATEGORY_CODE != 'MR' && result.VIOLATION_CATEGORY_CODE != 'Other' ;
 						});
 						nonMonitoringViolations.forEach(function(violation) {
 							violation.facilityName = decodeURIComponent(facility.PWS_NAME);
@@ -246,6 +246,15 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		return facilities.filter(function(elem, pos) {
 			return facilities.indexOf(elem) == pos;
 		});
+	};
+
+	$scope.getRecentViolations = function() {
+		return $filter('filter')($scope.violations, $scope.isRecentViolation);
+	};
+
+	$scope.isRecentViolation = function(violation) {
+		var recentCutoff = moment().subtract(1, 'years').toDate().getTime();
+		return violation.startDate.toDate().getTime() >= recentCutoff;
 	};
 
 	$scope.hasViolations = function(category) {

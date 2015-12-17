@@ -60,6 +60,10 @@ body > .content, .ui.top-header > .grid {
 	background-color: #B3D9EC;
 }
 
+.warning-background {
+	background-color: #FFFAF3;
+}
+
 /* Landing Page */
 
 .background-image {

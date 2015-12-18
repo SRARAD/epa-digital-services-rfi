@@ -32,6 +32,10 @@ Our product manager, UX designer and developer collaborated in real-time via Sky
 
 ![water violation refactor sketch](images/water-violation-refactor-sketch.jpg)
 
+![homepage screen grab no styling](images/home_screencap_nostyling.jpg)
+
+![results screen grab no styling](images/results_screencap_nostyling.jpg)
+
 ###Testing:
 
 Our core team tested features constantly, but we also put our core group of users to work every day testing the latest release. An email was sent to this group every morning outlining what had changed and asking them to test. Later in the day, the user group gathered with the core team to review and prioritize feedback. High priority items were flagged on the project board as "MVP" and remaining items were added to the backlog for later consideration.

@@ -2,11 +2,11 @@
 
 ###Discovery:
 
-After some discussion about EPA's strategic plans and opportunities on the web to further the agency's mission, the project team decided to build something to serve the public--a product that would fill a gap in EPA's service to citizens and be immediately useful and understandable. We documented our assumptions, hypothesis and a few key tasks. We then conducted several user interviews to validate our assumptions about the value of building this product.
+After some discussion about EPA's strategic plans and opportunities on the web to further the agency's mission, the project team decided to build something to serve the public-a product that would fill a gap in EPA's service to citizens and be immediately useful and understandable. We documented our assumptions, hypothesis and a few key tasks. We then conducted several user interviews to test the value of our potential solution.
 
 ![assumptions user tasks](images/Discovery_assumptions_user_tasks.jpg)
   
-In parallel to user interviews,  several technical team members and subject-matter experts with historical knowledge of EPA data reviewed available data to understand its characteristics, context and presentation against user scenarios. The team pulled together an initial list of data for consideration:
+In parallel to user interviews,  several technical team members and subject-matter experts with historical knowledge of EPA data reviewed available data to understand its characteristics, context and presentation against user scenarios. The team pulled together an initial list of data for consideration.
   
 ![data set brainstorming](images/dataset-brainstorming.jpg)
   
@@ -38,6 +38,6 @@ Our product manager, UX designer and developer collaborated via Skype, Webex, ph
 
 ###Testing:
 
-Our core team tested features constantly, but we also put our core group of users to work every day reviewing the latest release. An email was sent to this group every morning outlining what had changed and asking them to test. Later in the day, the user group gathered with the core team to review and prioritize feedback. High priority items were added and then flagged on the project board as "MVP," and remaining items were added to the backlog for later consideration. In addition to unit and user testing, once the core MVP was developed we brought in technical and accessibility experts to review code. Their feedback was also captured in the backlog.
+Our project team tested features constantly, but we also put our core group of users to work reviewing the latest release. An email was sent to this group every morning outlining what had changed and asking them to test. Later in the day, the user group gathered to review and prioritize feedback. High priority items were added to the project board and then flagged as "MVP," and remaining items were added to the backlog for later consideration. In addition to unit and user testing, once the core MVP was developed we brought in technical and accessibility experts to provide additional perspective and review code. Their feedback was also captured in the backlog.
 
 ![user feedback to story](images/feedback-to-story.jpg)

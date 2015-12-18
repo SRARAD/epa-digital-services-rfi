@@ -18,7 +18,7 @@ The team began by developing a "Vision Canvas," a single document meant to artic
 
 The Vision Canvas articulated exactly what type of users we would target with the first release of our product, and what value the product would bring those users. From there, we defined two personas; Personas were used to ensure we considered all contexts of use and identified the most critical features to build first to best serve user needs. 
 
-<insert persona screen caps>
+![personas screen grab](images/persona-screen-caps.jpg)
 
 ###Co-development:
 

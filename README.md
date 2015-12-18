@@ -2,9 +2,7 @@
 
 ###URL: http://epa-digital-services-rfi-dev.srarad.com/
 
-###Installation Instructions: 
-
-[Install Instructions](#Install Instructions)
+###Installation Instructions: [Install Instructions](#Install Instructions)
 
 SRA International, Inc., a CSRA Company is a large  company with  the unique ability to stay agile by operating with an integrator mindset where the best idea wins.  Our teams are lean and efficient, but our size means we have  deep reach-back to Communities of Practice that house experts in user experience design, agile software development, cyber security, cloud technologies, and organizational change management, among others. Our evolving culture is an incubator for self-organizing, self-managing teams to come together quickly to create amazing things, as was the case with our team for this effort.
 

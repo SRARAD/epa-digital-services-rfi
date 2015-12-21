@@ -14,7 +14,7 @@
 	<i class="warning sign icon"></i>
 	<div class="content">
 		<div class="header">Location Error</div>
-		<p>The location you searched is too general or outside of the United States, please search for a US city or zipcode.</p>
+		<p>The location you searched is too general or outside of the United States. Please search by US city or zip code.</p>
 	</div>
 </div>
 <p>Showing results for: <b>{{location}}</b></p>
@@ -104,7 +104,7 @@
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
 			<div class="title">
 				<i class="blue dropdown icon"></i>
-				{{category.label}} - {{getViolations(category).length}} violations from {{getViolationFacilities(category).length}} location(s) between {{getViolationDates(category)[0]}} and {{getViolationDates(category)[1]}}
+				{{category.label}} - {{getViolations(category).length}} violation(s) from {{getViolationFacilities(category).length}} location(s) between {{getViolationDates(category)[0]}} and {{getViolationDates(category)[1]}}.
 			</div>
 			<div class="content">
 				<table class="ui celled unstackable small compact striped table">

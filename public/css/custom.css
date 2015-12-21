@@ -61,7 +61,7 @@ body > .content, .ui.top-header > .grid {
 }
 
 .warning-background {
-	background-color: #FFE3BD;
+	background-color: #FFE3BD!important;
 }
 
 /* Landing Page */

@@ -24,6 +24,12 @@ body > .content, .ui.top-header > .grid {
 	box-shadow: 0 2px 0 inset;
 }
 
+.about.button {
+	position: absolute;
+	right: 1rem;
+	bottom: 1rem;
+}
+
 /* Google Map */
 
 #map {
@@ -39,11 +45,6 @@ body > .content, .ui.top-header > .grid {
 
 .ui.top-header > .grid {
 	margin-top: 0;
-}
-
-.ui.about.button {
-	float: right;
-	background-color: white;
 }
 
 .ui.blue.segment:not(.inverted) {

@@ -29,6 +29,11 @@
 						<img class="ui image" src="/images/logo-epa.png" style="max-height: 80px;" />
 					</a>
 				</div>
+				<div class="column" style="text-align: right;">
+					<div id="about-link" class="ui small inverted about basic button">
+						About This Site
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -70,6 +75,9 @@
 			$(function() {
 				$('#about').modal({
 					blurring: true
+				});
+				$('#about-link').click(function() {
+					$('#about').modal('show');
 				});
 			});
 		</script>

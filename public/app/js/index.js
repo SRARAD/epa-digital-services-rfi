@@ -18,7 +18,9 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 	$('#search').focus();
 
 	$scope.search = function() {
-		$location.path('/search/' + encodeURIComponent($scope.query));
+		if ($scope.query && $scope.query.length !== 0) {
+			$location.path('/search/' + encodeURIComponent($scope.query));
+		}
 	};
 
 	$scope.showHelp = function() {
@@ -93,7 +95,9 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	};
 
 	$scope.requery = function() {
-		$location.path('/search/' + encodeURIComponent($scope.query));
+		if ($scope.query && $scope.query.length !== 0) {
+			$location.path('/search/' + encodeURIComponent($scope.query));
+		}
 	};
 
 	$scope.retrieveData = function() {

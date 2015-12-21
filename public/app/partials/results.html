@@ -115,9 +115,11 @@
 						<tr>
 							<th class="hoverable" ng-repeat="header in tableHeaders" ng-click="changeSort(header.field)">
 								<i class="circular question icon" data-html="{{header.desc}}" ng-if="header.desc"></i>
-								{{header.label}}
-								<i ng-if="sortField == header.field" class="ui sort {{ reverse ? 'ascending' : 'descending' }} icon"></i>
-								<i ng-if="sortField != header.field" class="ui sort icon"></i>
+								<span tabindex="0" enter-key="changeSort(header.field)">
+									{{header.label}}
+									<i ng-if="sortField == header.field" class="ui sort {{ reverse ? 'ascending' : 'descending' }} icon"></i>
+									<i ng-if="sortField != header.field" class="ui sort icon"></i>
+								</span>
 							</th>
 						</tr>
 					</thead>

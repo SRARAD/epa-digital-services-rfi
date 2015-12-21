@@ -4,7 +4,7 @@
 
 ###Installation Instructions: [Install Instructions](#Install Instructions)
 
-SRA International, Inc., a CSRA Company is a large organization with  the unique ability to stay agile by operating with an integrator mindset where the best idea wins.  Our teams are lean and efficient, but our size means we have  deep reach-back to Communities of Practice that house experts in user experience design, agile software development, cyber security, cloud technologies, and organizational change management, among others. Our evolving culture is an incubator for self-organizing, self-managing teams to come together quickly to create amazing things, as was the case with our team for this effort.
+SRA International, Inc., a CSRA Company, is a large organization with  the unique ability to stay agile by operating with an integrator mindset where the best idea wins.  Our teams are lean and efficient, but our size means we have  deep reach-back to Communities of Practice that house experts in user experience design, agile software development, cyber security, cloud technologies, and organizational change management, among others. Our evolving culture is an incubator for self-organizing, self-managing teams to come together quickly to create amazing things, as was the case with our team for this effort.
 
 We empowered a technical and agile expert, Justin Kent, to be our Product Manager. His responsibility was to drive priorities and ensure quality. With just two experts from SRA's Rapid Application Development team and User Experience Practice, our team built a scalable lightweight application that displays data from three different environmental data sets in under a week. 
 
@@ -16,7 +16,7 @@ We established our development environment to accommodate releasing early, itera
 
 To support efficient delivery, we built in quality and security from the start. Our Definition of Done included unit test coverage, responsive design standards, accessibility testing and required that each component followed the design style guide. The Product Manager and User Experience Designer were always available for final quality validation and acceptance. Using AWS ensured that the product will be secure, available, scalable, and reliable. We used Docker containers to allow for stand-alone configuration of the prototype.
 
-Our work was always done in the open. We kept phone lines and webex open to support constant co-design and co-development among team members and users that were not always co-located. We scribbled on white boards, texted, shared screens and messaged each other constantly. And where there was an opportunity to converse over document, we always chose the former. This team was committed to the leanest, fastest delivery possible.
+Our work was always done in the open. We kept phone lines and WebEx open to support constant co-design and co-development among team members and users that were not always co-located. We scribbled on white boards, texted, shared screens and messaged each other constantly. And where there was an opportunity to converse over document, we always chose the former. This team was committed to the leanest, fastest delivery possible.
 
 The SRA Team is proud to present XXXXX.
 
@@ -44,7 +44,7 @@ node index.js
 Then navigate to [http://localhost:8080](http://localhost:8080) to view the application.
 
 ## Docker
-Docker can also be used to build and run the project. To build the container run:
+Docker can also be used to build and run the project. Then to run the container execute:
 
 ```bash
 docker build -t csra/epa-digital-services-rfi .

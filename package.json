@@ -2,6 +2,7 @@
   "name": "epa-digital-services-rfi",
   "version": "1.0.0-RC1",
   "description": "",
+  "license": "MIT",
   "main": "index.js",
   "directories": {
     "test": "test"

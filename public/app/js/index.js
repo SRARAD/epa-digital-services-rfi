@@ -315,6 +315,11 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			html: $('#' + contentId).html()
 		});
 	});
+
+	/* Accessibility */
+	$scope.toggleAccordion = function(selector) {
+		$(selector).accordion('toggle');
+	};
 }]);
 
 app.factory('googleFactory', ['$q', function($q) {

@@ -105,7 +105,7 @@
 	</div>
 	<div class="ui styled fluid accordion" ng-if="violations.length != 0">
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
-			<div class="title">
+			<div id="category-{{$index}}" class="title" tabindex="0" enter-key="toggleAccordion('#category-' + $index)">
 				<i class="blue dropdown icon"></i>
 				{{category.label}} - {{getViolations(category).length}} violation(s) from {{getViolationFacilities(category).length}} location(s) between {{getViolationDates(category)[0]}} and {{getViolationDates(category)[1]}}.
 			</div>

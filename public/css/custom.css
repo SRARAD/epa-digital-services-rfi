@@ -1,0 +1,135 @@
+/* General */
+
+body {
+	background-color: #F5F5F5;
+}
+
+body > .content, .ui.top-header > .grid {
+	max-width: 1000px;
+	margin: 15px auto;
+	padding: 0 1rem;
+}
+
+.hoverable {
+	cursor: pointer!important;
+}
+
+#about h4.ui.header {
+	margin-top: .75em;
+}
+
+/* Menu */
+
+.selected {
+	box-shadow: 0 2px 0 inset;
+}
+
+/* Google Map */
+
+#map {
+	height: 400px;
+	margin-top: 1em;
+}
+
+/* Custom Colors */
+
+.ui.top-header {
+	background-color: #298E10;
+}
+
+.ui.top-header > .grid {
+	margin-top: 0;
+}
+
+.ui.about.button {
+	float: right;
+	background-color: white;
+}
+
+.ui.blue.segment:not(.inverted) {
+	background-color: #E3F4FD;
+	border-top: 1px solid #B3D9EC;
+}
+
+.ui.blue.segment:not(.inverted), .ui.divider:not(.vertical):not(.horizontal) {
+	border-color: #B3D9EC;
+}
+
+.ui.segment > i.circular.question.icon {
+	box-shadow: none;
+	background-color: #B3D9EC;
+}
+
+/* Landing Page */
+
+.background-image {
+	background-image: url('/images/landing-photo.jpg');
+	background-position: center;
+	background-size: cover;
+	height: 50em;
+	margin-top: 3em;
+	padding: 1em 3em;
+	border-radius: 5px;
+}
+
+.background-image #query {
+	width: 30em;
+}
+
+.ui.uv.message {
+	background-color: white!important;
+	box-shadow: none;
+	border: 1px solid #B3D9EC;
+}
+
+.ui.message p {
+	color: black;
+}
+
+.ui.table {
+	border: 1px solid #B3D9EC;
+}
+
+.ui.table thead th {
+	border-bottom-color: #B3D9EC;
+}
+
+.ui.table tr td {
+	border-top-color: #B3D9EC;
+}
+
+/* Mobile Screen CSS */
+
+@media screen and (max-width: 768px) {
+	.ui.stackable.grid > .column:not(.row) {
+		padding-left: 0!important;
+		padding-right: 0!important;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	body {
+		font-size: .75em;
+	}
+
+	#query.ui.input {
+		font-size: 1.15em;
+	}
+
+	.ui.air.table th:nth-child(6), .ui.air.table td:nth-child(6) {
+		display: none;
+	}
+
+	#map {
+		height: 200px;
+	}
+
+	.background-image {
+		height: 30em;
+		padding: .5em 1em;
+	}
+
+	.background-image #query {
+		width: 20em;
+	}
+}

@@ -2,7 +2,7 @@
 
 ###Discovery:
 
-After some discussion about EPA's strategic plans and opportunities on the web to further the agency's mission, the project team decided to build something to serve the public-a product that would fill a gap in EPA's service to citizens and be immediately useful and understandable. We documented our assumptions, hypothesis and a few key tasks. We then conducted several user interviews to test the value of our potential solution.
+After some discussion about EPA's strategic plans and opportunities on the web to further the agency's mission, we decided to build something to serve the public--a product that would fill a gap in EPA's service to citizens and be immediately useful and understandable. We documented our assumptions, hypothesis and a few key tasks. We then conducted several user interviews to test the value of our potential solution.
 
 <img src="images/Discovery_assumptions_user_tasks.jpg" border="4"/>
   
@@ -22,7 +22,7 @@ The Vision Canvas articulated what types of users we would target with the first
 
 ###Co-development:
 
-Our product manager, UX designer and developer collaborated via Skype, Webex, phone and Facetime to deliver elements of a working product as quickly as possible. We created little documentation, instead using hand-drawings, balsamiq wireframes, and real-time development to execute faster. Our developer used an existing framework to stand up the product quickly--it looked great "out of the box" and more importantly, it enabled us to being user testing immediately, as well as to identify UI elements that would need to be defined via a style guide.
+Our product manager, UX designer and developer collaborated via Skype, Webex, phone and Facetime to deliver elements of a working product as quickly as possible. We created little documentation, instead using hand-drawings, Balsamiq wireframes, and real-time development to execute faster. Our developer used an existing framework to stand up the product quickly--it looked great "out of the box" and more importantly, it enabled us to begin user testing immediately, as well as to identify UI elements that would need to be defined via a style guide.
 
 ![landing page screen mockup](images/landing_page_mockup.jpg)
 

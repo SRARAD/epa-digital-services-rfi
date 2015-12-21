@@ -1,8 +1,8 @@
 <div id="query" class="ui huge fluid labeled action input">
-	<div class="ui label">
+	<label class="ui label" for="query">
 		Location
-	</div>
-	<input type="text" placeholder="Enter address, city, state, and/or zipcode" ng-model="query" enter-key="requery()">
+	</label>
+	<input name="query" type="text" placeholder="Enter address, city, state, and/or zipcode" ng-model="query" enter-key="requery()">
 	<button class="ui primary button" tabindex="0" style="font-size: 1em;" ng-click="requery()">Search</button>
 </div>
 <div class="ui divider" style="clear: both; border: 0;"></div>

@@ -320,6 +320,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 	$scope.toggleAccordion = function(selector) {
 		$(selector).accordion('toggle');
 	};
+
+	$scope.togglePopup = function(selector) {
+		$(selector).popup('toggle');
+	};
 }]);
 
 app.factory('googleFactory', ['$q', function($q) {

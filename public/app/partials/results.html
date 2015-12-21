@@ -86,6 +86,20 @@
 		<i class="circular check icon"></i>
 		No Violations Found
 	</h4>
+	<div class="ui icon warning message" ng-if="getRecentViolations().length != 0 && violations.length != 0">
+		<i class="warning sign icon"></i>
+		<div class="content">
+			<div class="header">Recent Violations Found</div>
+			<p>There have been {{getRecentViolations().length}} violations in this area over the past year.</p>
+		</div>
+	</div>
+	<div class="ui icon positive message" ng-if="getRecentViolations().length == 0 && violations.length != 0">
+		<i class="check sign icon"></i>
+		<div class="content">
+			<div class="header">No Recent Violations</div>
+			<p>There have been no violations in this area over the past year.</p>
+		</div>
+	</div>
 	<div class="ui styled fluid accordion" ng-if="violations.length != 0">
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
 			<div class="title">
@@ -105,7 +119,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="violation in getViolations(category) | orderBy: sortField : reverse">
+						<tr ng-repeat="violation in getViolations(category) | orderBy: sortField : reverse" ng-class="{'warning-background' : isRecentViolation(violation)}">
 							<td>{{violation.facilityName}}</td>
 							<td>{{violation.contaminantName}}</td>
 							<td>{{violation.startDate.format('MM/DD/YY')}}</td>

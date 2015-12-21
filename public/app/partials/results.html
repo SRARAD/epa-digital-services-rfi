@@ -86,18 +86,25 @@
 		<i class="circular check icon"></i>
 		No Violations Found
 	</h4>
-	<div class="ui icon warning message" ng-if="getRecentViolations().length != 0 && violations.length != 0">
+	<div class="ui icon warning message" ng-if="!waterLoading && getRecentViolations().length != 0 && violations.length != 0">
 		<i class="warning sign icon"></i>
 		<div class="content">
 			<div class="header">Recent Violations Found</div>
 			<p>There have been {{getRecentViolations().length}} violations in this area over the past year.</p>
 		</div>
 	</div>
-	<div class="ui icon positive message" ng-if="getRecentViolations().length == 0 && violations.length != 0">
+	<div class="ui icon positive message" ng-if="!waterLoading && getRecentViolations().length == 0 && violations.length != 0">
 		<i class="check sign icon"></i>
 		<div class="content">
 			<div class="header">No Recent Violations</div>
 			<p>There have been no violations in this area over the past year.</p>
+		</div>
+	</div>
+	<div class="ui icon message" ng-if="waterLoading && violations.length != 0">
+		<i class="circle notched loading icon"></i>
+		<div class="content">
+			<div class="header">Violations Populating</div>
+			<p>Water quality violations have been found and more are being received</p>
 		</div>
 	</div>
 	<div class="ui styled fluid accordion" ng-if="violations.length != 0">

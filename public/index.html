@@ -30,7 +30,7 @@
 					</a>
 				</div>
 				<div class="column" style="text-align: right;">
-					<div id="about-link" class="ui small inverted about basic button">
+					<div id="about-link" tabindex="0" class="ui small inverted about basic button">
 						About This Site
 					</div>
 				</div>
@@ -78,6 +78,11 @@
 				});
 				$('#about-link').click(function() {
 					$('#about').modal('show');
+				});
+				$('#about-link').keyup(function(e) {
+					if (e.which === 13) {
+						$('#about').modal('show');
+					}
 				});
 			});
 		</script>

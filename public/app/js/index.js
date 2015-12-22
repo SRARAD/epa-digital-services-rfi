@@ -209,7 +209,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 							$('[data-html]').popup({
 								position: 'top center',
 								html: $(this).attr('data-html'),
-								hoverable: true
+								hoverable: true,
+								exclusive: true
 							});
 						}, 0);
 					});
@@ -263,12 +264,14 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			$scope.airData = response.data;
 			setTimeout(function() {
 				$('[data-content]').popup({
-					position: 'top center'
+					position: 'top center',
+					exclusive: true
 				});
 				$('[data-html]').popup({
 					position: 'top center',
 					html: $(this).attr('data-html'),
-					hoverable: true
+					hoverable: true,
+					exclusive: true
 				});
 			}, 0);
 		});
@@ -312,9 +315,19 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		var contentId = $(me).attr('data-label');
 		$(me).popup({
 			position: 'top center',
-			html: $('#' + contentId).html()
+			html: $('#' + contentId).html(),
+			exclusive: true
 		});
 	});
+
+	/* Accessibility */
+	$scope.toggleAccordion = function(selector) {
+		$(selector).accordion('toggle');
+	};
+
+	$scope.togglePopup = function(selector) {
+		$(selector).popup('toggle');
+	};
 }]);
 
 app.factory('googleFactory', ['$q', function($q) {

@@ -60,8 +60,12 @@ body > .content, .ui.top-header > .grid {
 	background-color: #B3D9EC;
 }
 
-.warning-background {
-	background-color: #FFE3BD!important;
+.ui.striped.table tbody tr.warning-background {
+	background-color: #FFE3BD;
+}
+
+.ui.striped.table tbody tr.warning-background:nth-child(2n) {
+	background-color: #FFD9A3;
 }
 
 /* Landing Page */

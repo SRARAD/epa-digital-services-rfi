@@ -22,10 +22,6 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 			$location.path('/search/' + encodeURIComponent($scope.query));
 		}
 	};
-
-	$scope.showHelp = function() {
-		$('#about').modal('show');
-	};
 }]);
 
 app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', 'googleFactory', function($scope, $http, $filter, $location, $routeParams, $q, googleFactory) {
@@ -89,10 +85,6 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.states = response.data;
 		$scope.counter--;
 	});
-
-	$scope.showHelp = function() {
-		$('#about').modal('show');
-	};
 
 	$scope.requery = function() {
 		if ($scope.query && $scope.query.length !== 0) {

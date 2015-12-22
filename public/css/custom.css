@@ -24,10 +24,10 @@ body > .content, .ui.top-header > .grid {
 	box-shadow: 0 2px 0 inset;
 }
 
-.about.button {
-	position: absolute;
-	right: 1rem;
-	bottom: 1rem;
+.about-wrapper {
+	display: flex!important;
+	justify-content: flex-end;
+	align-items: center;
 }
 
 /* Google Map */

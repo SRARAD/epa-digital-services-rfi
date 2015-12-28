@@ -14,8 +14,12 @@ app.config(['$routeProvider', function($routeProvider) {
 	});
 }]);
 
-app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location) {
+app.controller('LandingCtrl', ['$scope', '$location', '$window', function($scope, $location, $window) {
 	$('#search').focus();
+
+	$scope.$on('$viewContentLoaded', function(event) {
+		$window.ga('send', 'pageview', { page: $location.url() });
+	});
 
 	$scope.search = function() {
 		if ($scope.query && $scope.query.length !== 0) {
@@ -24,10 +28,14 @@ app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location
 	};
 }]);
 
-app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', 'googleFactory', function($scope, $http, $filter, $location, $routeParams, $q, googleFactory) {
+app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', '$window', 'googleFactory', function($scope, $http, $filter, $location, $routeParams, $q, $window, googleFactory) {
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/';
 	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/';
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
+
+	$scope.$on('$viewContentLoaded', function(event) {
+		$window.ga('send', 'pageview', { page: $location.url() });
+	});
 
 	$scope.counter = 3;
 	$scope.waterViolationCodes = [{

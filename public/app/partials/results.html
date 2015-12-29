@@ -1,27 +1,23 @@
-<div class="ui small about basic button" ng-click="showHelp()">
-	About This Site
-</div>
-<img class="ui medium image" src="/images/logo-app.png" style="margin-bottom: 1em;" />
 <div id="query" class="ui huge fluid labeled action input">
-	<div class="ui label">
+	<label class="ui label" for="query">
 		Location
-	</div>
-	<input type="text" placeholder="Enter address, city, state, and/or zipcode" ng-model="query" enter-key="requery()">
-	<button class="ui primary button" style="font-size: 1em;" ng-click="requery()">Search</button>
+	</label>
+	<input name="query" type="text" placeholder="Enter address, city, state, and/or zipcode" ng-model="query" enter-key="requery()">
+	<button class="ui primary button" tabindex="0" style="font-size: 1em;" ng-click="requery()">Search</button>
 </div>
 <div class="ui divider" style="clear: both; border: 0;"></div>
 <div class="ui icon negative message" ng-if="locationError">
 	<i class="warning sign icon"></i>
 	<div class="content">
 		<div class="header">Location Error</div>
-		<p>The location you searched is too general or outside of the United States, please search for a US city or zipcode.</p>
+		<p>The location you searched is too general or outside of the United States. Please search by US city or zip code.</p>
 	</div>
 </div>
 <p>Showing results for: <b>{{location}}</b></p>
 <div class="ui stackable grid" style="clear: both;">
 	<div class="ten wide column">
 		<div class="ui blue segment">
-			<i class="circular question hoverable icon" style="float: right;" data-label="air"></i>
+			<i id="air-help" class="circular question hoverable icon" tabindex="0" style="float: right;" data-label="air" enter-key="togglePopup('#air-help')"></i>
 			<h3 class="ui floated left header">Daily Air Quality Forecast</h3>
 			<div class="ui divider" style="clear: both;"></div>
 			<div class="description" ng-if="!airLoading && airData.location">
@@ -37,10 +33,10 @@
 						<tr ng-repeat="(contaminant, forecast) in airData.forecasts">
 							<td>
 								{{contaminant}}
-								<i class="circular question icon" data-html="{{airContaminantDescriptions[contaminant]}}"></i>
+								<i id="forecast-{{$index}}" class="circular question icon" tabindex="0" data-html="{{airContaminantDescriptions[contaminant]}}" enter-key="togglePopup('#forecast-' + $index)"></i>
 							</td>
 							<td class="center aligned" ng-repeat="date in airData.forecastDates">
-								<a class="ui empty circular label" ng-style="{'background-color': airQualityCodes[forecast[date]].color}" data-title="{{forecast[date] || 'Not available'}}" data-content="{{airQualityCodes[forecast[date]].desc}}"></a>
+								<a id="forecast-{{$parent.$index}}-{{$index}}" class="ui empty circular label" tabindex="0" ng-style="{'background-color': airQualityCodes[forecast[date]].color}" data-title="{{forecast[date] || 'Not available'}}" data-content="{{airQualityCodes[forecast[date]].desc}}" enter-key="togglePopup('#forecast-' + $parent.$index + '-' + $index)"></a>
 							</td>
 						</tr>
 					</tbody>
@@ -59,7 +55,7 @@
 	</div>
 	<div class="six wide column">
 		<div class="ui blue segment">
-			<i class="circular question hoverable icon" style="float: right;" data-label="uv"></i>
+			<i id="uv-help" class="circular question hoverable icon" tabindex="0" style="float: right;" data-label="uv" enter-key="togglePopup('#uv-help')"></i>
 			<h3 class="ui floated left header">Today's UV Index</h3>
 			<div class="ui divider" style="clear: both;"></div>
 			<div class="ui uv icon message {{uvData.color}}" ng-if="!uvLoading && uvData">
@@ -79,33 +75,56 @@
 	</div>
 </div>
 <div class="ui blue segment">
-	<i class="circular question hoverable icon" style="float: right;" data-label="water"></i>
-	<h3 class="ui floated left header">Water Quality Health Violations</h3>
+	<i id="water-help" class="circular question hoverable icon" tabindex="0" style="float: right;" data-label="water" enter-key="togglePopup('#water-help')"></i>
+	<h3 class="ui floated left header">Water Quality Violations</h3>
 	<div class="ui divider" style="clear: both;"></div>
+	<div class="ui icon warning message" ng-if="!waterLoading && getRecentViolations().length != 0 && violations.length != 0">
+		<i class="warning sign icon"></i>
+		<div class="content">
+			<div class="header">Recent Violations Found</div>
+			<p>There have been {{getRecentViolations().length}} violations in this area over the past year.</p>
+		</div>
+	</div>
+	<div class="ui icon positive message" ng-if="!waterLoading && getRecentViolations().length == 0">
+		<i class="check sign icon"></i>
+		<div class="content">
+			<div class="header">No Recent Violations</div>
+			<p>There have been no violations in this area over the past year.</p>
+		</div>
+	</div>
 	<h4 class="ui center aligned icon header" ng-if="!waterLoading && violations.length == 0">
 		<i class="circular check icon"></i>
 		No Violations Found
 	</h4>
+	<div class="ui icon message" ng-if="waterLoading && violations.length != 0">
+		<i class="circle notched loading icon"></i>
+		<div class="content">
+			<div class="header">Violations Populating</div>
+			<p>Water quality violations have been found and more are being received</p>
+		</div>
+	</div>
 	<div class="ui styled fluid accordion" ng-if="violations.length != 0">
 		<div ng-repeat="category in waterViolationCodes | filter: hasViolations">
-			<div class="title">
+			<div id="category-{{$index}}" class="title" tabindex="0" enter-key="toggleAccordion('#category-' + $index)">
 				<i class="blue dropdown icon"></i>
-				{{category.label}} - {{getViolations(category).length}} violations from {{getViolationFacilities(category).length}} location(s) between {{getViolationDates(category)[0]}} and {{getViolationDates(category)[1]}}
+				{{category.label}} - {{getViolations(category).length}} violation(s) from {{getViolationFacilities(category).length}} location(s) between {{getViolationDates(category)[0]}} and {{getViolationDates(category)[1]}}.
 			</div>
 			<div class="content">
 				<table class="ui celled unstackable small compact striped table">
 					<thead>
 						<tr>
 							<th class="hoverable" ng-repeat="header in tableHeaders" ng-click="changeSort(header.field)">
-								<i class="circular question icon" data-html="{{header.desc}}" ng-if="header.desc"></i>
-								{{header.label}}
-								<i ng-if="sortField == header.field" class="ui sort {{ reverse ? 'ascending' : 'descending' }} icon"></i>
-								<i ng-if="sortField != header.field" class="ui sort icon"></i>
+								<i id="header-{{$parent.$index}}-{{$index}}" class="circular question icon" tabindex="0" data-html="{{header.desc}}" ng-if="header.desc" enter-key="togglePopup('#header-' + $parent.$index + '-' + $index)"></i>
+								<span tabindex="0" enter-key="changeSort(header.field)">
+									{{header.label}}
+									<i ng-if="sortField == header.field" class="ui sort {{ reverse ? 'ascending' : 'descending' }} icon"></i>
+									<i ng-if="sortField != header.field" class="ui sort icon"></i>
+								</span>
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="violation in getViolations(category) | orderBy: sortField : reverse">
+						<tr ng-repeat="violation in getViolations(category) | orderBy: sortField : reverse" ng-class="{'warning-background' : isRecentViolation(violation)}">
 							<td>{{violation.facilityName}}</td>
 							<td>{{violation.contaminantName}}</td>
 							<td>{{violation.startDate.format('MM/DD/YY')}}</td>

@@ -24,6 +24,12 @@ body > .content, .ui.top-header > .grid {
 	box-shadow: 0 2px 0 inset;
 }
 
+.about-wrapper {
+	display: flex!important;
+	justify-content: flex-end;
+	align-items: center;
+}
+
 /* Google Map */
 
 #map {
@@ -41,11 +47,6 @@ body > .content, .ui.top-header > .grid {
 	margin-top: 0;
 }
 
-.ui.about.button {
-	float: right;
-	background-color: white;
-}
-
 .ui.blue.segment:not(.inverted) {
 	background-color: #E3F4FD;
 	border-top: 1px solid #B3D9EC;
@@ -58,6 +59,14 @@ body > .content, .ui.top-header > .grid {
 .ui.segment > i.circular.question.icon {
 	box-shadow: none;
 	background-color: #B3D9EC;
+}
+
+.ui.striped.table tbody tr.warning-background {
+	background-color: #FFE3BD;
+}
+
+.ui.striped.table tbody tr.warning-background:nth-child(2n) {
+	background-color: #FFD9A3;
 }
 
 /* Landing Page */

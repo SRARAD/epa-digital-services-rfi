@@ -14,22 +14,28 @@ app.config(['$routeProvider', function($routeProvider) {
 	});
 }]);
 
-app.controller('LandingCtrl', ['$scope', '$location', function($scope, $location) {
+app.controller('LandingCtrl', ['$scope', '$location', '$window', function($scope, $location, $window) {
 	$('#search').focus();
 
-	$scope.search = function() {
-		$location.path('/search/' + encodeURIComponent($scope.query));
-	};
+	$scope.$on('$viewContentLoaded', function(event) {
+		$window.ga('send', 'pageview', { page: $location.url() });
+	});
 
-	$scope.showHelp = function() {
-		$('#about').modal('show');
+	$scope.search = function() {
+		if ($scope.query && $scope.query.length !== 0) {
+			$location.path('/search/' + encodeURIComponent($scope.query));
+		}
 	};
 }]);
 
-app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', 'googleFactory', function($scope, $http, $filter, $location, $routeParams, $q, googleFactory) {
+app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$routeParams', '$q', '$window', 'googleFactory', function($scope, $http, $filter, $location, $routeParams, $q, $window, googleFactory) {
 	var uvRoot = 'https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVDAILY/';
 	var waterRoot = 'https://iaspub.epa.gov/enviro/efservice/WATER_SYSTEM/';
 	var violationRoot = 'https://iaspub.epa.gov/enviro/efservice/VIOLATION/PWSID/';
+
+	$scope.$on('$viewContentLoaded', function(event) {
+		$window.ga('send', 'pageview', { page: $location.url() });
+	});
 
 	$scope.counter = 3;
 	$scope.waterViolationCodes = [{
@@ -88,12 +94,10 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		$scope.counter--;
 	});
 
-	$scope.showHelp = function() {
-		$('#about').modal('show');
-	};
-
 	$scope.requery = function() {
-		$location.path('/search/' + encodeURIComponent($scope.query));
+		if ($scope.query && $scope.query.length !== 0) {
+			$location.path('/search/' + encodeURIComponent($scope.query));
+		}
 	};
 
 	$scope.retrieveData = function() {
@@ -187,7 +191,7 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 				$q.all(facilities.map(function(facility) {
 					return $http.jsonp(violationRoot + facility.PWSID + '/JSONP?callback=JSON_CALLBACK').success(function(results) {
 						var nonMonitoringViolations = results.filter(function(result) {
-							return result.VIOLATION_CATEGORY_CODE != 'MR';
+							return result.VIOLATION_CATEGORY_CODE != 'MR' && result.VIOLATION_CATEGORY_CODE != 'Other' ;
 						});
 						nonMonitoringViolations.forEach(function(violation) {
 							violation.facilityName = decodeURIComponent(facility.PWS_NAME);
@@ -213,7 +217,8 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 							$('[data-html]').popup({
 								position: 'top center',
 								html: $(this).attr('data-html'),
-								hoverable: true
+								hoverable: true,
+								exclusive: true
 							});
 						}, 0);
 					});
@@ -248,6 +253,15 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		});
 	};
 
+	$scope.getRecentViolations = function() {
+		return $filter('filter')($scope.violations, $scope.isRecentViolation);
+	};
+
+	$scope.isRecentViolation = function(violation) {
+		var recentCutoff = moment().subtract(1, 'years').toDate().getTime();
+		return violation.startDate.toDate().getTime() >= recentCutoff;
+	};
+
 	$scope.hasViolations = function(category) {
 		return $scope.getViolations(category).length !== 0;
 	};
@@ -258,26 +272,28 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 			$scope.airData = response.data;
 			setTimeout(function() {
 				$('[data-content]').popup({
-					position: 'top center'
+					position: 'top center',
+					exclusive: true
 				});
 				$('[data-html]').popup({
 					position: 'top center',
 					html: $(this).attr('data-html'),
-					hoverable: true
+					hoverable: true,
+					exclusive: true
 				});
 			}, 0);
 		});
 	};
 
 	$scope.truncateDate = function(date) {
-		return moment(date, 'MM/DD/YY').format('MM/DD');
+		return moment(date, 'MM/DD/YY').format('ddd MMM D');
 	};
 
 	/* Sortable Table */
 	$scope.tableHeaders = [{
 		label: 'Facility Name',
 		field: 'facilityName',
-		desc: 'Facilities could be one of three types:<ul><li>Community Water Systems: Water Systems that serve the same people year-round (e.g. in homes or businesses).</li><li>Non-Transient Non-Community Water Systems: Water Systems that serve the same people, but not year-round (e.g. schools that have their own water system).</li><li> Transient Non-Community Water Systems: Water Systems that do not consistently serve the same people (e.g. rest stops, campgrounds, gas stations).</li></ul>'
+		desc: 'Facilities could be any of the following three types:<ul><li>Community Water Systems: Water Systems that serve the same people year-round (e.g. in homes or businesses).</li><li>Non-Transient Non-Community Water Systems: Water Systems that serve the same people, but not year-round (e.g. schools that have their own water system).</li><li> Transient Non-Community Water Systems: Water Systems that do not consistently serve the same people (e.g. rest stops, campgrounds, gas stations).</li></ul>'
 	}, {
 		label: 'Contaminant Name',
 		field: 'contaminantName'
@@ -307,9 +323,19 @@ app.controller('ResultsCtrl', ['$scope', '$http', '$filter', '$location', '$rout
 		var contentId = $(me).attr('data-label');
 		$(me).popup({
 			position: 'top center',
-			html: $('#' + contentId).html()
+			html: $('#' + contentId).html(),
+			exclusive: true
 		});
 	});
+
+	/* Accessibility */
+	$scope.toggleAccordion = function(selector) {
+		$(selector).accordion('toggle');
+	};
+
+	$scope.togglePopup = function(selector) {
+		$(selector).popup('toggle');
+	};
 }]);
 
 app.factory('googleFactory', ['$q', function($q) {

@@ -19,15 +19,27 @@
 
 		<script src="/app/js/index.js"></script>
 		<link rel="stylesheet" href="/css/custom.css" type="text/css">
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-47518984-5', 'epa-digital-services-rfi.srarad.com');
+		</script>
 	</head>
 
 	<body>
 		<div class="ui top-header">
-			<div class="ui two column grid">
+			<div class="ui two column grid" style="padding: 0;">
 				<div class="column">
 					<a href="/">
-						<img class="ui image" src="/images/logo-epa.png" style="max-height: 80px;" />
+						<img class="ui image" src="/images/logo-app.png" style="max-height: 80px;" />
 					</a>
+				</div>
+				<div class="column about-wrapper" style="text-align: right;">
+					<div id="about-link" tabindex="0" class="ui small inverted basic button">
+						About This Site
+					</div>
 				</div>
 			</div>
 		</div>
@@ -37,23 +49,21 @@
 		</div>
 		<div id="about" class="ui modal">
 			<i class="close icon"></i>
-			<div class="header">
-				<i class="circular green leaf icon"></i>
-				About This Page
+			<div class="ui header">
+				<img class="ui image" src="/images/logo-modal.png" />
+				<div class="content">
+					About This Site
+				</div>
 			</div>
 			<div class="content">
 				<p>
-					This page gathers environmental and health information that EPA provides through many systems and web sites into one screen view.
-					The user can select a location and available information related to air and water quality will be returned.  Some of the data are
-					real-time monitoring information about environmental conditions for the selected location. Other data provides longer term
-					information about past violations that may be useful to know about. Additional data sets will be added in the future.
+					This page gathers environmental and health information that EPA provides through many systems and web sites into one screen view. When the user selects a location, available information related to air and water quality will be provided. Some of the data sets are real-time monitoring information about environmental conditions for the selected location. Other data provides longer-term information about past violations, which may be useful. Additional data sets will be added in the future.
 				</p>
 				<h3 class="ui header">Data Sets Currently Available</h3>
 				<div id="air">
 					<h4 class="ui header">AirNow</h4>
 					<p>
-						These data show air quality information for key particulates and pollutants that are indicators of overall air quality.
-						Data for today and the next 2 days are displayed using Green/Yellow/Red color coded indicators.
+						This data set shows air quality information for key particulates and pollutants that indicate overall air quality. Data for today and the next 2-4 days are displayed using Green/Yellow/Red color-coded indicators.
 					</p>
 				</div>
 				<div id="uv">
@@ -63,11 +73,9 @@
 					</p>
 				</div>
 				<div id="water">
-					<h4 class="ui header">Safe Drinking Water Act Information Systems (SDWIS)</h4>
+					<h4 class="ui header">Safe Drinking Water Information Systems (SDWIS)</h4>
 					<p>
-						These data show a history of reporting and measuring violations and exceedances of regulated contaminants that are greater than the
-						agreed upon maximum level allowed in safe drinking water. These data provide a longer-term view of the history of violations in a
-						specific geographic area, at a particular water well, or from a regulated water system.
+						This data set shows a history of reporting and measuring violations, including when regulated contaminants exceed the agreed-upon maximum level allowed in safe drinking water. The data provides a longer-term view of the history of violations in a specific geographic area, at a particular water well, or from a regulated water system.
 					</p>
 				</div>
 			</div>
@@ -76,6 +84,14 @@
 			$(function() {
 				$('#about').modal({
 					blurring: true
+				});
+				$('#about-link').click(function() {
+					$('#about').modal('show');
+				});
+				$('#about-link').keyup(function(e) {
+					if (e.which === 13) {
+						$('#about').modal('show');
+					}
 				});
 			});
 		</script>
